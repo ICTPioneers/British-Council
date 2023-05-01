@@ -1,13 +1,13 @@
-package com.example.british_council
+package com.example.british_council.activity
 
 import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import com.example.british_council.R
 import com.example.british_council.adapter.SectionAdapter
 
 class MainActivity : AppCompatActivity() {
