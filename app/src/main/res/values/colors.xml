@@ -12,4 +12,10 @@
 
     <color name="green_main">#00843E</color>
     <color name="green_2">#28DF99</color>
+    <color name="green_lite">#a6f2d5</color>
+
+    <color name="orang">#F48B5B</color>
+    <color name="gray">#dbdbdb</color>
+
+    <color name="bluee">#5F5AF2</color>
 </resources>
