@@ -1,9 +1,10 @@
-package com.example.british_council
+package com.example.british_council.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import com.example.british_council.R
 import java.util.*
 import kotlin.concurrent.timerTask
 

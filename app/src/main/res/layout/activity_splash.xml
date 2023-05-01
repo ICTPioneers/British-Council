@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00843E"
-    tools:context=".Splash">
+    tools:context=".activity.Splash">
 
 
     <LinearLayout
@@ -15,7 +15,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.44">
 
 
         <TextView
@@ -23,6 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:drawablePadding="3dp"
+            android:drawableEnd="@drawable/group_circle"
             android:fontFamily="@font/inter"
             android:gravity="center"
             android:text="BRITISH"
@@ -32,11 +35,11 @@
             tools:ignore="MissingConstraints" />
 
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/circle32"
-            tools:ignore="MissingConstraints" />
+<!--        <ImageView-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:src="@drawable/circle32"-->
+<!--            tools:ignore="MissingConstraints" />-->
 
     </LinearLayout>
 
