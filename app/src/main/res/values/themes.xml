@@ -17,6 +17,11 @@
         <item name="android:direction">right_to_left</item>
         <item name="android:layoutDirection">rtl</item>
 
+        <item name="fontFamily">@font/myfont</item>
+        <item name="android:fontFamily">@font/myfont</item>
+        <item name="android:font" tools:targetApi="o">@font/myfont</item>
+        <item name="font">@font/myfont</item>
+
 
     </style>
 </resources>
