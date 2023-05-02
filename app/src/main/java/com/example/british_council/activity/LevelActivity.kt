@@ -28,7 +28,7 @@ class LevelActivity : AppCompatActivity() {
 
     private var relative: RelativeLayout? = null
 
-    private var mediaPlayer : MediaPlayer? = null
+    private var mediaPlayer: MediaPlayer? = null
     private var k = -1
 
 
@@ -36,10 +36,10 @@ class LevelActivity : AppCompatActivity() {
     private val mFileName: String? = null
     private var seekBarr: SeekBar? = null
     private val startRecord: Button? = null
-    private var startPlaying:Button? = null
-    private  var stopPlaying:Button? = null
+    private var startPlaying: Button? = null
+    private var stopPlaying: Button? = null
 
-    private var p : Int= 0
+    private var p: Int = 0
 
 
 //    private fun startPlaying() {
@@ -60,28 +60,17 @@ class LevelActivity : AppCompatActivity() {
 //    }
 
 
-
-
-
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
-        mediaPlayer = MediaPlayer.create(this,R.raw.voice)
+        mediaPlayer = MediaPlayer.create(this, R.raw.voice)
         initID()
         onClicked()
-        var m =   mediaPlayer!!.duration/1000/60
-        var s =   mediaPlayer!!.duration/1000%60
+        var m = mediaPlayer!!.duration / 1000 / 60
+        var s = mediaPlayer!!.duration / 1000 % 60
         Log.e("111", "setProgress:  $m : $s}")
 
         tv_timeEnd?.text = "$m:$s"
-
-
-
-
-
-
 
 
         val mHandler = Handler()
@@ -119,45 +108,46 @@ class LevelActivity : AppCompatActivity() {
         relative = findViewById(R.id.relative)
     }
 
-    private fun setText(){
-        tv_passage?.text = "Susanne: Hi, Mario. Can you help me prepare some things for the next month?\n" +
-                "\n" +
-                "Mario: OK, sure. What can I help you with?\n" +
-                "\n" +
-                "Susanne: I need to visit the customer in Germany. It’s important.\n" +
-                "\n" +
-                "Mario: What can I do to help?\n" +
-                "\n" +
-                "Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.\n" +
-                "\n" +
-                "Mario: Right. I’ll do it today.\n" +
-                "\n" +
-                "Susanne: Thanks. This next task is also important. Can you invite everyone to the next team meeting?\n" +
-                "\n" +
-                "Mario: Yes, I will.\n" +
-                "\n" +
-                "Susanne: But first you need to book a meeting room. After that, please send everyone an email about it.\n" +
-                "\n" +
-                "Mario: Yes, of course.\n" +
-                "\n" +
-                "Susanne: And finally, can you write a short report about our new project? I have to give a presentation to our managers next month. Please do it when you have time – sometime in the next two or three weeks. It’s not too urgent.\n" +
-                "\n" +
-                "Mario: Sure, no problem. I can do it this week.\n" +
-                "\n" +
-                "Susanne: There’s no hurry. Take your time."
+    private fun setText() {
+        tv_passage?.text =
+            "Susanne: Hi, Mario. Can you help me prepare some things for the next month?\n" +
+                    "\n" +
+                    "Mario: OK, sure. What can I help you with?\n" +
+                    "\n" +
+                    "Susanne: I need to visit the customer in Germany. It’s important.\n" +
+                    "\n" +
+                    "Mario: What can I do to help?\n" +
+                    "\n" +
+                    "Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.\n" +
+                    "\n" +
+                    "Mario: Right. I’ll do it today.\n" +
+                    "\n" +
+                    "Susanne: Thanks. This next task is also important. Can you invite everyone to the next team meeting?\n" +
+                    "\n" +
+                    "Mario: Yes, I will.\n" +
+                    "\n" +
+                    "Susanne: But first you need to book a meeting room. After that, please send everyone an email about it.\n" +
+                    "\n" +
+                    "Mario: Yes, of course.\n" +
+                    "\n" +
+                    "Susanne: And fianlly, can you write a short report about our new project? I have to give a presentation to our managers next month. Please do it when you have time – sometime in the next two or three weeks. It’s not too urgent.\n" +
+                    "\n" +
+                    "Mario: Sure, no problem. I can do it this week.\n" +
+                    "\n" +
+                    "Susanne: There’s no hurry. Take your time."
     }
 
-    private fun onClicked(){
+    private fun onClicked() {
         tv_back?.setOnClickListener { finish() }
 
         tv_start?.setOnClickListener {
             k++
-            if (k % 2 == 0){
+            if (k % 2 == 0) {
                 tv_start?.text = "توقف"
                 tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
                 relative?.visibility = View.VISIBLE
                 playSound()
-            }else{
+            } else {
                 tv_start?.text = "ادامه"
                 mediaPlayer?.pause()
                 img_play?.background = resources.getDrawable(R.drawable.ic_play)
@@ -176,13 +166,9 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-
-
-
-
-    private fun setProgress(){
-        seekBar?.max = mediaPlayer!!.duration/1000
-        Log.e("111", "setProgress: ${mediaPlayer!!.duration/1000 / 60}")
+    private fun setProgress() {
+        seekBar?.max = mediaPlayer!!.duration / 1000
+        Log.e("111", "setProgress: ${mediaPlayer!!.duration / 1000 / 60}")
         seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
@@ -191,7 +177,7 @@ class LevelActivity : AppCompatActivity() {
             }
 
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                if(mediaPlayer != null && fromUser){
+                if (mediaPlayer != null && fromUser) {
                     mediaPlayer?.seekTo(progress * 1000)
                     p = progress
                 }
@@ -199,8 +185,8 @@ class LevelActivity : AppCompatActivity() {
         })
     }
 
-    private fun playSound(){
-        mediaPlayer = MediaPlayer.create(this,R.raw.voice)
+    private fun playSound() {
+        mediaPlayer = MediaPlayer.create(this, R.raw.voice)
         var m = mediaPlayer?.duration
         mediaPlayer?.start()
         img_play?.background = resources.getDrawable(R.drawable.ic_pause)
