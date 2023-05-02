@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">British-Council</string>
+    <string name="privacy_policy2">
+        <font color="#060B27" size="14">
+            <b>
+                <a href="https://google.com">قوانین ، شرایط استفاده و حریم‌ خصوصی</a>
+            </b>
+        </font>
+        <font color="#4E536F" size="14">را مطالعه کرده و می‌پذیرم.</font>
+    </string>
+
 </resources>

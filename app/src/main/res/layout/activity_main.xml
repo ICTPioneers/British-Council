@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#F8F9FE"
     tools:context=".activity.MainActivity">
 
     <!--    <TextView-->
@@ -70,7 +71,7 @@
             android:layout_alignParentEnd="true"
             android:layout_margin="15dp"
             android:layout_weight="0.3"
-            android:src="@drawable/girl_svg" />
+            android:src="@drawable/ic_girl_svg" />
 
     </LinearLayout>
 

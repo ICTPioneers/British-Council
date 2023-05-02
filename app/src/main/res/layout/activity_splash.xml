@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:drawablePadding="3dp"
-            android:drawableEnd="@drawable/group_circle"
+            android:drawableEnd="@drawable/ic_group_circle"
             android:fontFamily="@font/inter"
             android:gravity="center"
             android:text="BRITISH"
