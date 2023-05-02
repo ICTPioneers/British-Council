@@ -1,28 +1,38 @@
 package com.example.british_council.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.british_council.R
+import com.example.british_council.activity.LevelActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class SectionAdapter(val context: Context ,val list :ArrayList<String>) : RecyclerView.Adapter<SectionAdapter.MyViewHolder>() {
-        var arrayColor : ArrayList<Int> = ArrayList()
-        var arrayIcon : ArrayList<Int> = ArrayList()
-        var arrayBack : ArrayList<Int> = ArrayList()
+class SectionAdapter(context: Context, val list: ArrayList<String>) :
+    RecyclerView.Adapter<SectionAdapter.MyViewHolder>() {
+    var arrayColor: ArrayList<Int> = ArrayList()
+    var arrayIcon: ArrayList<Int> = ArrayList()
+    var arrayBack: ArrayList<Int> = ArrayList()
+    public var con: Context = context
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+//        init {
+//            itemView.setOnClickListener { Toast.makeText(, "", Toast.LENGTH_SHORT).show() }
+//        }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_section, parent, false) )
+        return MyViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.list_item_section, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -41,15 +51,21 @@ class SectionAdapter(val context: Context ,val list :ArrayList<String>) : Recycl
         arrayBack.add(R.drawable.item_border_level_red)
         arrayBack.add(R.drawable.item_border_level_red)
 //        arrayBack.add(R.drawable.item_border_level)
+        var a = holder.itemView
 
         holder.itemView.findViewById<TextView>(R.id.tv_part).text = list[position]
 //        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList = ColorStateList.valueOf(context.resources.getColor(R.color.black))
-        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList = ColorStateList.valueOf(context.resources.getColor(arrayColor[position]))
-        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).setImageDrawable(context.resources.getDrawable(arrayIcon[position]))
+        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList =
+            ColorStateList.valueOf(con.resources.getColor(arrayColor[position]))
+        holder.itemView.findViewById<FloatingActionButton>(R.id.fab)
+            .setImageDrawable(con.resources.getDrawable(arrayIcon[position]))
 
-        holder.itemView.findViewById<LinearLayout>(R.id.linear).setBackgroundDrawable(context.getDrawable(arrayBack[position]))
+        holder.itemView.findViewById<LinearLayout>(R.id.linear)
+            .setBackgroundDrawable(con.getDrawable(arrayBack[position]))
 
 
+
+        holder.itemView.setOnClickListener { con.startActivity(Intent(con,LevelActivity::class.java) ) }
 
 
     }
