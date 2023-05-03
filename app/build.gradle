@@ -9,6 +9,10 @@ plugins {
 
 
 android {
+    buildFeatures {
+        viewBinding = true
+    }
+
     namespace 'com.example.british_council'
     compileSdk 33
 
