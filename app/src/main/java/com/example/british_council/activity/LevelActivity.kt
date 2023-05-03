@@ -32,32 +32,6 @@ class LevelActivity : AppCompatActivity() {
     private var k = -1
 
 
-    private val LOG_TAG = "AudioRecordTest"
-    private val mFileName: String? = null
-    private var seekBarr: SeekBar? = null
-    private val startRecord: Button? = null
-    private var startPlaying: Button? = null
-    private var stopPlaying: Button? = null
-
-    private var p: Int = 0
-
-
-//    private fun startPlaying() {
-//        if (mediaPlayer != null && mediaPlayer!!.isPlaying()) {
-//            mediaPlayer?.pause()
-//        } else if (mediaPlayer != null) {
-//            mediaPlayer?.start()
-//        } else {
-//            mediaPlayer = MediaPlayer()
-//            try {
-//                mediaPlayer?.setDataSource(mFileName)
-//                mediaPlayer?.prepare()
-//                mediaPlayer?.start()
-//            } catch (e: IOException) {
-//                Log.e(LOG_TAG, "prepare() failed")
-//            }
-//        }
-//    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +47,7 @@ class LevelActivity : AppCompatActivity() {
         tv_timeEnd?.text = "$m:$s"
 
 
+
         val mHandler = Handler()
         this@LevelActivity.runOnUiThread(object : Runnable {
             override fun run() {
@@ -81,13 +56,10 @@ class LevelActivity : AppCompatActivity() {
                     seekBar?.progress = mCurrentPosition
                     Log.e("111", "setProgress:  $mCurrentPosition}")
                     tv_timeStart?.text = mCurrentPosition.toString()
-
-
                 }
                 mHandler.postDelayed(this, 1000)
             }
         })
-
         setProgress()
     }
 
@@ -138,22 +110,38 @@ class LevelActivity : AppCompatActivity() {
     }
 
     private fun onClicked() {
-        tv_back?.setOnClickListener { finish() }
+        tv_back?.setOnClickListener {
+            stopPlaying()
+            finish() }
 
         tv_start?.setOnClickListener {
             k++
             if (k % 2 == 0) {
-                tv_start?.text = "توقف"
-                tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
-                relative?.visibility = View.VISIBLE
-                playSound()
+                if (mediaPlayer!!.isPlaying){
+                    mediaPlayer?.release()
+                }else{
+                    tv_start?.text = "pause"
+                    tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
+                    relative?.visibility = View.VISIBLE
+                    playSound()
+                }
+
             } else {
-                tv_start?.text = "ادامه"
+                tv_start?.text = "play"
                 mediaPlayer?.pause()
                 img_play?.background = resources.getDrawable(R.drawable.ic_play)
             }
         }
 
+        img_play?.setOnClickListener {
+            if (mediaPlayer!!.isPlaying){
+                stopPlaying()
+                img_play?.background = resources.getDrawable(R.drawable.ic_play)
+            }else {
+                img_play?.background = resources.getDrawable(R.drawable.ic_pause)
+                playSound()
+            }
+        }
 
 //        tv_next?.setOnClickListener {
 //            tv_start?.visibility = View.GONE
@@ -179,37 +167,50 @@ class LevelActivity : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (mediaPlayer != null && fromUser) {
                     mediaPlayer?.seekTo(progress * 1000)
-                    p = progress
                 }
             }
         })
     }
 
     private fun playSound() {
-        mediaPlayer = MediaPlayer.create(this, R.raw.voice)
-        var m = mediaPlayer?.duration
         mediaPlayer?.start()
         img_play?.background = resources.getDrawable(R.drawable.ic_pause)
     }
 
 
     private fun stopPlaying() {
-        mediaPlayer!!.release()
-        mediaPlayer = null
-        startPlaying!!.text = "Start playing"
+        mediaPlayer!!.pause()
+//        mediaPlayer = null
+//        startPlaying!!.text = "Start playing"
     }
+//
+//    private fun pausePlaying() {
+//        if (mediaPlayer!!.isPlaying) {
+//            mediaPlayer!!.pause()
+//        } else {
+//            mediaPlayer!!.start()
+//        }
+//    }
+//
 
-    private fun pausePlaying() {
-        if (mediaPlayer!!.isPlaying) {
-            mediaPlayer!!.pause()
-        } else {
-            mediaPlayer!!.start()
-        }
-    }
 
-    override fun onResume() {
-        super.onResume()
-    }
+
+//    private fun startPlaying() {
+//        if (mediaPlayer != null && mediaPlayer!!.isPlaying()) {
+//            mediaPlayer?.pause()
+//        } else if (mediaPlayer != null) {
+//            mediaPlayer?.start()
+//        } else {
+//            mediaPlayer = MediaPlayer()
+//            try {
+//                mediaPlayer?.setDataSource(mFileName)
+//                mediaPlayer?.prepare()
+//                mediaPlayer?.start()
+//            } catch (e: IOException) {
+//                Log.e(LOG_TAG, "prepare() failed")
+//            }
+//        }
+//    }
 
 
 }

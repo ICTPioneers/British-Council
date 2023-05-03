@@ -18,10 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:drawableStart="@drawable/ic_arrow"
-            android:fontFamily="@font/iran_sans"
             android:gravity="center_vertical"
             android:paddingStart="7dp"
-            android:text="بازگشت"
+            android:text="back"
             android:textColor="#03160f"
             android:textSize="16dp" />
 
@@ -38,13 +37,11 @@
             android:gravity="center"
             android:paddingHorizontal="20dp"
             android:paddingVertical="5dp"
-            android:text="بعدی"
+            android:text="next"
             android:textColor="@color/white"
             android:textSize="14dp" />
 
     </RelativeLayout>
-
-
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -63,8 +60,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
                 android:layout_gravity="center"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
@@ -76,7 +73,7 @@
                     android:fontFamily="@font/iran_sans"
                     android:gravity="center"
                     android:padding="30dp"
-                    android:text="شروع"
+                    android:text="start"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
 
@@ -87,9 +84,9 @@
                     android:layout_margin="10dp"
                     android:fontFamily="@font/inter"
                     android:text="hello"
-                    android:visibility="gone"
                     android:textColor="#676767"
-                    android:textSize="16dp" />
+                    android:textSize="16dp"
+                    android:visibility="gone" />
             </LinearLayout>
 
         </androidx.core.widget.NestedScrollView>
@@ -103,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="10dp"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <SeekBar
             android:id="@+id/seekbar"
@@ -111,7 +109,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_marginHorizontal="0dp"
-            android:layoutDirection="ltr"
             android:max="80"
             android:progress="20" />
 
@@ -120,7 +117,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/seekbar"
-            android:layout_marginStart="15dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="15dp"
             android:text="3:50" />
 
         <TextView
@@ -128,22 +126,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/seekbar"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="15dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp"
             android:text="00:00" />
-
-        <!--        <SeekBar-->
-        <!--            android:id="@+id/seekBar"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_marginHorizontal="20dp"-->
-        <!--            android:max="100"-->
-        <!--            android:layoutDirection="ltr"-->
-        <!--            android:progressDrawable="@drawable/progress"-->
-        <!--            android:thumb="@drawable/thumb"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_marginTop="20dp"-->
-        <!--            android:layout_below="@id/seekbar"-->
-        <!--           />-->
 
         <ImageView
             android:id="@+id/play"
