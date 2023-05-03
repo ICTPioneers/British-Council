@@ -8,43 +8,19 @@
     tools:context=".activity.Splash">
 
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/txt_british"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:gravity="center"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.44">
-
-
-        <TextView
-            android:id="@+id/txt_british"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawablePadding="3dp"
-            android:drawableEnd="@drawable/ic_group_circle"
-            android:fontFamily="@font/inter"
-            android:gravity="center"
-            android:text="BRITISH"
-            android:textColor="#fff"
-            android:textSize="18dp"
-            android:textStyle="bold"
-            tools:ignore="MissingConstraints" />
-
-
-<!--        <ImageView-->
-<!--            android:layout_width="60dp"-->
-<!--            android:layout_height="60dp"-->
-<!--            android:src="@drawable/circle32"-->
-<!--            tools:ignore="MissingConstraints" />-->
-
-    </LinearLayout>
-
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/inter"

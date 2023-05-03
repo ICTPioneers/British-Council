@@ -16,14 +16,10 @@ class Splash : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
 //        txt_british
-        txt = findViewById(R.id.txt_british)
-        txt?.text = "BRITISH \n COUNCIL"
         Timer().schedule(timerTask {
             startActivity(Intent(this@Splash, MainActivity::class.java))
             finish()
-        }, 3000)
-
-
+        }, 2000)
 
     }
 
