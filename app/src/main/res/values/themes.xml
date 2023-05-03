@@ -14,8 +14,8 @@
         <!-- Customize your theme here. -->
 
 
-        <item name="android:direction">right_to_left</item>
-        <item name="android:layoutDirection">rtl</item>
+        <item name="android:direction">left_to_right</item>
+        <item name="android:layoutDirection">ltr</item>
 
         <item name="fontFamily">@font/myfont</item>
         <item name="android:fontFamily">@font/myfont</item>
