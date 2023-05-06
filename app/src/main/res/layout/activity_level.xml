@@ -52,44 +52,32 @@
         app:cardCornerRadius="4dp"
         app:cardElevation="4dp">
 
-        <androidx.core.widget.NestedScrollView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-            <LinearLayout
+            <ListView
+                android:id="@+id/listView"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <TextView
+                android:id="@+id/tv_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
+                android:background="@drawable/item_border_start"
+                android:fontFamily="@font/iran_sans"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:padding="30dp"
+                android:text="start"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+                
 
-                <TextView
-                    android:id="@+id/tv_start"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:background="@drawable/item_border_start"
-                    android:fontFamily="@font/iran_sans"
-                    android:gravity="center"
-                    android:padding="30dp"
-                    android:text="start"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/tv_passage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:fontFamily="@font/inter"
-                    android:text="hello"
-                    android:textColor="#676767"
-                    android:textSize="16dp"
-                    android:visibility="gone" />
-            </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
 
 
     </androidx.cardview.widget.CardView>
@@ -147,7 +135,7 @@
             android:layout_height="25dp"
             android:layout_alignTop="@id/play"
             android:layout_alignBottom="@id/play"
-            android:layout_toStartOf="@id/play"
+            android:layout_toEndOf="@id/play"
             android:src="@drawable/ic_forward_10" />
 
         <ImageView
@@ -156,7 +144,7 @@
             android:layout_height="25dp"
             android:layout_alignTop="@id/play"
             android:layout_alignBottom="@id/play"
-            android:layout_toEndOf="@id/play"
+            android:layout_toStartOf="@id/play"
             android:src="@drawable/ic_replay_10" />
 
     </RelativeLayout>
