@@ -8,8 +8,10 @@ import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import com.example.british_council.PassageModel
 import com.example.british_council.R
-import java.io.IOException
+import com.example.british_council.adapter.CustomArrayAdapter
+import kotlin.collections.ArrayList
 
 
 class LevelActivity : AppCompatActivity() {
@@ -29,55 +31,40 @@ class LevelActivity : AppCompatActivity() {
     private var relative: RelativeLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
-    private var k = -1
 
+    private var listView: ListView? = null
 
+    var arrayOfModel: ArrayList<PassageModel>? = null
+    var arrayText: ArrayList<String>? = null
+
+    var arrayAdapter: CustomArrayAdapter? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
+
         mediaPlayer = MediaPlayer.create(this, R.raw.voice)
         initID()
+        initArrayList()
         onClicked()
-        var m = mediaPlayer!!.duration / 1000 / 60
-        var s = mediaPlayer!!.duration / 1000 % 60
-        Log.e("111", "setProgress:  $m : $s}")
-
-        tv_timeEnd?.text = "$m:$s"
-
-
-
-        val mHandler = Handler()
-        this@LevelActivity.runOnUiThread(object : Runnable {
-            override fun run() {
-                if (mediaPlayer != null) {
-                    val mCurrentPosition: Int = mediaPlayer?.currentPosition!! / 1000
-                    seekBar?.progress = mCurrentPosition
-                    Log.e("111", "setProgress:  $mCurrentPosition}")
-                    tv_timeStart?.text = mCurrentPosition.toString()
-                }
-                mHandler.postDelayed(this, 1000)
-            }
-        })
+        initHandler()
         setProgress()
     }
 
 
     private fun initID() {
-        tv_passage = findViewById(R.id.tv_passage)
         tv_next = findViewById(R.id.tv_next)
         tv_back = findViewById(R.id.toolbar)
         tv_start = findViewById(R.id.tv_start)
         tv_timeStart = findViewById(R.id.tv_time_start)
         tv_timeEnd = findViewById(R.id.tv_time_end)
-
         seekBar = findViewById(R.id.seekbar)
         img_play = findViewById(R.id.play)
         img_forward = findViewById(R.id.img_forward)
         img_replay = findViewById(R.id.img_replay)
-
         relative = findViewById(R.id.relative)
+        listView = findViewById(R.id.listView)
     }
 
     private fun setText() {
@@ -111,37 +98,18 @@ class LevelActivity : AppCompatActivity() {
 
     private fun onClicked() {
         tv_back?.setOnClickListener {
-            stopPlaying()
-            finish() }
+            mediaPlayer?.stop()
+            finish()
+        }
 
         tv_start?.setOnClickListener {
-            k++
-            if (k % 2 == 0) {
-                if (mediaPlayer!!.isPlaying){
-                    mediaPlayer?.release()
-                }else{
-                    tv_start?.text = "pause"
-                    tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
-                    relative?.visibility = View.VISIBLE
-                    playSound()
-                }
-
-            } else {
-                tv_start?.text = "play"
-                mediaPlayer?.pause()
-                img_play?.background = resources.getDrawable(R.drawable.ic_play)
-            }
+            startPlayingTest()
         }
 
         img_play?.setOnClickListener {
-            if (mediaPlayer!!.isPlaying){
-                stopPlaying()
-                img_play?.background = resources.getDrawable(R.drawable.ic_play)
-            }else {
-                img_play?.background = resources.getDrawable(R.drawable.ic_pause)
-                playSound()
-            }
+            startPlayingTest()
         }
+
 
 //        tv_next?.setOnClickListener {
 //            tv_start?.visibility = View.GONE
@@ -150,13 +118,15 @@ class LevelActivity : AppCompatActivity() {
 //            mediaPlayer?.stop()
 //            playSound()
 //        }
-
     }
 
+    private fun setListView(progress: Int) {
+        arrayAdapter = CustomArrayAdapter(this, arrayText!!, progress)
+        listView!!.adapter = arrayAdapter
+    }
 
     private fun setProgress() {
         seekBar?.max = mediaPlayer!!.duration / 1000
-        Log.e("111", "setProgress: ${mediaPlayer!!.duration / 1000 / 60}")
         seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
@@ -170,47 +140,99 @@ class LevelActivity : AppCompatActivity() {
                 }
             }
         })
+
+        var m = mediaPlayer!!.duration / 1000 / 60
+        var s = mediaPlayer!!.duration / 1000 % 60
+        Log.e("111", "oncreate:  $m : $s}")
+        tv_timeEnd?.text = "$m:$s"
     }
 
-    private fun playSound() {
-        mediaPlayer?.start()
-        img_play?.background = resources.getDrawable(R.drawable.ic_pause)
+
+    private fun initHandler() {
+        val mHandler = Handler()
+        this@LevelActivity.runOnUiThread(object : Runnable {
+            override fun run() {
+                if (mediaPlayer != null) {
+//                    val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
+                    val minutes: Int =
+                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
+                    val seconds: Int =
+                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
+                    val mCurrentPosition: Int = mediaPlayer?.currentPosition!! / 1000
+                    seekBar?.progress = mCurrentPosition
+                    Log.e("111", "handler:  $mCurrentPosition}")
+                    tv_timeStart?.text = "$minutes:$seconds"
+
+                    if (mCurrentPosition == mediaPlayer?.duration!! / 1000 - 1) {
+                        img_play?.background = resources.getDrawable(R.drawable.ic_play)
+                        tv_start?.text = "play"
+                    }
+                    fixTextColorOfListView(mCurrentPosition)
+                }
+                mHandler.postDelayed(this, 1000)
+            }
+        })
     }
 
-
-    private fun stopPlaying() {
-        mediaPlayer!!.pause()
-//        mediaPlayer = null
-//        startPlaying!!.text = "Start playing"
+    private fun fixTextColorOfListView(progress: Int) {
+        for (x in arrayOfModel!!.indices) {
+            Log.e("TAG", "fixTextColorOfListView: $progress")
+            if (progress in arrayOfModel!![x].startTime!!..arrayOfModel!![x].endTime!!) {
+//                CustomArrayAdapter(this, ArrayList(), x)
+                setListView(x)
+            }
+        }
     }
-//
-//    private fun pausePlaying() {
-//        if (mediaPlayer!!.isPlaying) {
-//            mediaPlayer!!.pause()
-//        } else {
-//            mediaPlayer!!.start()
-//        }
-//    }
-//
+
+    private fun initArrayList() {
+        arrayOfModel = ArrayList<PassageModel>()
+        arrayOfModel?.add(
+            PassageModel(
+                "Susanne: Hi, Mario. Can you help me prepare some things for the next month?",
+                0,
+                10
+            )
+        )
+        arrayOfModel?.add(PassageModel("Mario: OK, sure. What can I help you with?", 11, 20))
+        arrayOfModel?.add(
+            PassageModel(
+                "Susanne: I need to visit the customer in Germany. It’s important.",
+                21,
+                30
+            )
+        )
 
 
+        arrayText = ArrayList<String>()
+        for (x in arrayOfModel!!.indices) {
+            arrayText!!.add(arrayOfModel!![x].text.toString())
+        }
+    }
 
-//    private fun startPlaying() {
-//        if (mediaPlayer != null && mediaPlayer!!.isPlaying()) {
-//            mediaPlayer?.pause()
-//        } else if (mediaPlayer != null) {
-//            mediaPlayer?.start()
-//        } else {
-//            mediaPlayer = MediaPlayer()
-//            try {
-//                mediaPlayer?.setDataSource(mFileName)
-//                mediaPlayer?.prepare()
-//                mediaPlayer?.start()
-//            } catch (e: IOException) {
-//                Log.e(LOG_TAG, "prepare() failed")
-//            }
-//        }
-//    }
+    private fun startPlayingTest() {
+        if (mediaPlayer != null) {
+            if (mediaPlayer!!.isPlaying) {
+                mediaPlayer?.pause()
+                img_play?.background = resources.getDrawable(R.drawable.ic_play)
+                Toast.makeText(this, "pause", Toast.LENGTH_SHORT).show()
+                tv_start?.text = "play"
+
+            } else if (mediaPlayer!! != null) {
+//                mediaPlayer?.release()
+                mediaPlayer?.start()
+                relative?.visibility = View.VISIBLE
+                img_play?.background = resources.getDrawable(R.drawable.ic_pause)
+                Toast.makeText(this, "play", Toast.LENGTH_SHORT).show()
+                tv_start?.text = "pause"
+//                tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        mediaPlayer?.pause()
+    }
 
 
 }
