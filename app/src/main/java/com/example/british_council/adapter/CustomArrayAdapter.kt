@@ -21,9 +21,13 @@ class CustomArrayAdapter(context: Context, private val list: ArrayList<String>, 
         titleText.setTextColor(context.resources.getColor(R.color.black))
 
         if (pos == position) {
-            titleText.setTextColor(context.resources.getColor(R.color.green_2))
+            titleText.setTextColor(context.resources.getColor(R.color.green_main))
         }
 
         return rowView
+    }
+
+    fun addList( listt: ArrayList<String>){
+        list.addAll(listt)
     }
 }
