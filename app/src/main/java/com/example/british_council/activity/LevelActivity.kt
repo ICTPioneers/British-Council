@@ -230,6 +230,7 @@ class LevelActivity : AppCompatActivity() {
         if (mediaPlayer != null) {
             if (mediaPlayer!!.isPlaying) {
                 mediaPlayer?.pause()
+                lottie_sound?.loop(false)
                 img_play?.background = resources.getDrawable(R.drawable.ic_play)
                 Toast.makeText(this, "pause", Toast.LENGTH_SHORT).show()
                 tv_start?.text = "play"
@@ -237,6 +238,8 @@ class LevelActivity : AppCompatActivity() {
             } else if (mediaPlayer!! != null) {
 //                mediaPlayer?.release()
                 mediaPlayer?.start()
+                lottie_sound?.loop(true)
+                lottie_sound?.playAnimation()
                 relative?.visibility = View.VISIBLE
                 img_play?.background = resources.getDrawable(R.drawable.ic_pause)
                 Toast.makeText(this, "play", Toast.LENGTH_SHORT).show()
