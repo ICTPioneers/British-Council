@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import com.airbnb.lottie.LottieAnimationView
 import com.example.british_council.PassageModel
 import com.example.british_council.R
 import com.example.british_council.adapter.CustomArrayAdapter
@@ -17,28 +18,29 @@ import kotlin.collections.ArrayList
 
 class LevelActivity : AppCompatActivity() {
 
-    private var tv_passage: TextView? = null
+    private var tv_Text: TextView? = null
     private var tv_next: TextView? = null
     private var tv_start: TextView? = null
     private var tv_timeStart: TextView? = null
     private var tv_timeEnd: TextView? = null
     private var tv_back: TextView? = null
+    private var tv_showText: TextView? = null
+    private var tv_progress: TextView? = null
     private var seekBar: SeekBar? = null
 
     private var img_play: ImageView? = null
     private var img_forward: ImageView? = null
     private var img_replay: ImageView? = null
     private var progress: ProgressBar? = null
-
+    private var lottie: LottieAnimationView? = null
+    private var lottie_sound: LottieAnimationView? = null
     private var relative: RelativeLayout? = null
+    private var listView: ListView? = null
+    private var linear_show: LinearLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
-
-    private var listView: ListView? = null
-
     var arrayOfModel: ArrayList<PassageModel>? = null
     var arrayText: ArrayList<String>? = null
-
     private var arrayAdapter: CustomArrayAdapter? = null
 
     private var p = -1
@@ -51,10 +53,10 @@ class LevelActivity : AppCompatActivity() {
         initID()
         initArrayList()
         onClicked()
-        setProgress()
+        setSeekBar()
         initHandler()
-        setListView(-9)
-        showProgress()
+//        setListView(-9)
+        setProgress()
     }
 
 
@@ -71,36 +73,13 @@ class LevelActivity : AppCompatActivity() {
         relative = findViewById(R.id.relative)
         listView = findViewById(R.id.listView)
         progress = findViewById(R.id.progress)
+        tv_progress = findViewById(R.id.txt_progress)
+        lottie = findViewById(R.id.lottie)
+        tv_showText = findViewById(R.id.tv_Display_text)
+        linear_show = findViewById(R.id.linear_show)
+        lottie_sound = findViewById(R.id.lottie_sound)
     }
 
-    private fun setText() {
-        tv_passage?.text =
-            "Susanne: Hi, Mario. Can you help me prepare some things for the next month?\n" +
-                    "\n" +
-                    "Mario: OK, sure. What can I help you with?\n" +
-                    "\n" +
-                    "Susanne: I need to visit the customer in Germany. It’s important.\n" +
-                    "\n" +
-                    "Mario: What can I do to help?\n" +
-                    "\n" +
-                    "Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.\n" +
-                    "\n" +
-                    "Mario: Right. I’ll do it today.\n" +
-                    "\n" +
-                    "Susanne: Thanks. This next task is also important. Can you invite everyone to the next team meeting?\n" +
-                    "\n" +
-                    "Mario: Yes, I will.\n" +
-                    "\n" +
-                    "Susanne: But first you need to book a meeting room. After that, please send everyone an email about it.\n" +
-                    "\n" +
-                    "Mario: Yes, of course.\n" +
-                    "\n" +
-                    "Susanne: And fianlly, can you write a short report about our new project? I have to give a presentation to our managers next month. Please do it when you have time – sometime in the next two or three weeks. It’s not too urgent.\n" +
-                    "\n" +
-                    "Mario: Sure, no problem. I can do it this week.\n" +
-                    "\n" +
-                    "Susanne: There’s no hurry. Take your time."
-    }
 
     private fun onClicked() {
         tv_back?.setOnClickListener {
@@ -108,10 +87,22 @@ class LevelActivity : AppCompatActivity() {
             finish()
         }
 
+
         tv_start?.setOnClickListener {
             startPlayingTest()
             tv_start!!.visibility = View.GONE
+            lottie?.visibility = View.GONE
+            lottie_sound?.visibility = View.VISIBLE
+            linear_show?.visibility = View.VISIBLE
         }
+
+
+        linear_show?.setOnClickListener {
+            listView?.visibility = if (listView?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            lottie_sound?.visibility = if (lottie_sound?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+
+        }
+
 
         img_play?.setOnClickListener {
             startPlayingTest()
@@ -131,7 +122,7 @@ class LevelActivity : AppCompatActivity() {
 
 
 
-    private fun setProgress() {
+    private fun setSeekBar() {
         seekBar?.max = mediaPlayer!!.duration / 1000
         seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
@@ -214,14 +205,8 @@ class LevelActivity : AppCompatActivity() {
 //    }
     private fun initArrayList() {
         arrayOfModel = ArrayList<PassageModel>()
-        arrayOfModel?.add(
-            PassageModel(
-                "Susanne: Hi, Mario. Can you help me prepare some things for the next month?",
-                5,
-                9
-            )
-        )
-        arrayOfModel?.add(PassageModel("Mario: OK, sure. What can I help you with?", 10, 13))
+        arrayOfModel?.add(PassageModel("Susanne: Hi, Mario. Can you help me prepare some things for the next month?", 5, 10))
+        arrayOfModel?.add(PassageModel("Mario: OK, sure. What can I help you with?", 11, 13))
         arrayOfModel?.add(PassageModel("Susanne: I need to visit the customer in Germany. It’s important.", 14, 18))
         arrayOfModel?.add(PassageModel("Mario: What can I do to help?", 19, 20))
         arrayOfModel?.add(PassageModel("Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.", 21, 33))
@@ -262,17 +247,46 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-    private fun showProgress(){
-        progress?.progress = 50
-        progress?.max = 100
-        progress?.setProgress(50,true)
-
-    }
+    private fun setProgress(){
+        progress?.max = 12
+        progress?.setProgress(3,true)
+        progress?.animate()
+        tv_progress?.text = "3 / 12"
+     }
 
     override fun onBackPressed() {
         super.onBackPressed()
         mediaPlayer?.pause()
+        mediaPlayer?.stop()
     }
 
+    private fun setText() {
+        tv_Text?.text =
+            "Susanne: Hi, Mario. Can you help me prepare some things for the next month?\n" +
+                    "\n" +
+                    "Mario: OK, sure. What can I help you with?\n" +
+                    "\n" +
+                    "Susanne: I need to visit the customer in Germany. It’s important.\n" +
+                    "\n" +
+                    "Mario: What can I do to help?\n" +
+                    "\n" +
+                    "Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.\n" +
+                    "\n" +
+                    "Mario: Right. I’ll do it today.\n" +
+                    "\n" +
+                    "Susanne: Thanks. This next task is also important. Can you invite everyone to the next team meeting?\n" +
+                    "\n" +
+                    "Mario: Yes, I will.\n" +
+                    "\n" +
+                    "Susanne: But first you need to book a meeting room. After that, please send everyone an email about it.\n" +
+                    "\n" +
+                    "Mario: Yes, of course.\n" +
+                    "\n" +
+                    "Susanne: And fianlly, can you write a short report about our new project? I have to give a presentation to our managers next month. Please do it when you have time – sometime in the next two or three weeks. It’s not too urgent.\n" +
+                    "\n" +
+                    "Mario: Sure, no problem. I can do it this week.\n" +
+                    "\n" +
+                    "Susanne: There’s no hurry. Take your time."
+    }
 
 }
