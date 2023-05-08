@@ -28,6 +28,7 @@ class LevelActivity : AppCompatActivity() {
     private var img_play: ImageView? = null
     private var img_forward: ImageView? = null
     private var img_replay: ImageView? = null
+    private var progress: ProgressBar? = null
 
     private var relative: RelativeLayout? = null
 
@@ -53,6 +54,7 @@ class LevelActivity : AppCompatActivity() {
         setProgress()
         initHandler()
         setListView(-9)
+        showProgress()
     }
 
 
@@ -68,6 +70,7 @@ class LevelActivity : AppCompatActivity() {
         img_replay = findViewById(R.id.img_replay)
         relative = findViewById(R.id.relative)
         listView = findViewById(R.id.listView)
+        progress = findViewById(R.id.progress)
     }
 
     private fun setText() {
@@ -256,6 +259,14 @@ class LevelActivity : AppCompatActivity() {
 //                tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
             }
         }
+    }
+
+
+    private fun showProgress(){
+        progress?.progress = 50
+        progress?.max = 100
+        progress?.setProgress(50,true)
+
     }
 
     override fun onBackPressed() {
