@@ -53,7 +53,7 @@ dependencies {
 //  Justified for TextView
     implementation 'com.uncopt:android.justified:1.0'
 
-    
+
 //  lottie Animation
     implementation 'com.airbnb.android:lottie:3.6.0'
 
