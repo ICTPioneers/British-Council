@@ -63,4 +63,7 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.1"
 
 
+    //timber
+    implementation 'com.jakewharton.timber:timber:5.0.1'
+
 }
