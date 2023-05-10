@@ -1,4 +1,4 @@
-package com.example.british_council
+package com.example.british_council.model
 
 import android.widget.TextView
 
