@@ -10,10 +10,10 @@ import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
-import com.example.british_council.PassageModel
+import com.cleveroad.audiovisualization.AudioVisualization
 import com.example.british_council.R
 import com.example.british_council.adapter.CustomArrayAdapter
-import kotlin.collections.ArrayList
+import com.example.british_council.model.PassageModel
 
 
 class LevelActivity : AppCompatActivity() {
@@ -43,6 +43,8 @@ class LevelActivity : AppCompatActivity() {
     var arrayText: ArrayList<String>? = null
     private var arrayAdapter: CustomArrayAdapter? = null
 
+    private var audioVisualization: AudioVisualization? = null
+
     private var p = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +57,8 @@ class LevelActivity : AppCompatActivity() {
         onClicked()
         setSeekBar()
         initHandler()
-//        setListView(-9)
         setProgress()
+
     }
 
 
@@ -78,6 +80,7 @@ class LevelActivity : AppCompatActivity() {
         tv_showText = findViewById(R.id.tv_Display_text)
         linear_show = findViewById(R.id.linear_show)
         lottie_sound = findViewById(R.id.lottie_sound)
+        audioVisualization = findViewById(R.id.visualizer_view)
     }
 
 
@@ -110,14 +113,15 @@ class LevelActivity : AppCompatActivity() {
 
 
         tv_next?.setOnClickListener {
-            startActivity(Intent(this,TaskActivity::class.java))
+            startActivity(Intent(this,TaskActivity::class.java))}
 
 
-           /* tv_start?.visibility = View.GONE
-            tv_passage?.visibility = View.VISIBLE
-            setText()
-            mediaPlayer?.stop()*/
-        }
+//            img_forward?.setOnClickListener {
+//                seekBar?.progress = mediaPlayer!!.currentPosition /1000 + 10
+//                mediaPlayer?.seekTo(mediaPlayer!!.currentPosition + 10)
+//
+//            }
+
     }
 
 
@@ -127,10 +131,8 @@ class LevelActivity : AppCompatActivity() {
         seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
-
             override fun onStartTrackingTouch(seekBar: SeekBar) {
             }
-
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (mediaPlayer != null && fromUser) {
                     mediaPlayer?.seekTo(progress * 1000)
@@ -140,7 +142,6 @@ class LevelActivity : AppCompatActivity() {
 
         var m = mediaPlayer!!.duration / 1000 / 60
         var s = mediaPlayer!!.duration / 1000 % 60
-        Log.e("111", "oncreate:  $m : $s}")
         tv_timeEnd?.text = "$m:$s"
     }
 
@@ -157,6 +158,8 @@ class LevelActivity : AppCompatActivity() {
                         mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
                     val mCurrentPosition: Int = mediaPlayer?.currentPosition!! / 1000
                     seekBar?.progress = mCurrentPosition
+                    forwardSong()
+
                     Log.e("111", "handler:  $mCurrentPosition}")
                     tv_timeStart?.text = "$minutes:$seconds"
 
@@ -171,38 +174,27 @@ class LevelActivity : AppCompatActivity() {
         })
     }
 
+
     private fun fixTextColorOfListView(progress: Int) {
         for (x in arrayOfModel!!.indices) {
             Log.e("TAG", "fixTextColorOfListView: $progress")
             if (progress in arrayOfModel!![x].startTime!!..arrayOfModel!![x].endTime!!) {
-//                CustomArrayAdapter(this, ArrayList(), x)
-//        arrayAdapter = CustomArrayAdapter(this, arrayText!!, x)
                 setListView(x)
-//                    p = x
+//                CustomArrayAdapter(this, ArrayList(), x)
+//                arrayAdapter = CustomArrayAdapter(this, arrayText!!, x)
 //                arrayAdapter = CustomArrayAdapter(this, ArrayList(), x)
-
             }
         }
     }
 
 
     private fun setListView(ps : Int) {
-        arrayAdapter = CustomArrayAdapter(this, arrayText!!, ps)
 //        arrayAdapter = CustomArrayAdapter(this, ArrayList(), p)
+        arrayAdapter = CustomArrayAdapter(this, arrayText!!, ps)
         listView!!.adapter = arrayAdapter
         listView!!.divider = null
     }
 
-//    override fun onResume() {
-//        super.onResume()
-////        if(arrayAdapter != null){
-//
-////            arrayAdapter = CustomArrayAdapter(this, arrayText!!, p)
-////        arrayAdapter!!.addList(arrayText!!)
-//
-////        listView!!.adapter = arrayAdapter
-////        }
-//    }
     private fun initArrayList() {
         arrayOfModel = ArrayList<PassageModel>()
         arrayOfModel?.add(PassageModel("Susanne: Hi, Mario. Can you help me prepare some things for the next month?", 5, 10))
@@ -226,11 +218,27 @@ class LevelActivity : AppCompatActivity() {
         }
     }
 
+
+    fun forwardSong() {
+        img_forward!!.setOnClickListener {
+        if (mediaPlayer != null) {
+            val currentPosition: Int = mediaPlayer!!.currentPosition
+            if (currentPosition + 10 <= mediaPlayer!!.duration) {
+                mediaPlayer!!.seekTo(currentPosition + 10)
+                seekBar?.progress = mediaPlayer!!.currentPosition / 1000 +10
+            } else {
+                mediaPlayer!!.seekTo(mediaPlayer!!.duration)
+                seekBar?.progress = mediaPlayer!!.currentPosition / 1000
+            }
+        }
+        }
+    }
+
     private fun startPlayingTest() {
         if (mediaPlayer != null) {
             if (mediaPlayer!!.isPlaying) {
                 mediaPlayer?.pause()
-                lottie_sound?.loop(false)
+                lottie_sound?.cancelAnimation()
                 img_play?.background = resources.getDrawable(R.drawable.ic_play)
                 Toast.makeText(this, "pause", Toast.LENGTH_SHORT).show()
                 tv_start?.text = "play"
@@ -263,33 +271,15 @@ class LevelActivity : AppCompatActivity() {
         mediaPlayer?.stop()
     }
 
-    private fun setText() {
-        tv_Text?.text =
-            "Susanne: Hi, Mario. Can you help me prepare some things for the next month?\n" +
-                    "\n" +
-                    "Mario: OK, sure. What can I help you with?\n" +
-                    "\n" +
-                    "Susanne: I need to visit the customer in Germany. It’s important.\n" +
-                    "\n" +
-                    "Mario: What can I do to help?\n" +
-                    "\n" +
-                    "Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.\n" +
-                    "\n" +
-                    "Mario: Right. I’ll do it today.\n" +
-                    "\n" +
-                    "Susanne: Thanks. This next task is also important. Can you invite everyone to the next team meeting?\n" +
-                    "\n" +
-                    "Mario: Yes, I will.\n" +
-                    "\n" +
-                    "Susanne: But first you need to book a meeting room. After that, please send everyone an email about it.\n" +
-                    "\n" +
-                    "Mario: Yes, of course.\n" +
-                    "\n" +
-                    "Susanne: And fianlly, can you write a short report about our new project? I have to give a presentation to our managers next month. Please do it when you have time – sometime in the next two or three weeks. It’s not too urgent.\n" +
-                    "\n" +
-                    "Mario: Sure, no problem. I can do it this week.\n" +
-                    "\n" +
-                    "Susanne: There’s no hurry. Take your time."
-    }
+
+//    override fun onResume() {
+//        super.onResume()
+////        if(arrayAdapter != null){
+////            arrayAdapter = CustomArrayAdapter(this, arrayText!!, p)
+////        arrayAdapter!!.addList(arrayText!!)
+//
+////        listView!!.adapter = arrayAdapter
+////        }
+//    }
 
 }

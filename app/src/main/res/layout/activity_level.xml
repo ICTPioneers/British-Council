@@ -164,6 +164,7 @@
                 app:lottie_rawRes="@raw/sound_wave" />
 
 
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
