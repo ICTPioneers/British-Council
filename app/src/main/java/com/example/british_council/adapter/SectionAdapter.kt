@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.british_council.R
 import com.example.british_council.activity.LevelActivity
+import com.example.british_council.model.Level
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
-class SectionAdapter(context: Context, val list: ArrayList<String>) :
+class SectionAdapter(context: Context, val list: List<Level>) :
     RecyclerView.Adapter<SectionAdapter.MyViewHolder>() {
     var arrayColor: ArrayList<Int> = ArrayList()
     var arrayIcon: ArrayList<Int> = ArrayList()
@@ -52,8 +52,12 @@ class SectionAdapter(context: Context, val list: ArrayList<String>) :
         arrayBack.add(R.drawable.item_border_level_red)
 //        arrayBack.add(R.drawable.item_border_level)
         var a = holder.itemView
+        var post = list[position]
 
-        holder.itemView.findViewById<TextView>(R.id.tv_part).text = list[position]
+        holder.itemView.findViewById<TextView>(R.id.tv_part).text =  list[position].name
+
+
+//        holder.itemView.findViewById<TextView>(R.id.tv_part).text = post.title
 //        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList = ColorStateList.valueOf(context.resources.getColor(R.color.black))
         holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList =
             ColorStateList.valueOf(con.resources.getColor(arrayColor[position]))
@@ -71,6 +75,6 @@ class SectionAdapter(context: Context, val list: ArrayList<String>) :
     }
 
     override fun getItemCount(): Int {
-        return 4
+        return list.size
     }
 }
