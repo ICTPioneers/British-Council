@@ -8,14 +8,15 @@ import com.example.british_council.model.LevelModel
 interface LevelDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertNote(noteEntity: LevelModel)
+    suspend fun insertNote(levelModel: LevelModel)
 
     @Delete
-    suspend fun deleteNote(noteEntity: LevelModel)
+    suspend fun deleteNote(levelModel: LevelModel)
 
     @Update
-    suspend fun update(noteEntity: LevelModel)
+    suspend fun update(levelModel: LevelModel)
 
     @Query("SELECT * FROM level_table ORDER BY id ASC")
-    fun getAllNotes(): LiveData<List<LevelModel>>
+//    fun getAllNotes(): LiveData<List<LevelModel>>
+    fun getAllNotes(): List<LevelModel>
 }
