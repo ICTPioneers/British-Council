@@ -15,7 +15,6 @@ import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.cleveroad.audiovisualization.*
 import com.example.british_council.R
 
 class TaskActivity : AppCompatActivity() , View.OnLongClickListener , View.OnDragListener{

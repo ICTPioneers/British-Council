@@ -10,11 +10,9 @@ import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
-import com.cleveroad.audiovisualization.AudioVisualization
 import com.example.british_council.R
 import com.example.british_council.adapter.CustomArrayAdapter
 import com.example.british_council.model.PassageModel
-
 
 class LevelActivity : AppCompatActivity() {
 
@@ -43,7 +41,6 @@ class LevelActivity : AppCompatActivity() {
     var arrayText: ArrayList<String>? = null
     private var arrayAdapter: CustomArrayAdapter? = null
 
-    private var audioVisualization: AudioVisualization? = null
 
     private var p = -1
 
@@ -80,7 +77,6 @@ class LevelActivity : AppCompatActivity() {
         tv_showText = findViewById(R.id.tv_Display_text)
         linear_show = findViewById(R.id.linear_show)
         lottie_sound = findViewById(R.id.lottie_sound)
-        audioVisualization = findViewById(R.id.visualizer_view)
     }
 
 
