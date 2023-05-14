@@ -22,12 +22,13 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter"
             android:text="Level 1"
+            android:id="@+id/level_name"
             android:textColor="@color/white"
             android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/tv_part"
+            android:id="@+id/part_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/inter"
