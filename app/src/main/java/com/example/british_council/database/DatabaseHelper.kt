@@ -5,10 +5,12 @@ import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
 import com.example.british_council.database.dao.LevelDao
+import com.example.british_council.model.Level
 import com.example.british_council.model.LevelModel
+import com.example.british_council.model.Text
 
 
-@Database(entities = [LevelModel::class], version = 1)
+@Database(entities = [LevelModel::class,Level::class ,Text::class], version = 1)
 abstract class DatabaseHelper : RoomDatabase() {
     abstract val dao: LevelDao
 
