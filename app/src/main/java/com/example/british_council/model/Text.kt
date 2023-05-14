@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
 
-@Entity
+
 class Text {
     @PrimaryKey(autoGenerate = true)
     var id_main :Int? = null

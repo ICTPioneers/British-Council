@@ -72,7 +72,9 @@ class SectionAdapter(context: Context, val list: List<Level>) :
 
 
 
-        holder.itemView.setOnClickListener { con.startActivity(Intent(con,LevelActivity::class.java) ) }
+        holder.itemView.setOnClickListener {
+            con.startActivity(Intent(con,LevelActivity::class.java) )
+        }
 
 
     }

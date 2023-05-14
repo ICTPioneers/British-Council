@@ -10,12 +10,12 @@ import com.example.british_council.model.LevelModel
 import com.example.british_council.model.Text
 
 
-@Database(entities = [LevelModel::class,Level::class ,Text::class], version = 1)
+@Database(entities = [LevelModel::class,Level::class], version = 2)
 abstract class DatabaseHelper : RoomDatabase() {
     abstract val dao: LevelDao
 
     companion object {
-        private const val DATABASE_NAME = "level_table"
+        private const val DATABASE_NAME = "level_table.db"
         @Volatile
         private var instance: DatabaseHelper? = null
 
