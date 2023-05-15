@@ -14,7 +14,11 @@ import com.example.british_council.R
 import com.example.british_council.adapter.CustomArrayAdapter
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
+import com.example.british_council.model.Level
 import com.example.british_council.model.PassageModel
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.concurrent.timerTask
 
 class LevelActivity : AppCompatActivity() {
 
@@ -43,6 +47,8 @@ class LevelActivity : AppCompatActivity() {
     var arrayText: ArrayList<String>? = null
     private var arrayAdapter: CustomArrayAdapter? = null
 
+    private var level :Level? =null
+    private var pos :Int = Session.getInstance().getInt("pos")
 
     private var p = -1
 
@@ -50,6 +56,7 @@ class LevelActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
 
+        getPositionOfLevel()
         mediaPlayer = MediaPlayer.create(this, R.raw.one_a_request_from_your_boss)
         initID()
         initArrayList()
@@ -57,6 +64,12 @@ class LevelActivity : AppCompatActivity() {
         setSeekBar()
         initHandler()
         setProgress()
+        fixActive()
+    }
+
+    private fun getPositionOfLevel(){
+        level = App.database.dao.getLeve(pos +1)
+       App.toast(level!!.desc.toString())
 
     }
 
@@ -270,6 +283,22 @@ class LevelActivity : AppCompatActivity() {
         mediaPlayer?.pause()
         mediaPlayer?.stop()
     }
+
+
+    private fun fixActive() {
+//        val mHandler = Handler()
+//        this@LevelActivity.runOnUiThread(object : Runnable {
+//            override fun run() {
+//                App.toast("10 second past")
+//                mHandler.postDelayed(this, 10000)
+//            }
+//        })
+
+//        Timer().schedule(timerTask {
+//                App.toast("10 second past")
+//        }, 10000)
+    }
+
 
 
 //    override fun onResume() {
