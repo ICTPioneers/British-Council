@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.example.british_council.database.dao.LevelDao
+import com.example.british_council.model.TextConverter
 import com.example.british_council.model.Level
 import com.example.british_council.model.LevelModel
-import com.example.british_council.model.Text
 
 
 @Database(entities = [LevelModel::class,Level::class], version = 2)
+
+@TypeConverters(TextConverter::class)
 abstract class DatabaseHelper : RoomDatabase() {
     abstract val dao: LevelDao
 

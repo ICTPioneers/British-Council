@@ -1,10 +1,10 @@
 package com.example.british_council.model
 
-import androidx.room.Entity
-import androidx.room.Ignore
-import androidx.room.PrimaryKey
+import androidx.room.*
+
 
 @Entity(tableName = "level")
+@TypeConverters(TextConverter::class)
 class Level {
     @PrimaryKey(autoGenerate = true)
     var id_main :Int? = null
@@ -13,29 +13,44 @@ class Level {
     var desc : String? = null
     var bg_image : String? = null
     var audio : String? = null
-//    var text : List<Text>? = null
+    var text : List<Text>? = null
 
 
-    constructor(id: Int?, name: String?, desc: String?, image: String?, audio: String? ) {
+    constructor(id: Int?, name: String?, desc: String?, image: String?, audio: String?,text : List<Text>? ) {
         this.id = id
         this.name = name
         this.desc = desc
         this.bg_image = image
         this.audio = audio
-//        this.text = text
+        this.text = text
     }
     @Ignore
-    constructor(id_main : Int? ,id: Int?,name: String?, desc: String?, image: String?, audio: String?  ) {
+    constructor(id_main : Int? ,id: Int?,name: String?, desc: String?, image: String?, audio: String? ,text : List<Text>? ) {
         this.id_main = id_main
         this.id = id
         this.name = name
         this.desc = desc
         this.bg_image = image
         this.audio = audio
-//        this.text = text
+        this.text = text
     }
 
     constructor()
 
+
+//    @Entity(
+//        foreignKeys = ForeignKey(
+//            entity = Person::class,
+//            parentColumns = "name",
+//            childColumns = "ownerId"
+//        )
+//    )
+//    class Pet {
+//        @PrimaryKey
+//        var name: String? = null
+//        var breed: String? = null
+//        var ownerId // this ID points to a Person
+//                : String? = null
+//    }
 
 }
