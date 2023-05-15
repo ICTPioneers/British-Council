@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.british_council.R
 import com.example.british_council.activity.LevelActivity
+import com.example.british_council.helper.App
+import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
@@ -19,7 +22,7 @@ class SectionAdapter(context: Context, val list: List<Level>) :
     var arrayColor: ArrayList<Int> = ArrayList()
     var arrayIcon: ArrayList<Int> = ArrayList()
     var arrayBack: ArrayList<Int> = ArrayList()
-    public var con: Context = context
+    var context: Context = context
 
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -63,17 +66,19 @@ class SectionAdapter(context: Context, val list: List<Level>) :
 //        holder.itemView.findViewById<TextView>(R.id.tv_part).text = post.title
 //        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList = ColorStateList.valueOf(context.resources.getColor(R.color.black))
         holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList =
-            ColorStateList.valueOf(con.resources.getColor(arrayColor[position]))
+            ColorStateList.valueOf(context.resources.getColor(arrayColor[position]))
         holder.itemView.findViewById<FloatingActionButton>(R.id.fab)
-            .setImageDrawable(con.resources.getDrawable(arrayIcon[position]))
+            .setImageDrawable(context.resources.getDrawable(arrayIcon[position]))
 
         holder.itemView.findViewById<LinearLayout>(R.id.linear)
-            .setBackgroundDrawable(con.getDrawable(arrayBack[position]))
+            .setBackgroundDrawable(context.getDrawable(arrayBack[position]))
 
 
 
         holder.itemView.setOnClickListener {
-            con.startActivity(Intent(con,LevelActivity::class.java) )
+            Session.getInstance().putExtra("pos",position)
+            App.toast("hello $position")
+            context.startActivity(Intent(context,LevelActivity::class.java) )
         }
 
 
