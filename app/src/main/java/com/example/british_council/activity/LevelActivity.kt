@@ -98,6 +98,7 @@ class LevelActivity : AppCompatActivity() {
     override fun onStop() {
         super.onStop()
         mediaPlayer?.stop()
+
     }
 
 
@@ -137,8 +138,9 @@ class LevelActivity : AppCompatActivity() {
 
     private fun onClicked() {
         tv_back?.setOnClickListener {
-            mediaPlayer?.stop()
-            finish()
+            onBackPressed()
+//            mediaPlayer?.stop()
+//            finish()
         }
 
 
@@ -318,11 +320,11 @@ class LevelActivity : AppCompatActivity() {
         tv_progress?.text = "${status+1} / 12"
      }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        mediaPlayer?.pause()
-        mediaPlayer?.stop()
-    }
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        mediaPlayer?.pause()
+//        mediaPlayer?.stop()
+//    }
 
 
     private fun fixActive() {
