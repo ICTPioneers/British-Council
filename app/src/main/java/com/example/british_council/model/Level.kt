@@ -15,6 +15,8 @@ class Level {
     var audio : String? = null
     var text : List<Text>? = null
 
+    var active : Boolean = false
+
 
     constructor(id: Int?, name: String?, desc: String?, image: String?, audio: String?,text : List<Text>? ) {
         this.id = id
