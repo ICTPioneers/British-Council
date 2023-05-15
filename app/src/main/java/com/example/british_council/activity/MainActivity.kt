@@ -74,6 +74,7 @@ class MainActivity : AppCompatActivity() {
                  recyclerView?.adapter = adapter
                  App.database.dao.insert(lv)
                  Log.e("qqq", "onResponse: "+ lv[0].name)
+                 Log.e("qqq", "onResponse: "+ lv[0].text!![0].text)
                  Log.e("qqq", "onResponse: "+ App.database.dao.selectName(2))
              }
 

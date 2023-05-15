@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.example.british_council.R
 import com.example.british_council.adapter.CustomArrayAdapter
+import com.example.british_council.helper.App
+import com.example.british_council.helper.Session
 import com.example.british_council.model.PassageModel
 
 class LevelActivity : AppCompatActivity() {
@@ -166,6 +168,7 @@ class LevelActivity : AppCompatActivity() {
                     fixTextColorOfListView(mCurrentPosition)
                 }
                 mHandler.postDelayed(this, 1000)
+//                App.toast("abs")
             }
         })
     }
@@ -255,10 +258,11 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setProgress(){
+        var status = Session.getInstance().getInt("pos")
         progress?.max = 12
-        progress?.setProgress(3,true)
+        progress?.setProgress(status+1,true)
         progress?.animate()
-        tv_progress?.text = "3 / 12"
+        tv_progress?.text = "${status+1} / 12"
      }
 
     override fun onBackPressed() {
