@@ -63,24 +63,40 @@ class LevelActivity : AppCompatActivity() {
 
         getPositionOfLevel()
         saveSoundToStorage()
+        setAudio()
 //        mediaPlayer = MediaPlayer.create(this, R.raw.one_a_request_from_your_boss)
         initID()
         initArrayList()
-        setListView(2)
         onClicked()
-        setSeekBar()
+//        setSeekBar()
+        setListView(2)
         initHandler()
         setProgress()
         fixActive()
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (mediaPlayer != null && mediaPlayer?.isPlaying == true) mediaPlayer?.pause()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        mediaPlayer?.stop()
+    }
+
 
     private fun setAudio(){
-        mediaPlayer = MediaPlayer()
-        mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
-        mediaPlayer!!.setDataSource(applicationContext, Uri.parse(level?.audio))
+        try{
+            mediaPlayer = MediaPlayer()
+            mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer!!.setDataSource(applicationContext, Uri.parse(level?.audio))
         mediaPlayer!!.prepare()
         mediaPlayer!!.start()
+        }catch(ex:Exception){
+            Log.e("TAG", "setAudio: ", ex)
+        }
+
     }
 
     private fun getPositionOfLevel(){
@@ -118,8 +134,7 @@ class LevelActivity : AppCompatActivity() {
 
     private fun onClicked() {
         tv_back?.setOnClickListener {
-            mediaPlayer?.stop()
-            finish()
+            onBackPressed()
         }
 
 
@@ -159,24 +174,24 @@ class LevelActivity : AppCompatActivity() {
 
 
 
-    private fun setSeekBar() {
-        seekBar?.max = mediaPlayer!!.duration / 1000
-        seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-            override fun onStopTrackingTouch(seekBar: SeekBar) {
-            }
-            override fun onStartTrackingTouch(seekBar: SeekBar) {
-            }
-            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-                if (mediaPlayer != null && fromUser) {
-                    mediaPlayer?.seekTo(progress * 1000)
-                }
-            }
-        })
-
-        var m = mediaPlayer!!.duration / 1000 / 60
-        var s = mediaPlayer!!.duration / 1000 % 60
-        tv_timeEnd?.text = "$m:$s"
-    }
+//    private fun setSeekBar() {
+//        seekBar?.max = mediaPlayer!!.duration / 1000
+//        seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+//            override fun onStopTrackingTouch(seekBar: SeekBar) {
+//            }
+//            override fun onStartTrackingTouch(seekBar: SeekBar) {
+//            }
+//            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+//                if (mediaPlayer != null && fromUser) {
+//                    mediaPlayer?.seekTo(progress * 1000)
+//                }
+//            }
+//        })
+//
+//        var m = mediaPlayer!!.duration / 1000 / 60
+//        var s = mediaPlayer!!.duration / 1000 % 60
+//        tv_timeEnd?.text = "$m:$s"
+//    }
 
 
     private fun initHandler() {
@@ -299,11 +314,6 @@ class LevelActivity : AppCompatActivity() {
         tv_progress?.text = "${status+1} / 12"
      }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        mediaPlayer?.pause()
-        mediaPlayer?.stop()
-    }
 
 
     private fun fixActive() {
