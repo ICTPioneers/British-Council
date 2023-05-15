@@ -1,10 +1,10 @@
 package com.example.british_council.activity
 
 import android.content.Intent
+import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.util.Log
 import android.view.View
@@ -17,11 +17,8 @@ import com.example.british_council.adapter.CustomArrayAdapter
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
-import com.example.british_council.model.PassageModel
-import java.io.File
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.concurrent.timerTask
+
 
 class LevelActivity : AppCompatActivity() {
 
@@ -46,8 +43,8 @@ class LevelActivity : AppCompatActivity() {
     private var linear_show: LinearLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
-    var arrayOfModel: ArrayList<PassageModel>? = null
-    var arrayText: ArrayList<String>? = null
+//    var arrayOfModel: ArrayList<PassageModel>? = null
+//    var arrayText: ArrayList<String>? = null
     private var arrayAdapter: CustomArrayAdapter? = null
 
     private var level :Level? =null
@@ -59,21 +56,31 @@ class LevelActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
 
-        val path = File(Environment.getExternalStorageDirectory(), "/Roghayeh/sound")
-        path.mkdirs()
-        val fileName = "image_${System.currentTimeMillis()}.jpg"
-        val file = File(path, fileName)
+//        val path = File(Environment.getExternalStorageDirectory(), "/Roghayeh/sound")
+//        path.mkdirs()
+//        val fileName = "image_${System.currentTimeMillis()}.jpg"
+//        val file = File(path, fileName)
 
         getPositionOfLevel()
         saveSoundToStorage()
-        mediaPlayer = MediaPlayer.create(this, R.raw.one_a_request_from_your_boss)
+//        mediaPlayer = MediaPlayer.create(this, R.raw.one_a_request_from_your_boss)
         initID()
         initArrayList()
+        setListView(2)
         onClicked()
         setSeekBar()
         initHandler()
         setProgress()
         fixActive()
+    }
+
+
+    private fun setAudio(){
+        mediaPlayer = MediaPlayer()
+        mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
+        mediaPlayer!!.setDataSource(applicationContext, Uri.parse(level?.audio))
+        mediaPlayer!!.prepare()
+        mediaPlayer!!.start()
     }
 
     private fun getPositionOfLevel(){
@@ -117,6 +124,7 @@ class LevelActivity : AppCompatActivity() {
 
 
         tv_start?.setOnClickListener {
+            setAudio()
             startPlayingTest()
             tv_start!!.visibility = View.GONE
             lottie?.visibility = View.GONE
@@ -192,7 +200,7 @@ class LevelActivity : AppCompatActivity() {
                         img_play?.background = resources.getDrawable(R.drawable.ic_play)
                         tv_start?.text = "play"
                     }
-                    fixTextColorOfListView(mCurrentPosition)
+//                    fixTextColorOfListView(mCurrentPosition)
                 }
                 mHandler.postDelayed(this, 1000)
 //                App.toast("abs")
@@ -201,34 +209,33 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-    private fun fixTextColorOfListView(progress: Int) {
-        for (x in arrayOfModel!!.indices) {
-            Log.e("TAG", "fixTextColorOfListView: $progress")
-            if (progress in arrayOfModel!![x].startTime!!..arrayOfModel!![x].endTime!!) {
-                setListView(x)
-//                CustomArrayAdapter(this, ArrayList(), x)
-//                arrayAdapter = CustomArrayAdapter(this, arrayText!!, x)
-//                arrayAdapter = CustomArrayAdapter(this, ArrayList(), x)
-            }
-        }
-    }
+//    private fun fixTextColorOfListView(progress: Int) {
+//        for (x in arrayOfModel!!.indices) {
+//            Log.e("TAG", "fixTextColorOfListView: $progress")
+//            if (progress in arrayOfModel!![x].startTime!!..arrayOfModel!![x].endTime!!) {
+//                setListView(x)
+////                CustomArrayAdapter(this, ArrayList(), x)
+////                arrayAdapter = CustomArrayAdapter(this, arrayText!!, x)
+////                arrayAdapter = CustomArrayAdapter(this, ArrayList(), x)
+//            }
+//        }
+//    }
 
 
     private fun setListView(ps : Int) {
-//        arrayAdapter = CustomArrayAdapter(this, ArrayList(), p)
-        arrayAdapter = CustomArrayAdapter(this, arrayText!!, ps)
+        arrayAdapter = CustomArrayAdapter(this, level!!.text!!, ps)
         listView!!.adapter = arrayAdapter
         listView!!.divider = null
     }
 
     private fun initArrayList() {
-        arrayOfModel = ArrayList<PassageModel>()
-        arrayOfModel?.add(PassageModel("Susanne: Hi, Mario. Can you help me prepare some things for the next month?", 5, 10))
-        arrayOfModel?.add(PassageModel("Mario: OK, sure. What can I help you with?", 11, 13))
-        arrayOfModel?.add(PassageModel("Susanne: I need to visit the customer in Germany. It’s important.", 14, 18))
-        arrayOfModel?.add(PassageModel("Mario: What can I do to help?", 19, 20))
-        arrayOfModel?.add(PassageModel("Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.", 21, 33))
-        arrayOfModel?.add(PassageModel("Mario: Right. I’ll do it today.", 34, 35))
+//        arrayOfModel = ArrayList<PassageModel>()
+//        arrayOfModel?.add(PassageModel("Susanne: Hi, Mario. Can you help me prepare some things for the next month?", 5, 10))
+//        arrayOfModel?.add(PassageModel("Mario: OK, sure. What can I help you with?", 11, 13))
+//        arrayOfModel?.add(PassageModel("Susanne: I need to visit the customer in Germany. It’s important.", 14, 18))
+//        arrayOfModel?.add(PassageModel("Mario: What can I do to help?", 19, 20))
+//        arrayOfModel?.add(PassageModel("Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.", 21, 33))
+//        arrayOfModel?.add(PassageModel("Mario: Right. I’ll do it today.", 34, 35))
 //        arrayOfModel?.add(PassageModel("Susanne: Thanks. This next task is also important. Can you invite everyone to the next team meeting?", 36, 44))
 //        arrayOfModel?.add(PassageModel("Mario: Yes, I will.", 45, 46))
 //        arrayOfModel?.add(PassageModel("Susanne: But first you need to book a meeting room. After that, please send everyone an email about it.", 47, 54))
@@ -238,10 +245,10 @@ class LevelActivity : AppCompatActivity() {
 //        arrayOfModel?.add(PassageModel("Susanne: There’s no hurry. Take your time.", 79, 83))
 
 
-        arrayText = ArrayList<String>()
-        for (x in arrayOfModel!!.indices) {
-            arrayText!!.add(arrayOfModel!![x].text.toString())
-        }
+//        arrayText = ArrayList<String>()
+//        for (x in arrayOfModel!!.indices) {
+//            arrayText!!.add(arrayOfModel!![x].text.toString())
+//        }
     }
 
 
