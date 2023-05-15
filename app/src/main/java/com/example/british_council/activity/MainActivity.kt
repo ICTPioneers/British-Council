@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                  App.database.dao.insert(lv)
                  Log.e("qqq", "onResponse: "+ lv[0].name)
                  Log.e("qqq", "onResponse: "+ lv[0].text!![0].text)
-                 Log.e("qqq", "onResponse: "+ App.database.dao.selectName(2))
+                 Log.e("qqq", "onResponse: "+ App.database.dao.getLeve(2))
              }
 
              override fun onFailure(call: Call<Data>, t: Throwable) {
