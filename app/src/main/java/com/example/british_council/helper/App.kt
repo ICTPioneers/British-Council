@@ -47,7 +47,7 @@ class App : Application() {
         fun saveFile(byteArray: ByteArray): String {
             val outStream: FileOutputStream
             try {
-                val path = File(Environment.getExternalStorageDirectory(), "/British Council/image")
+                val path = File(Environment.getExternalStorageDirectory(), "/BritishCouncil/sound")
                 path.mkdirs()
                 val fileName = "image_${System.currentTimeMillis()}.jpg"
                 val file = File(path, fileName)
