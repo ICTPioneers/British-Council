@@ -1,9 +1,7 @@
-package com.karimi.pms.helper;
+package com.example.british_council.helper;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.example.british_council.helper.App;
 
 import java.util.Map;
 import java.util.Set;
