@@ -9,7 +9,7 @@ import android.widget.TextView
 import com.example.british_council.R
 import com.example.british_council.model.Text
 
-class CustomArrayAdapter(context: Context, private val list: ArrayList<Text>, val pos: Int) :
+class CustomArrayAdapter(context: Context, private val list: List<Text>, val pos: Int) :
     ArrayAdapter<Text>(context, R.layout.custom_list_view, list) {
 
 
