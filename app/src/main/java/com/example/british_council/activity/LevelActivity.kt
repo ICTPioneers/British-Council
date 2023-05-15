@@ -89,6 +89,19 @@ class LevelActivity : AppCompatActivity() {
 
     }
 
+
+//    override fun onResume() {
+//        super.onResume()
+//        if(mediaPlayer !=null && mediaPlayer!!.isPlaying) mediaPlayer?.pause()
+//    }
+
+    override fun onStop() {
+        super.onStop()
+        mediaPlayer?.stop()
+    }
+
+
+
     private fun getPositionOfLevel(){
         level = App.database.dao.getLeve(pos +1)
         App.toast(level!!.desc.toString())
