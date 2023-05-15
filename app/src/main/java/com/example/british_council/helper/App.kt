@@ -49,7 +49,7 @@ class App : Application() {
             try {
                 val path = File(Environment.getExternalStorageDirectory(), "/BritishCouncil/sound")
                 path.mkdirs()
-                val fileName = "image_${System.currentTimeMillis()}.jpg"
+                val fileName = "image_${System.currentTimeMillis()}.mp3"
                 val file = File(path, fileName)
                 Log.e("qqqq", "saveFile: ${file.path}")
                 outStream = FileOutputStream(file)
