@@ -12,8 +12,8 @@ interface LevelDao {
 //    @Update
 //    fun update(level: Level)
 
-    @Query("select name from level where id=:id")
-    fun selectName(id : Int): String
+    @Query("select * from level where id=:id")
+    fun getLeve(id : Int): Level
 
 //
 //    @Insert(onConflict = OnConflictStrategy.REPLACE)
