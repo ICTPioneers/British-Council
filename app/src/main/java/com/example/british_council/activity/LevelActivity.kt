@@ -2,7 +2,9 @@ package com.example.british_council.activity
 
 import android.content.Intent
 import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.util.Log
 import android.view.View
@@ -16,6 +18,7 @@ import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
 import com.example.british_council.model.PassageModel
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.concurrent.timerTask
@@ -56,7 +59,13 @@ class LevelActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
 
+        val path = File(Environment.getExternalStorageDirectory(), "/Roghayeh/sound")
+        path.mkdirs()
+        val fileName = "image_${System.currentTimeMillis()}.jpg"
+        val file = File(path, fileName)
+
         getPositionOfLevel()
+        saveSoundToStorage()
         mediaPlayer = MediaPlayer.create(this, R.raw.one_a_request_from_your_boss)
         initID()
         initArrayList()
@@ -69,10 +78,15 @@ class LevelActivity : AppCompatActivity() {
 
     private fun getPositionOfLevel(){
         level = App.database.dao.getLeve(pos +1)
-       App.toast(level!!.desc.toString())
-
+        App.toast(level!!.desc.toString())
+        App.toast(level!!.audio.toString())
     }
 
+
+    private fun saveSoundToStorage(){
+//        App.saveFile(App.getByte(Uri.parse(level?.audio)))
+        App.saveFile(App.getByte(Uri.parse("")))
+    }
 
     private fun initID() {
         tv_next = findViewById(R.id.tv_next)
