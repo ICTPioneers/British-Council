@@ -75,18 +75,9 @@ class LevelActivity : AppCompatActivity() {
         fixActive()
     }
 
-    override fun onResume() {
-        super.onResume()
-        if (mediaPlayer != null && mediaPlayer?.isPlaying == true) mediaPlayer?.pause()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        mediaPlayer?.stop()
-    }
-
 
     private fun setAudio(){
+
         try{
             mediaPlayer = MediaPlayer()
             mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
@@ -94,7 +85,6 @@ class LevelActivity : AppCompatActivity() {
         mediaPlayer!!.prepare()
         mediaPlayer!!.start()
         }catch(ex:Exception){
-            Log.e("TAG", "setAudio: ", ex)
         }
 
     }
@@ -134,7 +124,8 @@ class LevelActivity : AppCompatActivity() {
 
     private fun onClicked() {
         tv_back?.setOnClickListener {
-            onBackPressed()
+            mediaPlayer?.stop()
+            finish()
         }
 
 
@@ -314,6 +305,11 @@ class LevelActivity : AppCompatActivity() {
         tv_progress?.text = "${status+1} / 12"
      }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        mediaPlayer?.pause()
+        mediaPlayer?.stop()
+    }
 
 
     private fun fixActive() {
