@@ -6,7 +6,6 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -43,14 +42,14 @@ class LevelActivity : AppCompatActivity() {
     private var linear_show: LinearLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
-//    var arrayOfModel: ArrayList<PassageModel>? = null
+
+    //    var arrayOfModel: ArrayList<PassageModel>? = null
 //    var arrayText: ArrayList<String>? = null
     private var arrayAdapter: CustomArrayAdapter? = null
 
-    private var level :Level? =null
-    private var pos :Int = Session.getInstance().getInt("pos")
+    private var level: Level? = null
+    private var pos: Int = Session.getInstance().getInt("pos")
 
-    private var p = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,24 +88,24 @@ class LevelActivity : AppCompatActivity() {
         lottie_sound = findViewById(R.id.lottie_sound)
     }
 
-    private fun setAudio(){
-        try{
+    private fun setAudio() {
+        try {
             mediaPlayer = MediaPlayer()
             mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
             mediaPlayer!!.setDataSource(applicationContext, Uri.parse(level?.audio))
             mediaPlayer!!.prepare()
-            App.toast("" + mediaPlayer?.duration!! / 1000 /60 +" : " +mediaPlayer?.duration!! / 1000 % 60)
-        }catch(ex:Exception){
+            App.toast("" + mediaPlayer?.duration!! / 1000 / 60 + " : " + mediaPlayer?.duration!! / 1000 % 60)
+        } catch (ex: Exception) {
         }
     }
 
-    private fun getPositionOfLevel(){
-        level = App.database.dao.getLeve(pos +1)
+    private fun getPositionOfLevel() {
+        level = App.database.dao.getLeve(pos + 1)
         App.toast(level!!.desc.toString())
         App.toast(level!!.audio.toString())
     }
 
-    private fun saveSoundToStorage(){
+    private fun saveSoundToStorage() {
 //        App.saveFile(App.getByte(Uri.parse(level?.audio)))
         App.saveFile(App.getByte(Uri.parse("")))
     }
@@ -125,8 +124,10 @@ class LevelActivity : AppCompatActivity() {
         }
 
         linear_show?.setOnClickListener {
-            listView?.visibility = if (listView?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-            lottie_sound?.visibility = if (lottie_sound?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            listView?.visibility =
+                if (listView?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            lottie_sound?.visibility =
+                if (lottie_sound?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
         }
 
         img_play?.setOnClickListener {
@@ -134,7 +135,8 @@ class LevelActivity : AppCompatActivity() {
         }
 
         tv_next?.setOnClickListener {
-            startActivity(Intent(this,TaskActivity::class.java))}
+            startActivity(Intent(this, TaskActivity::class.java))
+        }
 
 //            img_forward?.setOnClickListener {
 //                seekBar?.progress = mediaPlayer!!.currentPosition /1000 + 10
@@ -148,8 +150,10 @@ class LevelActivity : AppCompatActivity() {
         seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar) {
             }
+
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (mediaPlayer != null && fromUser) {
                     mediaPlayer?.seekTo(progress * 1000)
@@ -169,13 +173,20 @@ class LevelActivity : AppCompatActivity() {
             override fun run() {
                 if (mediaPlayer != null) {
                     val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
-                    val minutes: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
-                    val seconds: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
-                    val mCurrentPosition: Int = mediaPlayer?.currentPosition!! / 1000
-                    seekBar?.progress = mCurrentPosition
-                    forwardSong()
+                    val minutes: Int =
+                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
+                    val seconds: Int =
+                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
+//                    val mCurrentPosition: Int = mediaPlayer?.currentPosition!! / 1000
+//                    seekBar?.progress = mCurrentPosition
+//
+//                    if(mCurrentPosition == null){
+//                        seekBar?.progress = mediaPlayer?.currentPosition!! / 1000
+//                    }else{
+//                    forwardSound()
+//                    }
+                    forwardSound()
 
-                    Log.e("111", "handler:  $mCurrentPosition}")
                     tv_timeStart?.text = "$minutes:$seconds"
 
                     if (mCurrentPosition == mediaPlayer?.duration!! / 1000 - 1) {
@@ -188,29 +199,28 @@ class LevelActivity : AppCompatActivity() {
         })
     }
 
+    private fun set
+
+    fun forwardSound() {
+        var mCurrentPosition = mediaPlayer!!.currentPosition / 1000
+        seekBar?.progress = mCurrentPosition
+
+        img_forward!!.setOnClickListener {
+            if (mediaPlayer != null) {
+                mCurrentPosition = mediaPlayer!!.currentPosition / 1000 + 10
+                mediaPlayer?.seekTo(mCurrentPosition!! * 1000)
+                seekBar?.progress = mCurrentPosition
+            }
+        }
+    }
 
 
-    private fun setListView(ps : Int) {
+    private fun setListView(ps: Int) {
         arrayAdapter = CustomArrayAdapter(this, level!!.text!!, ps)
         listView!!.adapter = arrayAdapter
         listView!!.divider = null
     }
 
-
-    fun forwardSong() {
-        img_forward!!.setOnClickListener {
-        if (mediaPlayer != null) {
-            val currentPosition: Int = mediaPlayer!!.currentPosition
-            if (currentPosition + 10 <= mediaPlayer!!.duration) {
-                mediaPlayer!!.seekTo(currentPosition + 10)
-                seekBar?.progress = mediaPlayer!!.currentPosition / 1000 +10
-            } else {
-                mediaPlayer!!.seekTo(mediaPlayer!!.duration)
-                seekBar?.progress = mediaPlayer!!.currentPosition / 1000
-            }
-        }
-        }
-    }
 
     private fun startPlayingTest() {
         if (mediaPlayer != null) {
@@ -235,14 +245,13 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-    private fun setProgress(){
+    private fun setProgress() {
         var status = Session.getInstance().getInt("pos")
         progress?.max = 12
-        progress?.setProgress(status+1,true)
+        progress?.setProgress(status + 1, true)
         progress?.animate()
-        tv_progress?.text = "${status+1} / 12"
-     }
-
+        tv_progress?.text = "${status + 1} / 12"
+    }
 
 
     private fun fixActive() {
