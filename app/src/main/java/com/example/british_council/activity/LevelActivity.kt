@@ -138,11 +138,6 @@ class LevelActivity : AppCompatActivity() {
             startActivity(Intent(this, TaskActivity::class.java))
         }
 
-//            img_forward?.setOnClickListener {
-//                seekBar?.progress = mediaPlayer!!.currentPosition /1000 + 10
-//                mediaPlayer?.seekTo(mediaPlayer!!.currentPosition + 10)
-//
-//            }
     }
 
     private fun setSeekBar() {
@@ -161,9 +156,7 @@ class LevelActivity : AppCompatActivity() {
             }
         })
 
-        var m = mediaPlayer!!.duration / 1000 / 60
-        var s = mediaPlayer!!.duration / 1000 % 60
-        tv_timeEnd?.text = "$m:$s"
+
     }
 
 
@@ -193,7 +186,9 @@ class LevelActivity : AppCompatActivity() {
         val minutes: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
         val seconds: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
         tv_timeStart?.text = "$minutes:$seconds"
-
+        var m = mediaPlayer!!.duration / 1000 / 60
+        var s = mediaPlayer!!.duration / 1000 % 60
+        tv_timeEnd?.text = "$m:$s"
     }
 
 
