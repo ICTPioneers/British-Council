@@ -42,9 +42,6 @@ class LevelActivity : AppCompatActivity() {
     private var linear_show: LinearLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
-
-    //    var arrayOfModel: ArrayList<PassageModel>? = null
-//    var arrayText: ArrayList<String>? = null
     private var arrayAdapter: CustomArrayAdapter? = null
 
     private var level: Level? = null
@@ -101,8 +98,6 @@ class LevelActivity : AppCompatActivity() {
 
     private fun getPositionOfLevel() {
         level = App.database.dao.getLeve(pos + 1)
-        App.toast(level!!.desc.toString())
-        App.toast(level!!.audio.toString())
     }
 
     private fun saveSoundToStorage() {
@@ -115,12 +110,9 @@ class LevelActivity : AppCompatActivity() {
 
 
         tv_start?.setOnClickListener {
-//            setAudio()
             startPlayingTest()
-            tv_start!!.visibility = View.GONE
-            lottie?.visibility = View.GONE
-            lottie_sound?.visibility = View.VISIBLE
-            linear_show?.visibility = View.VISIBLE
+            arrayOf( tv_start, lottie ).forEach { it!!.visibility =  View.GONE }
+            arrayOf( lottie_sound ,linear_show ).forEach { it!!.visibility = View.VISIBLE }
         }
 
         linear_show?.setOnClickListener {
@@ -152,8 +144,6 @@ class LevelActivity : AppCompatActivity() {
                 }
             }
         })
-
-
     }
 
 
