@@ -44,7 +44,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initID()
-        shimmer?.startShimmer()
+//        shimmer?.startShimmer()
+//        shimmer?.setBackgroundColor(resources.getColor(R.color.black))
         getDataFromSever()
         setSwipeRefreshLayout()
     }
@@ -53,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         txt_hello = findViewById(R.id.txt_hello)
         recyclerView = findViewById(R.id.rv_main)
         swipeRefresh = findViewById(R.id.swipe)
-        shimmer = findViewById(R.id.shimmer)
+//        shimmer = findViewById(R.id.shimmer)
     }
 
 
@@ -69,6 +70,7 @@ class MainActivity : AppCompatActivity() {
      private fun getDataFromSever(){
          ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
              override fun onResponse(call: Call<Data>, response: Response<Data>) {
+//                 shimmer?.cancelLongPress()
                  Log.e("qqq", "onResponse: "+ response.body())
                  var lv =  response.body()?.level!!
                  adapter = SectionAdapter(applicationContext, response.body()?.level!!)
@@ -97,8 +99,8 @@ class MainActivity : AppCompatActivity() {
            AlertDialog.Builder(this)
                .setMessage("connection is canceled")
                .setCancelable(true)
-               .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, i ->  dialog.dismiss() })
-               .setNegativeButton("no", DialogInterface.OnClickListener { dialog , i ->  dialog.dismiss() })
+               .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
+               .setNegativeButton("no", DialogInterface.OnClickListener { dialog , _ ->  dialog.dismiss() })
                .show()
 //            progressBar.setVisibility(View.INVISIBLE)
         }
