@@ -20,6 +20,7 @@ import com.example.british_council.database.DatabaseHelper
 import com.example.british_council.helper.App
 import com.example.british_council.model.Data
 import com.example.british_council.model.LevelModel
+import com.facebook.shimmer.ShimmerFrameLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private var adapter: SectionAdapter? = null
     private var swipeRefresh: SwipeRefreshLayout? = null
     private var recyclerView: RecyclerView? = null
+    private var shimmer: ShimmerFrameLayout? = null
     private var level: List<LevelModel>? = null
     private var db: DatabaseHelper? = null
 
@@ -42,15 +44,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initID()
+        shimmer?.startShimmer()
         getDataFromSever()
         setSwipeRefreshLayout()
-
     }
 
     private fun initID() {
         txt_hello = findViewById(R.id.txt_hello)
         recyclerView = findViewById(R.id.rv_main)
         swipeRefresh = findViewById(R.id.swipe)
+        shimmer = findViewById(R.id.shimmer)
     }
 
 
