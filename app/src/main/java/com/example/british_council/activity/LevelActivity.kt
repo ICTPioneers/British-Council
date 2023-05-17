@@ -124,10 +124,7 @@ class LevelActivity : AppCompatActivity() {
         }
 
         linear_show?.setOnClickListener {
-            listView?.visibility =
-                if (listView?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-            lottie_sound?.visibility =
-                if (lottie_sound?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            arrayOf( listView , lottie_sound).forEach { it!!.visibility = if (listView?.visibility == View.VISIBLE) View.GONE else View.VISIBLE }
         }
 
         img_play?.setOnClickListener {
