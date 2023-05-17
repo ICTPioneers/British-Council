@@ -1,14 +1,17 @@
 package com.example.british_council.activity
 
 import android.annotation.SuppressLint
-import android.content.Context
+import android.content.DialogInterface
+import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.british_council.R
 import com.example.british_council.adapter.SectionAdapter
 import com.example.british_council.api.ApiClient
@@ -19,11 +22,12 @@ import com.example.british_council.model.LevelModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.io.IOException
+
 
 class MainActivity : AppCompatActivity() {
     private var txt_hello: TextView? = null
     private var adapter: SectionAdapter? = null
+    private var swipeRefresh: SwipeRefreshLayout? = null
     private var recyclerView: RecyclerView? = null
     private var level: List<LevelModel>? = null
     private var db: DatabaseHelper? = null
@@ -38,16 +42,28 @@ class MainActivity : AppCompatActivity() {
 
         initID()
         getDataFromSever()
+        setSwipeRefreshLayout()
+
     }
 
     private fun initID() {
         txt_hello = findViewById(R.id.txt_hello)
         recyclerView = findViewById(R.id.rv_main)
+        swipeRefresh = findViewById(R.id.swipe)
+    }
+
+
+    private fun setSwipeRefreshLayout(){
+        swipeRefresh?.setOnRefreshListener {
+            checkConnection()
+        }
     }
 
      private fun getDataFromSever(){
          ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
              override fun onResponse(call: Call<Data>, response: Response<Data>) {
+                 swipeRefresh?.isRefreshing = false
+
                  Log.e("qqq", "onResponse: "+ response.body())
                  var lv =  response.body()?.level!!
                  adapter = SectionAdapter(applicationContext, response.body()?.level!!)
@@ -59,9 +75,29 @@ class MainActivity : AppCompatActivity() {
              }
 
              override fun onFailure(call: Call<Data>, t: Throwable) {
+                 App.toast("your connection is cancel")
                  Log.e("qqqq", "onFailure: ", t)
              }
          })
    }
+
+
+    private fun checkConnection() {
+        val connectivityManager = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
+        val wifi = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI)
+        val mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
+        if (wifi!!.isConnected) getDataFromSever()
+        else if (mobile!!.isConnected) getDataFromSever()
+       else {
+           AlertDialog.Builder(this)
+               .setMessage("connection is canceled")
+               .setCancelable(true)
+               .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, i ->  dialog.dismiss() })
+               .setNegativeButton("no", DialogInterface.OnClickListener { dialog , i ->  dialog.dismiss() })
+               .show()
+//            progressBar.setVisibility(View.INVISIBLE)
+        }
+    }
+
 
 }
