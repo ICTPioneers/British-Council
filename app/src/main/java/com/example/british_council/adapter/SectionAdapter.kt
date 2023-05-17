@@ -15,6 +15,7 @@ import com.example.british_council.activity.LevelActivity
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class SectionAdapter(context: Context, val list: List<Level>) :
@@ -58,6 +59,9 @@ class SectionAdapter(context: Context, val list: List<Level>) :
 //        arrayBack.add(R.drawable.item_border_level)
         var a = holder.itemView
         var post = list[position]
+
+        holder.itemView.findViewById<ShimmerFrameLayout>(R.id.shimmer).startShimmer()
+
 
         holder.itemView.findViewById<TextView>(R.id.level_name).text =  list[position].name
         holder.itemView.findViewById<TextView>(R.id.part_name).text =  list[position].desc
