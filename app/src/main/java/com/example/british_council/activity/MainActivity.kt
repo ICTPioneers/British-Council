@@ -15,7 +15,6 @@ import com.example.british_council.api.ApiClient
 import com.example.british_council.database.DatabaseHelper
 import com.example.british_council.helper.App
 import com.example.british_council.model.Data
-import com.example.british_council.model.Level
 import com.example.british_council.model.LevelModel
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initID()
-        initRecyclerview()
+        getDataFromSever()
     }
 
     private fun initID() {
@@ -46,26 +45,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView = findViewById(R.id.rv_main)
     }
 
-    fun initDatabase(){
-//        val db = DatabaseHelper.getInstance(this)
-//        level =  db!!.dao.getAllNotes()
-    }
-
-
-    private fun initRecyclerview() {
-        var arrayList = ArrayList<String>()
-        arrayList.add("part 1")
-        arrayList.add("part 2")
-        arrayList.add("part 3")
-        arrayList.add("part 4")
-
-//        adapter = SectionAdapter(this, ArrayList())
-//        recyclerView?.adapter = adapter
-        testSever()
-    }
-
-
-     private fun testSever(){
+     private fun getDataFromSever(){
          ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
              override fun onResponse(call: Call<Data>, response: Response<Data>) {
                  Log.e("qqq", "onResponse: "+ response.body())
@@ -82,24 +62,6 @@ class MainActivity : AppCompatActivity() {
                  Log.e("qqqq", "onFailure: ", t)
              }
          })
-
-
    }
-
-
-
-
-
-    private fun getJsonDataFromAsset(context: Context, fileName: String): String? {
-        val jsonString: String
-        try {
-            jsonString = context.assets.open(fileName).bufferedReader().use { it.readText() }
-        } catch (ioException: IOException) {
-            ioException.printStackTrace()
-            return null
-        }
-        return jsonString
-    }
-
 
 }
