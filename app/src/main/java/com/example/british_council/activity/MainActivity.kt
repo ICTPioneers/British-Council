@@ -5,6 +5,7 @@ import android.content.DialogInterface
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.widget.TextView
 import androidx.annotation.RequiresApi
@@ -56,14 +57,15 @@ class MainActivity : AppCompatActivity() {
     private fun setSwipeRefreshLayout(){
         swipeRefresh?.setOnRefreshListener {
             checkConnection()
+            Handler().postDelayed(Runnable {
+                swipeRefresh?.isRefreshing = false
+            }, 4000)
         }
     }
 
      private fun getDataFromSever(){
          ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
              override fun onResponse(call: Call<Data>, response: Response<Data>) {
-                 swipeRefresh?.isRefreshing = false
-
                  Log.e("qqq", "onResponse: "+ response.body())
                  var lv =  response.body()?.level!!
                  adapter = SectionAdapter(applicationContext, response.body()?.level!!)
@@ -75,7 +77,7 @@ class MainActivity : AppCompatActivity() {
              }
 
              override fun onFailure(call: Call<Data>, t: Throwable) {
-                 App.toast("your connection is cancel")
+                 App.toast("your connection is faild")
                  Log.e("qqqq", "onFailure: ", t)
              }
          })
