@@ -56,64 +56,19 @@ class LevelActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
 
-//        val path = File(Environment.getExternalStorageDirectory(), "/Roghayeh/sound")
-//        path.mkdirs()
-//        val fileName = "image_${System.currentTimeMillis()}.jpg"
-//        val file = File(path, fileName)
-
         getPositionOfLevel()
         saveSoundToStorage()
         setAudio()
 //        mediaPlayer = MediaPlayer.create(this, R.raw.one_a_request_from_your_boss)
         initID()
-        initArrayList()
         onClicked()
-//        setSeekBar()
+        setSeekBar()
         setListView(2)
         initHandler()
         setProgress()
         fixActive()
     }
 
-
-    private fun setAudio(){
-
-        try{
-            mediaPlayer = MediaPlayer()
-            mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
-            mediaPlayer!!.setDataSource(applicationContext, Uri.parse(level?.audio))
-        mediaPlayer!!.prepare()
-        mediaPlayer!!.start()
-        }catch(ex:Exception){
-        }
-
-    }
-
-
-//    override fun onResume() {
-//        super.onResume()
-//        if(mediaPlayer !=null && mediaPlayer!!.isPlaying) mediaPlayer?.pause()
-//    }
-
-    override fun onStop() {
-        super.onStop()
-        mediaPlayer?.stop()
-
-    }
-
-
-
-    private fun getPositionOfLevel(){
-        level = App.database.dao.getLeve(pos +1)
-        App.toast(level!!.desc.toString())
-        App.toast(level!!.audio.toString())
-    }
-
-
-    private fun saveSoundToStorage(){
-//        App.saveFile(App.getByte(Uri.parse(level?.audio)))
-        App.saveFile(App.getByte(Uri.parse("")))
-    }
 
     private fun initID() {
         tv_next = findViewById(R.id.tv_next)
@@ -135,17 +90,34 @@ class LevelActivity : AppCompatActivity() {
         lottie_sound = findViewById(R.id.lottie_sound)
     }
 
+    private fun setAudio(){
+        try{
+            mediaPlayer = MediaPlayer()
+            mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
+            mediaPlayer!!.setDataSource(applicationContext, Uri.parse(level?.audio))
+            mediaPlayer!!.prepare()
+            App.toast("" + mediaPlayer?.duration!! / 1000 /60 +" : " +mediaPlayer?.duration!! / 1000 % 60)
+        }catch(ex:Exception){
+        }
+    }
+
+    private fun getPositionOfLevel(){
+        level = App.database.dao.getLeve(pos +1)
+        App.toast(level!!.desc.toString())
+        App.toast(level!!.audio.toString())
+    }
+
+    private fun saveSoundToStorage(){
+//        App.saveFile(App.getByte(Uri.parse(level?.audio)))
+        App.saveFile(App.getByte(Uri.parse("")))
+    }
 
     private fun onClicked() {
-        tv_back?.setOnClickListener {
-            onBackPressed()
-//            mediaPlayer?.stop()
-//            finish()
-        }
+        tv_back?.setOnClickListener { onBackPressed() }
 
 
         tv_start?.setOnClickListener {
-            setAudio()
+//            setAudio()
             startPlayingTest()
             tv_start!!.visibility = View.GONE
             lottie?.visibility = View.GONE
@@ -153,51 +125,43 @@ class LevelActivity : AppCompatActivity() {
             linear_show?.visibility = View.VISIBLE
         }
 
-
         linear_show?.setOnClickListener {
             listView?.visibility = if (listView?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             lottie_sound?.visibility = if (lottie_sound?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-
         }
-
 
         img_play?.setOnClickListener {
             startPlayingTest()
         }
 
-
         tv_next?.setOnClickListener {
             startActivity(Intent(this,TaskActivity::class.java))}
-
 
 //            img_forward?.setOnClickListener {
 //                seekBar?.progress = mediaPlayer!!.currentPosition /1000 + 10
 //                mediaPlayer?.seekTo(mediaPlayer!!.currentPosition + 10)
 //
 //            }
-
     }
 
+    private fun setSeekBar() {
+        seekBar?.max = mediaPlayer!!.duration / 1000
+        seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+            }
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+            }
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                if (mediaPlayer != null && fromUser) {
+                    mediaPlayer?.seekTo(progress * 1000)
+                }
+            }
+        })
 
-
-//    private fun setSeekBar() {
-//        seekBar?.max = mediaPlayer!!.duration / 1000
-//        seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
-//            override fun onStopTrackingTouch(seekBar: SeekBar) {
-//            }
-//            override fun onStartTrackingTouch(seekBar: SeekBar) {
-//            }
-//            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
-//                if (mediaPlayer != null && fromUser) {
-//                    mediaPlayer?.seekTo(progress * 1000)
-//                }
-//            }
-//        })
-//
-//        var m = mediaPlayer!!.duration / 1000 / 60
-//        var s = mediaPlayer!!.duration / 1000 % 60
-//        tv_timeEnd?.text = "$m:$s"
-//    }
+        var m = mediaPlayer!!.duration / 1000 / 60
+        var s = mediaPlayer!!.duration / 1000 % 60
+        tv_timeEnd?.text = "$m:$s"
+    }
 
 
     private fun initHandler() {
@@ -206,10 +170,8 @@ class LevelActivity : AppCompatActivity() {
             override fun run() {
                 if (mediaPlayer != null) {
                     val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
-                    val minutes: Int =
-                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
-                    val seconds: Int =
-                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
+                    val minutes: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
+                    val seconds: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
                     val mCurrentPosition: Int = mediaPlayer?.currentPosition!! / 1000
                     seekBar?.progress = mCurrentPosition
                     forwardSong()
@@ -221,55 +183,18 @@ class LevelActivity : AppCompatActivity() {
                         img_play?.background = resources.getDrawable(R.drawable.ic_play)
                         tv_start?.text = "play"
                     }
-//                    fixTextColorOfListView(mCurrentPosition)
                 }
                 mHandler.postDelayed(this, 1000)
-//                App.toast("abs")
             }
         })
     }
 
-
-//    private fun fixTextColorOfListView(progress: Int) {
-//        for (x in arrayOfModel!!.indices) {
-//            Log.e("TAG", "fixTextColorOfListView: $progress")
-//            if (progress in arrayOfModel!![x].startTime!!..arrayOfModel!![x].endTime!!) {
-//                setListView(x)
-////                CustomArrayAdapter(this, ArrayList(), x)
-////                arrayAdapter = CustomArrayAdapter(this, arrayText!!, x)
-////                arrayAdapter = CustomArrayAdapter(this, ArrayList(), x)
-//            }
-//        }
-//    }
 
 
     private fun setListView(ps : Int) {
         arrayAdapter = CustomArrayAdapter(this, level!!.text!!, ps)
         listView!!.adapter = arrayAdapter
         listView!!.divider = null
-    }
-
-    private fun initArrayList() {
-//        arrayOfModel = ArrayList<PassageModel>()
-//        arrayOfModel?.add(PassageModel("Susanne: Hi, Mario. Can you help me prepare some things for the next month?", 5, 10))
-//        arrayOfModel?.add(PassageModel("Mario: OK, sure. What can I help you with?", 11, 13))
-//        arrayOfModel?.add(PassageModel("Susanne: I need to visit the customer in Germany. It’s important.", 14, 18))
-//        arrayOfModel?.add(PassageModel("Mario: What can I do to help?", 19, 20))
-//        arrayOfModel?.add(PassageModel("Susanne: Can you send an email to the customer? Ask them when I can visit them next week. Please do this first. It’s a priority and very urgent.", 21, 33))
-//        arrayOfModel?.add(PassageModel("Mario: Right. I’ll do it today.", 34, 35))
-//        arrayOfModel?.add(PassageModel("Susanne: Thanks. This next task is also important. Can you invite everyone to the next team meeting?", 36, 44))
-//        arrayOfModel?.add(PassageModel("Mario: Yes, I will.", 45, 46))
-//        arrayOfModel?.add(PassageModel("Susanne: But first you need to book a meeting room. After that, please send everyone an email about it.", 47, 54))
-//        arrayOfModel?.add(PassageModel("Mario: Yes, of course.", 55, 56))
-//        arrayOfModel?.add(PassageModel("Susanne: And fianlly, can you write a short report about our new project? I have to give a presentation to our managers next month. Please do it when you have time – sometime in the next two or three weeks. It’s not too urgent.", 57, 74))
-//        arrayOfModel?.add(PassageModel("Mario: Sure, no problem. I can do it this week.", 75, 78))
-//        arrayOfModel?.add(PassageModel("Susanne: There’s no hurry. Take your time.", 79, 83))
-
-
-//        arrayText = ArrayList<String>()
-//        for (x in arrayOfModel!!.indices) {
-//            arrayText!!.add(arrayOfModel!![x].text.toString())
-//        }
     }
 
 
@@ -298,8 +223,7 @@ class LevelActivity : AppCompatActivity() {
                 tv_start?.text = "play"
 
             } else if (mediaPlayer!! != null) {
-//                mediaPlayer?.release()
-                mediaPlayer?.start()
+                mediaPlayer!!.start()
                 lottie_sound?.loop(true)
                 lottie_sound?.playAnimation()
                 relative?.visibility = View.VISIBLE
@@ -320,11 +244,6 @@ class LevelActivity : AppCompatActivity() {
         tv_progress?.text = "${status+1} / 12"
      }
 
-//    override fun onBackPressed() {
-//        super.onBackPressed()
-//        mediaPlayer?.pause()
-//        mediaPlayer?.stop()
-//    }
 
 
     private fun fixActive() {
@@ -341,16 +260,9 @@ class LevelActivity : AppCompatActivity() {
 //        }, 10000)
     }
 
-
-
-//    override fun onResume() {
-//        super.onResume()
-////        if(arrayAdapter != null){
-////            arrayAdapter = CustomArrayAdapter(this, arrayText!!, p)
-////        arrayAdapter!!.addList(arrayText!!)
-//
-////        listView!!.adapter = arrayAdapter
-////        }
-//    }
+    override fun onStop() {
+        super.onStop()
+        mediaPlayer?.stop()
+    }
 
 }
