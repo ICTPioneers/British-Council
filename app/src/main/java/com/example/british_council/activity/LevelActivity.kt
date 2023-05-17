@@ -50,7 +50,7 @@ class LevelActivity : AppCompatActivity() {
     private var level: Level? = null
     private var pos: Int = Session.getInstance().getInt("pos")
 
-
+    var mCurrentPosition : Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
@@ -172,24 +172,12 @@ class LevelActivity : AppCompatActivity() {
         this@LevelActivity.runOnUiThread(object : Runnable {
             override fun run() {
                 if (mediaPlayer != null) {
-                    val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
-                    val minutes: Int =
-                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
-                    val seconds: Int =
-                        mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
-//                    val mCurrentPosition: Int = mediaPlayer?.currentPosition!! / 1000
-//                    seekBar?.progress = mCurrentPosition
-//
-//                    if(mCurrentPosition == null){
-//                        seekBar?.progress = mediaPlayer?.currentPosition!! / 1000
-//                    }else{
-//                    forwardSound()
-//                    }
+                  setStartAndEndTime()
+                    mCurrentPosition = mediaPlayer!!.currentPosition / 1000
+                    seekBar?.progress = mCurrentPosition!!
                     forwardSound()
 
-                    tv_timeStart?.text = "$minutes:$seconds"
-
-                    if (mCurrentPosition == mediaPlayer?.duration!! / 1000 - 1) {
+                    if (mCurrentPosition == mediaPlayer?.duration!! / 1000 ) {
                         img_play?.background = resources.getDrawable(R.drawable.ic_play)
                         tv_start?.text = "play"
                     }
@@ -199,9 +187,17 @@ class LevelActivity : AppCompatActivity() {
         })
     }
 
-    private fun set
 
-    fun forwardSound() {
+    private  fun setStartAndEndTime(){
+        val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
+        val minutes: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
+        val seconds: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
+        tv_timeStart?.text = "$minutes:$seconds"
+
+    }
+
+
+    private fun replaySound(){
         var mCurrentPosition = mediaPlayer!!.currentPosition / 1000
         seekBar?.progress = mCurrentPosition
 
@@ -210,6 +206,16 @@ class LevelActivity : AppCompatActivity() {
                 mCurrentPosition = mediaPlayer!!.currentPosition / 1000 + 10
                 mediaPlayer?.seekTo(mCurrentPosition!! * 1000)
                 seekBar?.progress = mCurrentPosition
+            }
+        }
+    }
+
+   private fun forwardSound() {
+        img_forward!!.setOnClickListener {
+            if (mediaPlayer != null) {
+                mCurrentPosition = mediaPlayer!!.currentPosition / 1000 + 10
+                mediaPlayer?.seekTo(mCurrentPosition!! * 1000)
+                seekBar?.progress = mCurrentPosition!!
             }
         }
     }
