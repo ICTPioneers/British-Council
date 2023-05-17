@@ -59,7 +59,6 @@ class LevelActivity : AppCompatActivity() {
         getPositionOfLevel()
         saveSoundToStorage()
         setAudio()
-//        mediaPlayer = MediaPlayer.create(this, R.raw.one_a_request_from_your_boss)
         initID()
         onClicked()
         setSeekBar()
