@@ -74,7 +74,9 @@ class MainActivity : AppCompatActivity() {
                  Log.e("qqq", "onResponse: "+ response.body())
                  var lv =  response.body()?.level!!
                  adapter = SectionAdapter(applicationContext, response.body()?.level!!)
+                 Handler().postDelayed(Runnable {
                  recyclerView?.adapter = adapter
+                 }, 4000)
                  App.database.dao.insert(lv)
                  Log.e("qqq", "onResponse: "+ lv[0].name)
                  Log.e("qqq", "onResponse: "+ lv[0].text!![0].text)
