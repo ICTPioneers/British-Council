@@ -46,8 +46,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         initID()
-//        shimmer?.startShimmer()
-//        shimmer?.setBackgroundColor(resources.getColor(R.color.black))
         getDataFromSever()
         setSwipeRefreshLayout()
     }
@@ -80,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                      shimmer?.stopShimmer()
                      shimmer?.visibility = View.GONE
                      recyclerView?.adapter = adapter
-                 }, 4000)
+                 }, 3000)
              }
 
              override fun onFailure(call: Call<Data>, t: Throwable) {
