@@ -1,17 +1,24 @@
 package com.example.british_council.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.british_council.R
+import com.example.british_council.helper.App
 import com.example.british_council.model.Text
 
-class CustomArrayAdapter(context: Context, private val list: List<Text>, val pos: Int) :
+class CustomArrayAdapter(
+    context: Context,
+    private val list: List<Text>,
+    private val currentPos: Int
+) :
     ArrayAdapter<Text>(context, R.layout.custom_list_view, list) {
 
+    var m: Int? = null
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = LayoutInflater.from(parent.context)
@@ -21,10 +28,23 @@ class CustomArrayAdapter(context: Context, private val list: List<Text>, val pos
         titleText.text = list[position].text
         titleText.setTextColor(context.resources.getColor(R.color.black))
 
-        if (pos == position) {
-            titleText.setTextColor(context.resources.getColor(R.color.green_main))
+
+        App.toast("currentPos $currentPos")
+
+        for (x in list!!.indices) {
+            App.toast("index $x")
+            if (currentPos in list!![x].start_time!!..list!![x].end_time!!) {
+                if (x == position) {
+                    App.toast("pos $position")
+                    titleText.setTextColor(context.resources.getColor(R.color.green_main))
+                }
+            }
         }
 
+
+//        if (pos == position) {
+//            titleText.setTextColor(context.resources.getColor(R.color.green_main))
+//        }
         return rowView
     }
 
