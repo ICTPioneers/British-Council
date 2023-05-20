@@ -17,6 +17,7 @@ import com.example.british_council.adapter.CustomArrayAdapter
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
+import com.facebook.shimmer.ShimmerFrameLayout
 import java.util.*
 
 
@@ -41,6 +42,7 @@ class LevelActivity : AppCompatActivity() {
     private var relative: RelativeLayout? = null
     private var listView: ListView? = null
     private var linear_show: LinearLayout? = null
+    private var shimmer: ShimmerFrameLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
     private var arrayAdapter: CustomArrayAdapter? = null
@@ -84,6 +86,7 @@ class LevelActivity : AppCompatActivity() {
         tv_showText = findViewById(R.id.tv_Display_text)
         linear_show = findViewById(R.id.linear_show)
         lottie_sound = findViewById(R.id.lottie_sound)
+        shimmer = findViewById(R.id.shimmer_s)
     }
 
     private fun setAudio() {
@@ -109,6 +112,7 @@ class LevelActivity : AppCompatActivity() {
         tv_back?.setOnClickListener { onBackPressed() }
 
 
+        shimmer?.startShimmer()
         tv_start?.setOnClickListener {
             startPlayingTest()
             arrayOf( tv_start, lottie ).forEach { it!!.visibility =  View.GONE }
