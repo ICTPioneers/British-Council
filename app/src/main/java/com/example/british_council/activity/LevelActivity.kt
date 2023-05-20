@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -48,6 +49,8 @@ class LevelActivity : AppCompatActivity() {
     private var level: Level? = null
 
     var mCurrentPosition : Int? = null
+
+    var cPos : Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
@@ -172,6 +175,7 @@ class LevelActivity : AppCompatActivity() {
             override fun run() {
                 if (mediaPlayer != null) {
                     seekBar?.progress = mediaPlayer!!.currentPosition / 1000
+                    cPos =  mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
                     forwardSound()
                 }
@@ -204,7 +208,7 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setListView() {
-        arrayAdapter = CustomArrayAdapter(this, level!!.text!!,mediaPlayer!!.currentPosition / 1000 )
+        arrayAdapter = CustomArrayAdapter(this, level!!.text!!, cPos!!)
         listView!!.adapter = arrayAdapter
         listView!!.divider = null
     }
@@ -267,5 +271,6 @@ class LevelActivity : AppCompatActivity() {
         super.onStop()
         mediaPlayer?.stop()
     }
+
 
 }
