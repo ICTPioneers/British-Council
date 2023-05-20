@@ -20,6 +20,7 @@ import com.example.british_council.adapter.SectionAdapter
 import com.example.british_council.api.ApiClient
 import com.example.british_council.database.DatabaseHelper
 import com.example.british_council.helper.App
+import com.example.british_council.helper.Session
 import com.example.british_council.model.Data
 import com.example.british_council.model.LevelModel
 import com.facebook.shimmer.ShimmerFrameLayout
@@ -70,8 +71,9 @@ class MainActivity : AppCompatActivity() {
      private fun getDataFromSever(){
          ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
              override fun onResponse(call: Call<Data>, response: Response<Data>) {
+                 Session.getInstance().putExtra("length",response.body()!!.level?.size)
                  var lv =  response.body()?.level!!
-                 adapter = SectionAdapter(applicationContext, response.body()?.level!!)
+                 adapter = SectionAdapter(applicationContext, lv)
                  App.database.dao.insert(lv)
 
                  Handler(Looper.getMainLooper()).postDelayed({
