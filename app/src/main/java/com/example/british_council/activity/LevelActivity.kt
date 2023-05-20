@@ -97,7 +97,7 @@ class LevelActivity : AppCompatActivity() {
 
     private fun getPositionOfLevel() {
         level = App.database.dao.getLeve(part)
-        App.toast("" + part)
+        App.toast("part $part")
     }
 
     private fun saveSoundToStorage() {
