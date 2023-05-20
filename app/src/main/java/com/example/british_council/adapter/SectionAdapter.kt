@@ -17,6 +17,7 @@ import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
 
 class SectionAdapter(context: Context, val list: List<Level>) :
     RecyclerView.Adapter<SectionAdapter.MyViewHolder>() {
@@ -79,7 +80,9 @@ class SectionAdapter(context: Context, val list: List<Level>) :
         holder.itemView.setOnClickListener {
             Session.getInstance().putExtra("part",list[position].id)
             App.toast("hello ${list[position].id}")
-            context.startActivity(Intent(context,LevelActivity::class.java) )
+            var i = Intent(context,LevelActivity::class.java)
+            i.putExtra("level",Gson().toJson(list[position]))
+            context.startActivity(i)
         }
 
 
