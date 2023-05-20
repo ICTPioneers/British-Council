@@ -138,6 +138,14 @@ class LevelActivity : AppCompatActivity() {
             }
         }
 
+        img_replay!!.setOnClickListener {
+            if (mediaPlayer != null) {
+                var f = mediaPlayer!!.currentPosition / 1000 - 10
+                mediaPlayer?.seekTo(f * 1000)
+                seekBar?.progress = f
+            }
+        }
+
     }
 
     private fun setSeekBar() {
@@ -184,7 +192,7 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-  
+
 
    private fun forwardSound() {
        if (mCurrentPosition == mediaPlayer?.duration!! / 1000 ) {
