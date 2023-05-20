@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
@@ -254,7 +255,14 @@ class LevelActivity : AppCompatActivity() {
 //        Timer().schedule(timerTask {
 //                App.toast("10 second past")
 //        }, 10000)
+
+
+        Handler(Looper.getMainLooper()).postDelayed({
+                         App.toast("3 second past")
+        }, 3000)
     }
+
+
 
     override fun onStop() {
         super.onStop()
