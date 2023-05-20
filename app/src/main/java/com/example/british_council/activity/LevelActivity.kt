@@ -58,7 +58,7 @@ class LevelActivity : AppCompatActivity() {
         initID()
         onClicked()
         setSeekBar()
-        setListView(2)
+        setListView()
         initHandler()
         setProgress()
         fixActive()
@@ -203,8 +203,8 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-    private fun setListView(ps: Int) {
-        arrayAdapter = CustomArrayAdapter(this, level!!.text!!, ps)
+    private fun setListView() {
+        arrayAdapter = CustomArrayAdapter(this, level!!.text!!,mediaPlayer!!.currentPosition / 1000 )
         listView!!.adapter = arrayAdapter
         listView!!.divider = null
     }
