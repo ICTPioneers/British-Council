@@ -37,7 +37,6 @@ class Level {
         this.text = text
     }
 
-    constructor()
 
 
 //    @Entity(
