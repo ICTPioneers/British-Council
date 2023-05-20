@@ -84,9 +84,9 @@ class SectionAdapter(context: Context, val list: List<Level>) :
             i.putExtra("level",Gson().toJson(list[position]))
             context.startActivity(i)
         }
-
-
     }
+
+
 
     override fun getItemCount(): Int {
         return list.size
