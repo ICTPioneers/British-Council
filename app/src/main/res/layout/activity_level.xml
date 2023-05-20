@@ -103,21 +103,29 @@
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/bird_waiting" />
 
-                <TextView
-                    android:id="@+id/tv_start"
+                <com.facebook.shimmer.ShimmerFrameLayout
+                    android:id="@+id/shimmer_s"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/item_border_start"
-                    android:fontFamily="@font/iran_sans"
-                    android:gravity="center"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="10dp"
-                    android:text="start"
-                    android:textColor="@color/white"
-                    android:textSize="18dp" />
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_start"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/item_border_start"
+                        android:fontFamily="@font/iran_sans"
+                        android:gravity="center"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:text="start"
+                        android:textColor="@color/white"
+                        android:textSize="18dp" />
+
+                </com.facebook.shimmer.ShimmerFrameLayout>
+
 
             </LinearLayout>
 
@@ -155,14 +163,13 @@
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_sound"
                 android:layout_width="match_parent"
-                android:layout_marginHorizontal="20dp"
                 android:layout_height="200dp"
                 android:layout_centerInParent="true"
+                android:layout_marginHorizontal="20dp"
                 android:visibility="gone"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/sound_wave" />
-
 
 
         </RelativeLayout>
