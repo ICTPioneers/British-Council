@@ -80,11 +80,7 @@ class MainActivity : AppCompatActivity() {
                      shimmer?.stopShimmer()
                      shimmer?.visibility = View.GONE
                      recyclerView?.adapter = adapter
-
-//                     recyclerView = findViewById<RecyclerView>(R.id.recycler_view).apply {
-//                         adapter = myAdapter
-//                     }
-                 }, 3000)
+                 }, 4000)
              }
 
              override fun onFailure(call: Call<Data>, t: Throwable) {
