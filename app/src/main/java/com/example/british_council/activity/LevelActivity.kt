@@ -92,7 +92,6 @@ class LevelActivity : AppCompatActivity() {
             mediaPlayer!!.setAudioStreamType(AudioManager.STREAM_MUSIC)
             mediaPlayer!!.setDataSource(applicationContext, Uri.parse(level?.audio))
             mediaPlayer!!.prepare()
-            App.toast("" + mediaPlayer?.duration!! / 1000 / 60 + " : " + mediaPlayer?.duration!! / 1000 % 60)
         } catch (ex: Exception) {
         }
     }
@@ -167,10 +166,10 @@ class LevelActivity : AppCompatActivity() {
         val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
         val minutes: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
         val seconds: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
-        tv_timeStart?.text = "$minutes:$seconds"
+        tv_timeStart?.text = String.format("%02d:%02d", minutes, seconds)
         var m = mediaPlayer!!.duration / 1000 / 60
         var s = mediaPlayer!!.duration / 1000 % 60
-        tv_timeEnd?.text = "$m:$s"
+        tv_timeEnd?.text = String.format("%02d:%02d", m, s)
     }
 
 
