@@ -6,7 +6,9 @@ import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.View
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -54,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         txt_hello = findViewById(R.id.txt_hello)
         recyclerView = findViewById(R.id.rv_main)
         swipeRefresh = findViewById(R.id.swipe)
-//        shimmer = findViewById(R.id.shimmer)
+        shimmer = findViewById(R.id.shimmer)
     }
 
 
@@ -70,17 +72,19 @@ class MainActivity : AppCompatActivity() {
      private fun getDataFromSever(){
          ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
              override fun onResponse(call: Call<Data>, response: Response<Data>) {
-//                 shimmer?.cancelLongPress()
-                 Log.e("qqq", "onResponse: "+ response.body())
                  var lv =  response.body()?.level!!
                  adapter = SectionAdapter(applicationContext, response.body()?.level!!)
-                 Handler().postDelayed(Runnable {
-                 recyclerView?.adapter = adapter
-                 }, 4000)
                  App.database.dao.insert(lv)
-                 Log.e("qqq", "onResponse: "+ lv[0].name)
-                 Log.e("qqq", "onResponse: "+ lv[0].text!![0].text)
-                 Log.e("qqq", "onResponse: "+ App.database.dao.getLeve(2))
+
+                 Handler(Looper.getMainLooper()).postDelayed({
+                     shimmer?.stopShimmer()
+                     shimmer?.visibility = View.GONE
+                     recyclerView?.adapter = adapter
+
+//                     recyclerView = findViewById<RecyclerView>(R.id.recycler_view).apply {
+//                         adapter = myAdapter
+//                     }
+                 }, 3000)
              }
 
              override fun onFailure(call: Call<Data>, t: Throwable) {
@@ -108,5 +112,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+
+
+//    Log.e("qqq", "onResponse: "+ lv[0].name)
+//    Log.e("qqq", "onResponse: "+ lv[0].text!![0].text)
+//    Log.e("qqq", "onResponse: "+ App.database.dao.getLeve(2))
 
 }
