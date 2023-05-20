@@ -18,11 +18,13 @@ import com.example.british_council.adapter.CustomArrayAdapter
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
+import com.example.british_council.model.Text
 import com.google.gson.Gson
 
 
 class LevelActivity : AppCompatActivity() {
 
+    private var customArrayAdapter: CustomArrayAdapter? = null
     private var tv_Text: TextView? = null
     private var tv_next: TextView? = null
     private var tv_start: TextView? = null
@@ -48,9 +50,8 @@ class LevelActivity : AppCompatActivity() {
 
     private var level: Level? = null
 
-    var mCurrentPosition : Int? = null
+    private var mCurrentPosition : Int? = null
 
-    var cPos : Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
@@ -104,6 +105,7 @@ class LevelActivity : AppCompatActivity() {
             level = Gson().fromJson<Level>(m , Level::class.java)
             App.toast("${level?.name}")
         }
+        customArrayAdapter = CustomArrayAdapter(this,level?.text?:ArrayList())
     }
 
     private fun saveSoundToStorage() {
@@ -174,8 +176,9 @@ class LevelActivity : AppCompatActivity() {
         this@LevelActivity.runOnUiThread(object : Runnable {
             override fun run() {
                 if (mediaPlayer != null) {
+
+                    customArrayAdapter?.getCurrentPos(mediaPlayer!!.currentPosition / 1000)
                     seekBar?.progress = mediaPlayer!!.currentPosition / 1000
-                    cPos =  mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
                     forwardSound()
                 }
@@ -208,7 +211,7 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setListView() {
-        arrayAdapter = CustomArrayAdapter(this, level!!.text!!, cPos!!)
+        arrayAdapter = CustomArrayAdapter(this, level!!.text!!)
         listView!!.adapter = arrayAdapter
         listView!!.divider = null
     }
