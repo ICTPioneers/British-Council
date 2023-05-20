@@ -17,9 +17,6 @@ import com.example.british_council.adapter.CustomArrayAdapter
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
-import com.facebook.shimmer.ShimmerFrameLayout
-import java.util.*
-import kotlin.concurrent.timerTask
 
 
 class LevelActivity : AppCompatActivity() {
@@ -48,7 +45,7 @@ class LevelActivity : AppCompatActivity() {
     private var arrayAdapter: CustomArrayAdapter? = null
 
     private var level: Level? = null
-    private var pos: Int = Session.getInstance().getInt("pos")
+    private var part: Int = Session.getInstance().getInt("pos")
 
     var mCurrentPosition : Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,7 +96,8 @@ class LevelActivity : AppCompatActivity() {
     }
 
     private fun getPositionOfLevel() {
-        level = App.database.dao.getLeve(pos + 1)
+        level = App.database.dao.getLeve(part)
+        App.toast("" + part)
     }
 
     private fun saveSoundToStorage() {
@@ -236,11 +234,10 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setProgress() {
-        var status = Session.getInstance().getInt("pos")
         progress?.max = 12
-        progress?.setProgress(status + 1, true)
+        progress?.setProgress(part, true)
         progress?.animate()
-        tv_progress?.text = "${status + 1} / 12"
+        tv_progress?.text = "$part / 12"
     }
 
 
