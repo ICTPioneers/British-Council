@@ -77,7 +77,7 @@ class SectionAdapter(context: Context, val list: List<Level>) :
 
 
         holder.itemView.setOnClickListener {
-            Session.getInstance().putExtra("pos",list[position].id)
+            Session.getInstance().putExtra("part",list[position].id)
             App.toast("hello ${list[position].id}")
             context.startActivity(Intent(context,LevelActivity::class.java) )
         }
