@@ -104,7 +104,6 @@ class MainActivity : AppCompatActivity() {
                .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
                .setNegativeButton("no", DialogInterface.OnClickListener { dialog , _ ->  dialog.dismiss() })
                .show()
-//            progressBar.setVisibility(View.INVISIBLE)
         }
     }
 
