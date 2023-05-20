@@ -17,6 +17,7 @@ import com.example.british_council.adapter.CustomArrayAdapter
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
+import com.google.gson.Gson
 
 
 class LevelActivity : AppCompatActivity() {
@@ -45,7 +46,7 @@ class LevelActivity : AppCompatActivity() {
     private var arrayAdapter: CustomArrayAdapter? = null
 
     private var level: Level? = null
-    private var part: Int = Session.getInstance().getInt("pos")
+//    private var part: Int = Session.getInstance().getInt("pos")
 
     var mCurrentPosition : Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,8 +97,11 @@ class LevelActivity : AppCompatActivity() {
     }
 
     private fun getPositionOfLevel() {
-        level = App.database.dao.getLeve(part)
-        App.toast("part $part")
+        if (intent.getStringExtra("level") != null){
+            var m = intent.getStringExtra("level")
+            level = Gson().fromJson<Level>(m , Level::class.java)
+            App.toast("${level?.name}")
+        }
     }
 
     private fun saveSoundToStorage() {
@@ -235,9 +239,9 @@ class LevelActivity : AppCompatActivity() {
 
     private fun setProgress() {
         progress?.max = Session.getInstance().getInt("length")
-        progress?.setProgress(part, true)
+        progress?.setProgress(level?.id!!, true)
         progress?.animate()
-        tv_progress?.text = "$part / ${Session.getInstance().getInt("length")}"
+        tv_progress?.text = "${level!!.id} / ${Session.getInstance().getInt("length")}"
     }
 
 
