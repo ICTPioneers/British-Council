@@ -60,9 +60,6 @@ class SectionAdapter(context: Context, val list: List<Level>) :
         var a = holder.itemView
         var post = list[position]
 
-        holder.itemView.findViewById<ShimmerFrameLayout>(R.id.shimmer).startShimmer()
-
-
         holder.itemView.findViewById<TextView>(R.id.level_name).text =  list[position].name
         holder.itemView.findViewById<TextView>(R.id.part_name).text =  list[position].desc
 
