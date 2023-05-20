@@ -258,8 +258,8 @@ class LevelActivity : AppCompatActivity() {
 
 
         Handler(Looper.getMainLooper()).postDelayed({
-                         App.toast("3 second past")
-        }, 3000)
+                         App.toast("10 second past")
+        }, 10000)
     }
 
 
