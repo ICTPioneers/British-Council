@@ -234,10 +234,10 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setProgress() {
-        progress?.max = 12
+        progress?.max = Session.getInstance().getInt("length")
         progress?.setProgress(part, true)
         progress?.animate()
-        tv_progress?.text = "$part / 12"
+        tv_progress?.text = "$part / ${Session.getInstance().getInt("length")}"
     }
 
 
