@@ -46,14 +46,13 @@ class LevelActivity : AppCompatActivity() {
     private var arrayAdapter: CustomArrayAdapter? = null
 
     private var level: Level? = null
-//    private var part: Int = Session.getInstance().getInt("pos")
 
     var mCurrentPosition : Int? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
 
-        getPositionOfLevel()
+        checkIntent()
         saveSoundToStorage()
         setAudio()
         initID()
@@ -96,7 +95,7 @@ class LevelActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPositionOfLevel() {
+    private fun checkIntent() {
         if (intent.getStringExtra("level") != null){
             var m = intent.getStringExtra("level")
             level = Gson().fromJson<Level>(m , Level::class.java)
