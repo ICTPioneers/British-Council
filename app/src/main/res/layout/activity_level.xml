@@ -103,28 +103,22 @@
                     app:lottie_loop="true"
                     app:lottie_rawRes="@raw/bird_waiting" />
 
-                <com.facebook.shimmer.ShimmerFrameLayout
-                    android:id="@+id/shimmer_s"
+
+                <TextView
+                    android:id="@+id/tv_start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_gravity="center"
-                    android:layout_marginTop="15dp">
-
-                    <TextView
-                        android:id="@+id/tv_start"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/item_border_start"
-                        android:fontFamily="@font/iran_sans"
-                        android:gravity="center"
-                        android:paddingHorizontal="30dp"
-                        android:paddingVertical="10dp"
-                        android:text="start"
-                        android:textColor="@color/white"
-                        android:textSize="18dp" />
-
-                </com.facebook.shimmer.ShimmerFrameLayout>
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/item_border_start"
+                    android:fontFamily="@font/iran_sans"
+                    android:gravity="center"
+                    android:paddingHorizontal="30dp"
+                    android:paddingVertical="10dp"
+                    android:text="start"
+                    android:textColor="@color/white"
+                    android:textSize="18dp" />
 
 
             </LinearLayout>
