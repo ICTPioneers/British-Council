@@ -130,6 +130,14 @@ class LevelActivity : AppCompatActivity() {
             startActivity(Intent(this, TaskActivity::class.java))
         }
 
+        img_forward!!.setOnClickListener {
+            if (mediaPlayer != null) {
+                var m = mediaPlayer!!.currentPosition / 1000 + 10
+                mediaPlayer?.seekTo(  m * 1000)
+                seekBar?.progress = m
+            }
+        }
+
     }
 
     private fun setSeekBar() {
@@ -155,9 +163,9 @@ class LevelActivity : AppCompatActivity() {
         this@LevelActivity.runOnUiThread(object : Runnable {
             override fun run() {
                 if (mediaPlayer != null) {
+                    seekBar?.progress = mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
                     forwardSound()
-                    replaySound()
                 }
                 mHandler.postDelayed(this, 1000)
             }
@@ -176,28 +184,9 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-    private fun replaySound(){
-        img_replay!!.setOnClickListener {
-            if (mediaPlayer != null) {
-                mCurrentPosition = mediaPlayer!!.currentPosition / 1000 - 10
-                mediaPlayer?.seekTo(mCurrentPosition!! * 1000)
-                seekBar?.progress = mCurrentPosition!!
-            }
-        }
-    }
+  
 
    private fun forwardSound() {
-       mCurrentPosition = mediaPlayer!!.currentPosition / 1000
-       seekBar?.progress = mCurrentPosition!!
-
-        img_forward!!.setOnClickListener {
-            if (mediaPlayer != null) {
-                mCurrentPosition = mediaPlayer!!.currentPosition / 1000 + 10
-                mediaPlayer?.seekTo(mCurrentPosition!! * 1000)
-                seekBar?.progress = mCurrentPosition!!
-            }
-        }
-
        if (mCurrentPosition == mediaPlayer?.duration!! / 1000 ) {
            img_play?.background = resources.getDrawable(R.drawable.ic_play)
            tv_start?.text = "play"
