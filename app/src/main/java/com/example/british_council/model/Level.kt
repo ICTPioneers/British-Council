@@ -37,21 +37,7 @@ class Level {
         this.text = text
     }
 
+    constructor()
 
-
-//    @Entity(
-//        foreignKeys = ForeignKey(
-//            entity = Person::class,
-//            parentColumns = "name",
-//            childColumns = "ownerId"
-//        )
-//    )
-//    class Pet {
-//        @PrimaryKey
-//        var name: String? = null
-//        var breed: String? = null
-//        var ownerId // this ID points to a Person
-//                : String? = null
-//    }
 
 }
