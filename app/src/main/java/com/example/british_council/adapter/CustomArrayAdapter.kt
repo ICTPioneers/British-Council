@@ -39,6 +39,7 @@ class CustomArrayAdapter(
                 if (x == position) {
                     App.toast("pos $position")
                     titleText.setTextColor(context.resources.getColor(R.color.green_main))
+                    break
                 }
             }
         }
