@@ -19,8 +19,6 @@ class CustomArrayAdapter(
     ArrayAdapter<Text>(context, R.layout.custom_list_view, list) {
 
     private var currentPos: Int? = null
-    @Ignore
-
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
         val inflater = LayoutInflater.from(parent.context)
@@ -31,12 +29,12 @@ class CustomArrayAdapter(
         titleText.setTextColor(context.resources.getColor(R.color.black))
 
 
-        App.toast("currentPos $currentPos")
+//        App.toast("currentPos $currentPos")
 
         for (x in list!!.indices) {
-            App.toast("index $x")
+//            App.toast("index $x")
             if (currentPos in list!![x].start_time!!..list!![x].end_time!!) {
-                if (x == position) {
+                if (currentPos == position) {
                     App.toast("pos $position")
                     titleText.setTextColor(context.resources.getColor(R.color.green_main))
                     break
@@ -44,16 +42,16 @@ class CustomArrayAdapter(
             }
         }
 
-
 //        if (pos == position) {
 //            titleText.setTextColor(context.resources.getColor(R.color.green_main))
 //        }
+
         return rowView
     }
 
 
 
     fun getCurrentPos(cPos: Int){
-        currentPos = cPos
+        this.currentPos = cPos
     }
 }
