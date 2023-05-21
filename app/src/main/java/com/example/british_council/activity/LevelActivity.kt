@@ -105,7 +105,7 @@ class LevelActivity : AppCompatActivity() {
             level = Gson().fromJson<Level>(m , Level::class.java)
             App.toast("${level?.name}")
         }
-        customArrayAdapter = CustomArrayAdapter(this,level?.text?:ArrayList())
+//        customArrayAdapter = CustomArrayAdapter(this,level?.text?:ArrayList())
     }
 
     private fun saveSoundToStorage() {
@@ -197,7 +197,7 @@ class LevelActivity : AppCompatActivity() {
         var s = mediaPlayer!!.duration / 1000 % 60
         tv_timeEnd?.text = String.format("%02d:%02d", m, s)
     }
-    
+
 
 
    private fun forwardSound() {
