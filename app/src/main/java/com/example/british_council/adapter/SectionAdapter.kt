@@ -78,7 +78,6 @@ class SectionAdapter(context: Context, val list: List<Level>) :
 
 
         holder.itemView.setOnClickListener {
-            Session.getInstance().putExtra("part",list[position].id)
             App.toast("hello ${list[position].id}")
             var i = Intent(context,LevelActivity::class.java)
             i.putExtra("level",Gson().toJson(list[position]))
