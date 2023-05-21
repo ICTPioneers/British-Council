@@ -20,7 +20,6 @@ class CustomArrayAdapter(
 
     private var currentPos: Int? = null
     @Ignore
-//    constructor() : this()
 
 
     override fun getView(position: Int, view: View?, parent: ViewGroup): View {
