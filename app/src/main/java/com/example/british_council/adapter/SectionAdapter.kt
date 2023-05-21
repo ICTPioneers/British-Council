@@ -80,6 +80,8 @@ class SectionAdapter(context: Context, val list: List<Level>) :
         holder.itemView.setOnClickListener {
             App.toast("hello ${list[position].id}")
             var i = Intent(context,LevelActivity::class.java)
+//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             i.putExtra("level",Gson().toJson(list[position]))
             context.startActivity(i)
         }
