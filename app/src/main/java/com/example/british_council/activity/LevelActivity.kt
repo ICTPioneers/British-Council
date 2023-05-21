@@ -26,6 +26,9 @@ import com.google.gson.Gson
 
 class LevelActivity : AppCompatActivity() {
 
+    private val mHandler = Handler()
+    private var mRunnable : Runnable? = null
+
     private var customArrayAdapter: TextAdapter? = null
     private var tv_Text: TextView? = null
     private var tv_next: TextView? = null
@@ -48,7 +51,6 @@ class LevelActivity : AppCompatActivity() {
     private var linear_show: LinearLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
-    private var arrayAdapter: TextAdapter? = null
 
     private var level: Level? = null
 
@@ -75,6 +77,7 @@ class LevelActivity : AppCompatActivity() {
         setProgress()
         fixActive()
     }
+
 
 
     private fun initID() {
@@ -180,20 +183,19 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun initHandler() {
-        val mHandler = Handler()
-        this@LevelActivity.runOnUiThread(object : Runnable {
+        mRunnable = object : Runnable {
             override fun run() {
                 if (mediaPlayer != null) {
                     customArrayAdapter?.getCurrentPos(mediaPlayer?.currentPosition!! / 1000)
-                    recycler?.adapter?.notifyDataSetChanged()
                     Log.e("handler  ", "run: ${ mediaPlayer?.currentPosition!! / 1000 }" )
                     seekBar?.progress = mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
                     check()
                 }
-                mHandler.postDelayed(this, 1000)
+                mHandler.postDelayed(this, 500)
             }
-        })
+        }
+        this@LevelActivity.runOnUiThread(mRunnable)
     }
 
     private  fun setStartAndEndTime(){
@@ -218,8 +220,7 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setRecycler() {
-        arrayAdapter = TextAdapter(level!!.text!! as ArrayList<Text>)
-        recycler!!.adapter = arrayAdapter
+        recycler!!.adapter = customArrayAdapter
     }
 
 
@@ -275,11 +276,9 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-
     override fun onStop() {
         super.onStop()
         mediaPlayer?.stop()
+        if (mRunnable != null) mHandler.removeCallbacks(mRunnable!!)
     }
-
-
 }

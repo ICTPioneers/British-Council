@@ -43,12 +43,11 @@ class TextAdapter(val paymentList: ArrayList<Text>) : RecyclerView.Adapter<TextA
 
     fun getCurrentPos(audioSec: Int){
         try {
-            for (i in 0 .. paymentList.size) {
+            for (i in 0 until paymentList.size) {
 //            App.toast("index $x")
                 if (audioSec in paymentList[i].start_time!!..paymentList[i].end_time!!) {
                     val lasPos = this.currentPosition?:0
                     this.currentPosition = i
-                    paymentList[i].text = "test"
                     this.notifyItemChanged(lasPos, paymentList[lasPos])
                     this.notifyItemChanged(audioSec, paymentList[i])
 
