@@ -12,9 +12,10 @@ import android.view.View
 import android.widget.*
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
 import com.example.british_council.R
-import com.example.british_council.adapter.CustomArrayAdapter
+import com.example.british_council.adapter.TextAdapter
 import com.example.british_council.databinding.ActivityLevelBinding
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
@@ -25,7 +26,7 @@ import com.google.gson.Gson
 
 class LevelActivity : AppCompatActivity() {
 
-    private var customArrayAdapter: CustomArrayAdapter? = null
+    private var customArrayAdapter: TextAdapter? = null
     private var tv_Text: TextView? = null
     private var tv_next: TextView? = null
     private var tv_start: TextView? = null
@@ -43,11 +44,11 @@ class LevelActivity : AppCompatActivity() {
     private var lottie: LottieAnimationView? = null
     private var lottie_sound: LottieAnimationView? = null
     private var relative: RelativeLayout? = null
-    private var listView: ListView? = null
+    private var recycler: RecyclerView? = null
     private var linear_show: LinearLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
-    private var arrayAdapter: CustomArrayAdapter? = null
+    private var arrayAdapter: TextAdapter? = null
 
     private var level: Level? = null
 
@@ -69,7 +70,7 @@ class LevelActivity : AppCompatActivity() {
         setAudio()
         onClicked()
         setSeekBar()
-        setListView()
+        setRecycler()
         initHandler()
         setProgress()
         fixActive()
@@ -87,7 +88,7 @@ class LevelActivity : AppCompatActivity() {
         img_forward = findViewById(R.id.img_forward)
         img_replay = findViewById(R.id.img_replay)
         relative = findViewById(R.id.relative)
-        listView = findViewById(R.id.listView)
+        recycler = findViewById(R.id.recycler)
         progress = findViewById(R.id.progress)
         tv_progress = findViewById(R.id.txt_progress)
         lottie = findViewById(R.id.lottie)
@@ -112,7 +113,7 @@ class LevelActivity : AppCompatActivity() {
             level = Gson().fromJson<Level>(m , Level::class.java)
 //            App.toast("${level?.name}")
         }
-        customArrayAdapter = CustomArrayAdapter(this,level?.text?:ArrayList())
+        customArrayAdapter = TextAdapter(level?.text as ArrayList<Text>? ?:ArrayList())
     }
 
     private fun saveSoundToStorage() {
@@ -131,7 +132,7 @@ class LevelActivity : AppCompatActivity() {
         }
 
         linear_show?.setOnClickListener {
-            arrayOf( listView , lottie_sound).forEach { it!!.visibility = if (listView?.visibility == View.VISIBLE) View.GONE else View.VISIBLE }
+            arrayOf( recycler , lottie_sound).forEach { it!!.visibility = if (recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE }
         }
 
         img_play?.setOnClickListener {
@@ -184,6 +185,7 @@ class LevelActivity : AppCompatActivity() {
             override fun run() {
                 if (mediaPlayer != null) {
                     customArrayAdapter?.getCurrentPos(mediaPlayer?.currentPosition!! / 1000)
+                    recycler?.adapter?.notifyDataSetChanged()
                     Log.e("handler  ", "run: ${ mediaPlayer?.currentPosition!! / 1000 }" )
                     seekBar?.progress = mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
@@ -193,7 +195,6 @@ class LevelActivity : AppCompatActivity() {
             }
         })
     }
-
 
     private  fun setStartAndEndTime(){
         val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
@@ -216,10 +217,9 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-    private fun setListView() {
-        arrayAdapter = CustomArrayAdapter(this, level!!.text!!)
-        listView!!.adapter = arrayAdapter
-        listView!!.divider = null
+    private fun setRecycler() {
+        arrayAdapter = TextAdapter(level!!.text!! as ArrayList<Text>)
+        recycler!!.adapter = arrayAdapter
     }
 
 
