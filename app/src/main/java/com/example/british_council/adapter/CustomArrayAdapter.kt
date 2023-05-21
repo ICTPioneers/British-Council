@@ -29,12 +29,13 @@ class CustomArrayAdapter(
         titleText.setTextColor(context.resources.getColor(R.color.black))
 
 
-//        App.toast("currentPos $currentPos")
+        Log.e("getView  ", "run: $currentPos" )
+
 
         for (x in list!!.indices) {
 //            App.toast("index $x")
             if (currentPos in list!![x].start_time!!..list!![x].end_time!!) {
-                if (currentPos == position) {
+                if (x == position) {
                     App.toast("pos $position")
                     titleText.setTextColor(context.resources.getColor(R.color.green_main))
                     break
@@ -52,6 +53,8 @@ class CustomArrayAdapter(
 
 
     fun getCurrentPos(cPos: Int){
+        Log.e("qqqq", "getCurrentPos: $cPos - ${this.currentPos}" )
         this.currentPos = cPos
+        Log.e("qqqq", "getCurrentPos after set: $cPos - ${this.currentPos}" )
     }
 }

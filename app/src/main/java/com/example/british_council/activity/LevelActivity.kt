@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.airbnb.lottie.LottieAnimationView
 import com.example.british_council.R
 import com.example.british_council.adapter.CustomArrayAdapter
+import com.example.british_council.databinding.ActivityLevelBinding
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Level
@@ -52,14 +53,20 @@ class LevelActivity : AppCompatActivity() {
 
     private var mCurrentPosition : Int? = null
 
+
+    private var binding : ActivityLevelBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
 
+//        binding =
+
+
+        initID()
         checkIntent()
         saveSoundToStorage()
         setAudio()
-        initID()
         onClicked()
         setSeekBar()
         setListView()
@@ -103,9 +110,9 @@ class LevelActivity : AppCompatActivity() {
         if (intent.getStringExtra("level") != null){
             var m = intent.getStringExtra("level")
             level = Gson().fromJson<Level>(m , Level::class.java)
-            App.toast("${level?.name}")
+//            App.toast("${level?.name}")
         }
-//        customArrayAdapter = CustomArrayAdapter(this,level?.text?:ArrayList())
+        customArrayAdapter = CustomArrayAdapter(this,level?.text?:ArrayList())
     }
 
     private fun saveSoundToStorage() {
@@ -176,11 +183,11 @@ class LevelActivity : AppCompatActivity() {
         this@LevelActivity.runOnUiThread(object : Runnable {
             override fun run() {
                 if (mediaPlayer != null) {
-
-                    customArrayAdapter?.getCurrentPos(mediaPlayer!!.currentPosition / 1000)
+                    customArrayAdapter?.getCurrentPos(mediaPlayer?.currentPosition!! / 1000)
+                    Log.e("handler  ", "run: ${ mediaPlayer?.currentPosition!! / 1000 }" )
                     seekBar?.progress = mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
-                    forwardSound()
+                    check()
                 }
                 mHandler.postDelayed(this, 1000)
             }
@@ -200,7 +207,7 @@ class LevelActivity : AppCompatActivity() {
 
 
 
-   private fun forwardSound() {
+   private fun check() {
        if (mCurrentPosition == mediaPlayer?.duration!! / 1000 ) {
            img_play?.background = resources.getDrawable(R.drawable.ic_play)
            tv_start?.text = "play"
