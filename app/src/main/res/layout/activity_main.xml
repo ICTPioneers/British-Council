@@ -67,23 +67,33 @@
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer"
-            android:layout_below="@id/ln"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_below="@id/ln">
 
-          <include layout="@layout/recyclerview_shimmer_item"/>
-          <include layout="@layout/recyclerview_shimmer_item"/>
-          <include layout="@layout/recyclerview_shimmer_item"/>
-          <include layout="@layout/recyclerview_shimmer_item"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/recyclerview_shimmer_item" />
+
+                <include layout="@layout/recyclerview_shimmer_item" />
+
+                <include layout="@layout/recyclerview_shimmer_item" />
+
+                <include layout="@layout/recyclerview_shimmer_item" />
+
+            </LinearLayout>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_main"
-            android:layout_below="@id/ln"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/ln"
             android:clipToPadding="false"
             android:overScrollMode="never"
             android:paddingBottom="5dp"
