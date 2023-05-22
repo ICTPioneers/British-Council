@@ -193,7 +193,6 @@ class LevelActivity : AppCompatActivity() {
                 mediaPlayer?.pause()
                 binding?.lottieSound?.cancelAnimation()
                 binding?.play?.background = resources.getDrawable(R.drawable.ic_play)
-                Toast.makeText(this, "pause", Toast.LENGTH_SHORT).show()
                 binding?.start?.text = "play"
 
             } else if (mediaPlayer!! != null) {
@@ -202,13 +201,10 @@ class LevelActivity : AppCompatActivity() {
                 binding?.lottieSound?.playAnimation()
                 binding?.relative?.visibility = View.VISIBLE
                 binding?.play?.background = resources.getDrawable(R.drawable.ic_pause)
-                Toast.makeText(this, "play", Toast.LENGTH_SHORT).show()
                 binding?.start?.text = "pause"
-//                tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
             }
         }
     }
-
 
     private fun setProgress() {
         binding?.progress?.max = Session.getInstance().getInt("length")
