@@ -32,14 +32,11 @@ import retrofit2.Response
 
 
 class MainActivity : AppCompatActivity() {
-    private var txt_hello: TextView? = null
     private var adapter: SectionAdapter? = null
-    private var swipeRefresh: SwipeRefreshLayout? = null
-    private var recyclerView: RecyclerView? = null
-    private var shimmer: ShimmerFrameLayout? = null
     private var level: List<LevelModel>? = null
     private var db: DatabaseHelper? = null
-    private var binding : ActivityMainBinding? = null
+    private var binding: ActivityMainBinding? = null
+    var dialog :AlertDialog? = null
 
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -48,57 +45,55 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         initBinding()
-        binding!!.txtHello.text = "your are good"
-
-        initID()
         getDataFromSever()
         setSwipeRefreshLayout()
     }
 
-    private fun initBinding(){
-        binding= ActivityMainBinding.inflate(layoutInflater)
-        val view= binding!!.root
+    private fun initBinding() {
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding!!.root
         setContentView(view)
     }
 
-    private fun initID() {
-        txt_hello = findViewById(R.id.txt_hello)
-        recyclerView = findViewById(R.id.rv_main)
-        swipeRefresh = findViewById(R.id.swipe)
-        shimmer = findViewById(R.id.shimmer)
-    }
+//    private fun initID() {
+//        txt_hello = findViewById(R.id.txt_hello)
+//        recyclerView = findViewById(R.id.rv_main)
+//        swipeRefresh = findViewById(R.id.swipe)
+//        shimmer = findViewById(R.id.shimmer)
+//    }
 
 
-    private fun setSwipeRefreshLayout(){
-        swipeRefresh?.setOnRefreshListener {
+    private fun setSwipeRefreshLayout() {
+        binding?.swipe?.setOnRefreshListener {
             checkConnection()
             Handler().postDelayed(Runnable {
-                swipeRefresh?.isRefreshing = false
+                binding?.swipe?.isRefreshing = false
+                dialog?.dismiss()
             }, 4000)
         }
     }
 
-     private fun getDataFromSever(){
-         ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
-             override fun onResponse(call: Call<Data>, response: Response<Data>) {
-                 Session.getInstance().putExtra("length",response.body()!!.level?.size)
-                 var lv =  response.body()?.level!!
-                 adapter = SectionAdapter(applicationContext, lv)
-                 App.database.dao.insert(lv)
+    private fun getDataFromSever() {
+        ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
+            override fun onResponse(call: Call<Data>, response: Response<Data>) {
+                Session.getInstance().putExtra("length", response.body()!!.level?.size)
+                var lv = response.body()?.level!!
+                adapter = SectionAdapter(applicationContext, lv)
+                App.database.dao.insert(lv)
 
-                 Handler(Looper.getMainLooper()).postDelayed({
-                     shimmer?.stopShimmer()
-                     shimmer?.visibility = View.GONE
-                     recyclerView?.adapter = adapter
-                 }, 3000)
-             }
+                Handler(Looper.getMainLooper()).postDelayed({
+                    binding?.shimmer?.stopShimmer()
+                    binding?.shimmer?.visibility = View.GONE
+                    binding?.recycler?.adapter = adapter
+                }, 3000)
+            }
 
-             override fun onFailure(call: Call<Data>, t: Throwable) {
-                 App.toast("your connection is faild")
-                 Log.e("qqqq", "onFailure: ", t)
-             }
-         })
-   }
+            override fun onFailure(call: Call<Data>, t: Throwable) {
+                dialog()
+                Log.e("qqqq", "onFailure: ", t)
+            }
+        })
+    }
 
 
     private fun checkConnection() {
@@ -107,20 +102,16 @@ class MainActivity : AppCompatActivity() {
         val mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
         if (wifi!!.isConnected) getDataFromSever()
         else if (mobile!!.isConnected) getDataFromSever()
-       else {
-           AlertDialog.Builder(this)
-               .setMessage("connection is canceled")
-               .setCancelable(true)
-               .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
-               .setNegativeButton("no", DialogInterface.OnClickListener { dialog , _ ->  dialog.dismiss() })
-               .show()
-        }
+        else dialog()
     }
 
-
-
-//    Log.e("qqq", "onResponse: "+ lv[0].name)
-//    Log.e("qqq", "onResponse: "+ lv[0].text!![0].text)
-//    Log.e("qqq", "onResponse: "+ App.database.dao.getLeve(2))
+    private fun dialog() {
+        dialog = AlertDialog.Builder(this)
+            .setMessage("your connection is failed")
+            .setCancelable(true)
+//            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
+//            .setNegativeButton("no", DialogInterface.OnClickListener { dialog , _ ->  dialog.dismiss() })
+            .show()
+    }
 
 }
