@@ -14,7 +14,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/toolbar"
+            android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="56dp"
             android:drawableStart="@drawable/ic_arrow"
@@ -26,7 +26,7 @@
 
 
         <TextView
-            android:id="@+id/tv_next"
+            android:id="@+id/next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -45,7 +45,7 @@
 
 
     <TextView
-        android:id="@+id/txt_progress"
+        android:id="@+id/tvProgress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/rl"
@@ -61,7 +61,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="10dp"
-        android:layout_below="@id/txt_progress"
+        android:layout_below="@id/tvProgress"
         android:layout_marginHorizontal="15dp"
         android:layout_marginBottom="10dp"
         android:max="100"
@@ -106,7 +106,7 @@
 
 
                 <TextView
-                    android:id="@+id/tv_start"
+                    android:id="@+id/start"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
@@ -120,7 +120,6 @@
                     android:text="start"
                     android:textColor="@color/white"
                     android:textSize="18dp" />
-
 
             </LinearLayout>
 
@@ -190,7 +189,7 @@
             android:progress="20" />
 
         <TextView
-            android:id="@+id/tv_time_end"
+            android:id="@+id/endTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/seekbar"
@@ -199,7 +198,7 @@
             android:text="3:50" />
 
         <TextView
-            android:id="@+id/tv_time_start"
+            android:id="@+id/startTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/seekbar"
@@ -211,7 +210,7 @@
             android:id="@+id/play"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_below="@id/tv_time_start"
+            android:layout_below="@id/startTime"
             android:layout_centerInParent="true"
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="-5dp"
@@ -219,7 +218,7 @@
             tools:src="@drawable/ic_play" />
 
         <ImageView
-            android:id="@+id/img_forward"
+            android:id="@+id/forward"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignTop="@id/play"
@@ -228,7 +227,7 @@
             android:src="@drawable/ic_forward_10" />
 
         <ImageView
-            android:id="@+id/img_replay"
+            android:id="@+id/replay"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:layout_alignTop="@id/play"
@@ -239,3 +238,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+
