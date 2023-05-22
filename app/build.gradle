@@ -7,8 +7,10 @@ plugins {
 }
 
 android {
-    buildFeatures {
-        viewBinding = true
+
+    buildFeatures{
+        dataBinding true
+        viewBinding true
     }
 
     namespace 'com.example.british_council'
