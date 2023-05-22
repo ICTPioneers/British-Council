@@ -7,6 +7,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
@@ -24,19 +25,14 @@ import com.google.gson.Gson
 
 class LevelActivity : AppCompatActivity() {
 
+    private var binding: ActivityLevelBinding? = null
     private val mHandler = Handler()
     private var mRunnable: Runnable? = null
 
-    private var customArrayAdapter: TextAdapter? = null
-
-    private var mediaPlayer: MediaPlayer? = null
-
     private var level: Level? = null
-
+    private var customArrayAdapter: TextAdapter? = null
+    private var mediaPlayer: MediaPlayer? = null
     private var mCurrentPosition: Int? = null
-
-
-    private var binding: ActivityLevelBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -214,10 +210,13 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun fixActive() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            level?.active = level?.id
-            App.toast("10 second past ${level?.active}")
-        }, 10000)
+//        var check = level?.active
+        if (level?.active != 0 && TextUtils.isEmpty(level?.active.toString())) {
+            Handler(Looper.getMainLooper()).postDelayed({
+                level?.active = level?.id
+                App.toast("10 second past ${level?.active}")
+            }, 10000)
+        } else return
     }
 
 
