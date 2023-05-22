@@ -9,11 +9,10 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
-import com.airbnb.lottie.LottieAnimationView
 import com.example.british_council.R
 import com.example.british_council.adapter.TextAdapter
 import com.example.british_council.databinding.ActivityLevelBinding
@@ -27,46 +26,24 @@ import com.google.gson.Gson
 class LevelActivity : AppCompatActivity() {
 
     private val mHandler = Handler()
-    private var mRunnable : Runnable? = null
+    private var mRunnable: Runnable? = null
 
     private var customArrayAdapter: TextAdapter? = null
-    private var tv_Text: TextView? = null
-    private var tv_next: TextView? = null
-    private var tv_start: TextView? = null
-    private var tv_timeStart: TextView? = null
-    private var tv_timeEnd: TextView? = null
-    private var tv_back: TextView? = null
-    private var tv_showText: TextView? = null
-    private var tv_progress: TextView? = null
-    private var seekBar: SeekBar? = null
-
-    private var img_play: ImageView? = null
-    private var img_forward: ImageView? = null
-    private var img_replay: ImageView? = null
-    private var progress: ProgressBar? = null
-    private var lottie: LottieAnimationView? = null
-    private var lottie_sound: LottieAnimationView? = null
-    private var relative: RelativeLayout? = null
-    private var recycler: RecyclerView? = null
-    private var linear_show: LinearLayout? = null
 
     private var mediaPlayer: MediaPlayer? = null
 
     private var level: Level? = null
 
-    private var mCurrentPosition : Int? = null
+    private var mCurrentPosition: Int? = null
 
 
-    private var binding : ActivityLevelBinding? = null
+    private var binding: ActivityLevelBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_level)
 
-//        binding =
-
-
-        initID()
+        initBinding()
         checkIntent()
         saveSoundToStorage()
         setAudio()
@@ -78,27 +55,12 @@ class LevelActivity : AppCompatActivity() {
         fixActive()
     }
 
-
-
-    private fun initID() {
-        tv_next = findViewById(R.id.tv_next)
-        tv_back = findViewById(R.id.toolbar)
-        tv_start = findViewById(R.id.tv_start)
-        tv_timeStart = findViewById(R.id.tv_time_start)
-        tv_timeEnd = findViewById(R.id.tv_time_end)
-        seekBar = findViewById(R.id.seekbar)
-        img_play = findViewById(R.id.play)
-        img_forward = findViewById(R.id.img_forward)
-        img_replay = findViewById(R.id.img_replay)
-        relative = findViewById(R.id.relative)
-        recycler = findViewById(R.id.recycler)
-        progress = findViewById(R.id.progress)
-        tv_progress = findViewById(R.id.txt_progress)
-        lottie = findViewById(R.id.lottie)
-        tv_showText = findViewById(R.id.tv_Display_text)
-        linear_show = findViewById(R.id.linear_show)
-        lottie_sound = findViewById(R.id.lottie_sound)
+    private fun initBinding() {
+        binding = ActivityLevelBinding.inflate(layoutInflater)
+        val view = binding!!.root
+        setContentView(view)
     }
+
 
     private fun setAudio() {
         try {
@@ -111,12 +73,11 @@ class LevelActivity : AppCompatActivity() {
     }
 
     private fun checkIntent() {
-        if (intent.getStringExtra("level") != null){
+        if (intent.getStringExtra("level") != null) {
             var m = intent.getStringExtra("level")
-            level = Gson().fromJson<Level>(m , Level::class.java)
-//            App.toast("${level?.name}")
+            level = Gson().fromJson<Level>(m, Level::class.java)
         }
-        customArrayAdapter = TextAdapter(level?.text as ArrayList<Text>? ?:ArrayList())
+        customArrayAdapter = TextAdapter(level?.text as ArrayList<Text>? ?: ArrayList())
     }
 
     private fun saveSoundToStorage() {
@@ -125,48 +86,51 @@ class LevelActivity : AppCompatActivity() {
     }
 
     private fun onClicked() {
-        tv_back?.setOnClickListener { onBackPressed() }
+        binding?.back?.setOnClickListener { onBackPressed() }
 
 
-        tv_start?.setOnClickListener {
+        binding?.start?.setOnClickListener {
             startPlayingTest()
-            arrayOf( tv_start, lottie ).forEach { it!!.visibility =  View.GONE }
-            arrayOf( lottie_sound ,linear_show ).forEach { it!!.visibility = View.VISIBLE }
+            arrayOf(binding?.start, binding?.lottie).forEach { it!!.visibility = View.GONE }
+            arrayOf(binding?.lottieSound, binding?.linearShow).forEach { it!!.visibility = View.VISIBLE }
         }
 
-        linear_show?.setOnClickListener {
-            arrayOf( recycler , lottie_sound).forEach { it!!.visibility = if (recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE }
-        }
-
-        img_play?.setOnClickListener {
-            startPlayingTest()
-        }
-
-        tv_next?.setOnClickListener {
-            startActivity(Intent(this, TaskActivity::class.java))
-        }
-
-        img_forward!!.setOnClickListener {
-            if (mediaPlayer != null) {
-                var m = mediaPlayer!!.currentPosition / 1000 + 10
-                mediaPlayer?.seekTo(  m * 1000)
-                seekBar?.progress = m
+        binding?.linearShow?.setOnClickListener {
+            arrayOf(binding?.recycler, binding?.lottieSound).forEach {
+                it!!.visibility =
+                    if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             }
         }
 
-        img_replay!!.setOnClickListener {
+        binding?.play?.setOnClickListener {
+            startPlayingTest()
+        }
+
+        binding?.next?.setOnClickListener {
+            startActivity(Intent(this, TaskActivity::class.java))
+        }
+
+        binding?.forward!!.setOnClickListener {
+            if (mediaPlayer != null) {
+                var m = mediaPlayer!!.currentPosition / 1000 + 10
+                mediaPlayer?.seekTo(m * 1000)
+                binding?.seekbar?.progress = m
+            }
+        }
+
+        binding?.replay!!.setOnClickListener {
             if (mediaPlayer != null) {
                 var f = mediaPlayer!!.currentPosition / 1000 - 10
                 mediaPlayer?.seekTo(f * 1000)
-                seekBar?.progress = f
+                binding?.seekbar?.progress = f
             }
         }
 
     }
 
     private fun setSeekBar() {
-        seekBar?.max = mediaPlayer!!.duration / 1000
-        seekBar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
+        binding?.seekbar?.max = mediaPlayer!!.duration / 1000
+        binding?.seekbar!!.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onStopTrackingTouch(seekBar: SeekBar) {
             }
 
@@ -187,8 +151,8 @@ class LevelActivity : AppCompatActivity() {
             override fun run() {
                 if (mediaPlayer != null) {
                     customArrayAdapter?.getCurrentPos(mediaPlayer?.currentPosition!! / 1000)
-                    Log.e("handler  ", "run: ${ mediaPlayer?.currentPosition!! / 1000 }" )
-                    seekBar?.progress = mediaPlayer!!.currentPosition / 1000
+                    Log.e("handler  ", "run: ${mediaPlayer?.currentPosition!! / 1000}")
+                    binding?.seekbar?.progress = mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
                     check()
                 }
@@ -198,29 +162,28 @@ class LevelActivity : AppCompatActivity() {
         this@LevelActivity.runOnUiThread(mRunnable)
     }
 
-    private  fun setStartAndEndTime(){
+    private fun setStartAndEndTime() {
         val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
         val minutes: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
         val seconds: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) % (1000 * 60) / 1000
-        tv_timeStart?.text = String.format("%02d:%02d", minutes, seconds)
+        binding?.startTime?.text = String.format("%02d:%02d", minutes, seconds)
         var m = mediaPlayer!!.duration / 1000 / 60
         var s = mediaPlayer!!.duration / 1000 % 60
-        tv_timeEnd?.text = String.format("%02d:%02d", m, s)
+        binding?.endTime?.text = String.format("%02d:%02d", m, s)
     }
 
 
-
-   private fun check() {
-       if (mCurrentPosition == mediaPlayer?.duration!! / 1000 ) {
-           img_play?.background = resources.getDrawable(R.drawable.ic_play)
-           tv_start?.text = "play"
-           lottie_sound?.cancelAnimation()
-       }
+    private fun check() {
+        if (mCurrentPosition == mediaPlayer?.duration!! / 1000) {
+            binding?.play?.background = resources.getDrawable(R.drawable.ic_play)
+            binding?.start?.text = "play"
+            binding?.lottieSound?.cancelAnimation()
+        }
     }
 
 
     private fun setRecycler() {
-        recycler!!.adapter = customArrayAdapter
+        binding?.recycler!!.adapter = customArrayAdapter
     }
 
 
@@ -228,19 +191,19 @@ class LevelActivity : AppCompatActivity() {
         if (mediaPlayer != null) {
             if (mediaPlayer!!.isPlaying) {
                 mediaPlayer?.pause()
-                lottie_sound?.cancelAnimation()
-                img_play?.background = resources.getDrawable(R.drawable.ic_play)
+                binding?.lottieSound?.cancelAnimation()
+                binding?.play?.background = resources.getDrawable(R.drawable.ic_play)
                 Toast.makeText(this, "pause", Toast.LENGTH_SHORT).show()
-                tv_start?.text = "play"
+                binding?.start?.text = "play"
 
             } else if (mediaPlayer!! != null) {
                 mediaPlayer!!.start()
-                lottie_sound?.loop(true)
-                lottie_sound?.playAnimation()
-                relative?.visibility = View.VISIBLE
-                img_play?.background = resources.getDrawable(R.drawable.ic_pause)
+                binding?.lottieSound?.loop(true)
+                binding?.lottieSound?.playAnimation()
+                binding?.relative?.visibility = View.VISIBLE
+                binding?.play?.background = resources.getDrawable(R.drawable.ic_pause)
                 Toast.makeText(this, "play", Toast.LENGTH_SHORT).show()
-                tv_start?.text = "pause"
+                binding?.start?.text = "pause"
 //                tv_next?.setBackgroundDrawable(resources.getDrawable(R.drawable.item_back_next_selected))
             }
         }
@@ -248,30 +211,17 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setProgress() {
-        progress?.max = Session.getInstance().getInt("length")
-        progress?.setProgress(level?.id!!, true)
-        progress?.animate()
-        tv_progress?.text = "${level!!.id} / ${Session.getInstance().getInt("length")}"
+        binding?.progress?.max = Session.getInstance().getInt("length")
+        binding?.progress?.setProgress(level?.id!!, true)
+        binding?.progress?.animate()
+        binding?.tvProgress?.text = "${level!!.id} / ${Session.getInstance().getInt("length")}"
     }
 
 
     private fun fixActive() {
-//        val mHandler = Handler()
-//        this@LevelActivity.runOnUiThread(object : Runnable {
-//            override fun run() {
-//                App.toast("10 second past")
-//                mHandler.postDelayed(this, 10000)
-//            }
-//        })
-
-//        Timer().schedule(timerTask {
-//                App.toast("10 second past")
-//        }, 10000)
-
-
         Handler(Looper.getMainLooper()).postDelayed({
             level?.active = level?.id
-            App.toast("10 second past ${level?.active}" )
+            App.toast("10 second past ${level?.active}")
         }, 10000)
     }
 
