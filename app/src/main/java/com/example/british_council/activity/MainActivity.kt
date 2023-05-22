@@ -19,6 +19,8 @@ import com.example.british_council.R
 import com.example.british_council.adapter.SectionAdapter
 import com.example.british_council.api.ApiClient
 import com.example.british_council.database.DatabaseHelper
+import com.example.british_council.databinding.ActivityLevelBinding
+import com.example.british_council.databinding.ActivityMainBinding
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Data
@@ -37,18 +39,26 @@ class MainActivity : AppCompatActivity() {
     private var shimmer: ShimmerFrameLayout? = null
     private var level: List<LevelModel>? = null
     private var db: DatabaseHelper? = null
-
+    private var binding : ActivityMainBinding? = null
 
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        initBinding()
+        binding!!.txtHello.text = "your are good"
 
         initID()
         getDataFromSever()
         setSwipeRefreshLayout()
+    }
+
+    private fun initBinding(){
+        binding= ActivityMainBinding.inflate(layoutInflater)
+        val view= binding!!.root
+        setContentView(view)
     }
 
     private fun initID() {
