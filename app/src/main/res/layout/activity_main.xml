@@ -72,6 +72,9 @@
             android:layout_height="match_parent">
 
           <include layout="@layout/recyclerview_shimmer_item"/>
+          <include layout="@layout/recyclerview_shimmer_item"/>
+          <include layout="@layout/recyclerview_shimmer_item"/>
+          <include layout="@layout/recyclerview_shimmer_item"/>
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
