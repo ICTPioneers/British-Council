@@ -11,7 +11,6 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.british_council.R
 import com.example.british_council.adapter.TextAdapter
