@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call<Data>, response: Response<Data>) {
                 Session.getInstance().putExtra("length", response.body()!!.level?.size)
                 var lv = response.body()?.level!!
-                adapter = SectionAdapter(applicationContext, lv)
+                adapter = SectionAdapter(lv)
                 App.database.dao.insert(lv)
 
                 Handler(Looper.getMainLooper()).postDelayed({
