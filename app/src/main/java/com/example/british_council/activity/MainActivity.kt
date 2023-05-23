@@ -10,9 +10,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.british_council.adapter.SectionAdapter
 import com.example.british_council.api.ApiClient
@@ -29,8 +27,6 @@ import retrofit2.Response
 class MainActivity : AppCompatActivity() {
     private var adapter: SectionAdapter? = null
     private var binding: ActivityMainBinding? = null
-    private var dialog :AlertDialog? = null
-
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
@@ -41,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         getDataFromSever()
         setSwipeRefreshLayout()
         initMenu()
-        snack()
     }
 
     private fun initBinding() {
@@ -59,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             checkConnection()
             Handler().postDelayed(Runnable {
                 binding?.swipe?.isRefreshing = false
-                dialog?.dismiss()
+//                snack?.dismiss()
             }, 4000)
         }
     }
@@ -80,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onFailure(call: Call<Data>, t: Throwable) {
-                dialog()
+                snack()
                 Log.e("qqqq", "onFailure: ", t)
             }
         })
@@ -93,20 +88,11 @@ class MainActivity : AppCompatActivity() {
         val mobile = connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE)
         if (wifi!!.isConnected) getDataFromSever()
         else if (mobile!!.isConnected) getDataFromSever()
-        else dialog()
-    }
-
-    private fun dialog() {
-        dialog = AlertDialog.Builder(this)
-            .setMessage("your connection is failed")
-            .setCancelable(true)
-//            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
-//            .setNegativeButton("no", DialogInterface.OnClickListener { dialog , _ ->  dialog.dismiss() })
-            .show()
+        else snack()
     }
 
 
-    private fun snack(){
+    private fun snack() {
         val parentLayout = findViewById<View>(R.id.content)
         Snackbar.make(parentLayout, "your connection is failed", Snackbar.LENGTH_LONG)
             .setBackgroundTint(resources.getColor(R.color.darker_gray))
