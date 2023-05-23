@@ -210,13 +210,14 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun fixActive() {
-//        var check = level?.active
-        if (level?.active != 0 && TextUtils.isEmpty(level?.active.toString())) {
+        if (level?.active == 0) {
             Handler(Looper.getMainLooper()).postDelayed({
-                level?.active = level?.id
+//                level?.active = level?.id!!
+//                App.database.dao.insertID(level?.id!!)
+//                App.database.dao.insertID(Level(level?.id!!))
                 App.toast("10 second past ${level?.active}")
             }, 10000)
-        } else return
+        }
     }
 
 
