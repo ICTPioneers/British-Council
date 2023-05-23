@@ -39,5 +39,9 @@ class Level {
 
     constructor()
 
+    constructor(idLevel: Int) {
+        this.active = idLevel
+    }
+
 
 }
