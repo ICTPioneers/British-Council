@@ -68,7 +68,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_margin="15dp"
                     android:layout_weight="0.3"
-                    android:src="@drawable/ic_girl_svg" />
+                    android:src="@drawable/girl_svg3" />
 
             </LinearLayout>
 
@@ -88,7 +88,7 @@
                     <include layout="@layout/recyclerview_shimmer_item" />
 
                     <include layout="@layout/recyclerview_shimmer_item" />
-                    
+
                 </LinearLayout>
 
             </com.facebook.shimmer.ShimmerFrameLayout>
