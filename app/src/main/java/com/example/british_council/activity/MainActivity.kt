@@ -1,5 +1,6 @@
 package com.example.british_council.activity
 
+import android.R
 import android.annotation.SuppressLint
 import android.net.ConnectivityManager
 import android.os.Build
@@ -9,6 +10,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.RelativeLayout
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -18,6 +20,7 @@ import com.example.british_council.databinding.ActivityMainBinding
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Data
+import com.google.android.material.snackbar.Snackbar
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -38,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         getDataFromSever()
         setSwipeRefreshLayout()
         initMenu()
+        snack()
     }
 
     private fun initBinding() {
@@ -99,8 +103,16 @@ class MainActivity : AppCompatActivity() {
 //            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
 //            .setNegativeButton("no", DialogInterface.OnClickListener { dialog , _ ->  dialog.dismiss() })
             .show()
-//        val snack = Snackbar.make(it,"This is a simple Snackbar",Snackbar.LENGTH_LONG)
-
     }
+
+
+    private fun snack(){
+        val parentLayout = findViewById<View>(R.id.content)
+        Snackbar.make(parentLayout, "your connection is failed", Snackbar.LENGTH_LONG)
+            .setBackgroundTint(resources.getColor(R.color.darker_gray))
+            .setTextColor(resources.getColor(R.color.black))
+            .show()
+    }
+
 
 }
