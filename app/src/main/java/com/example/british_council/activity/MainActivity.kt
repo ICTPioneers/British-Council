@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
@@ -36,6 +37,7 @@ class MainActivity : AppCompatActivity() {
         initBinding()
         getDataFromSever()
         setSwipeRefreshLayout()
+        initMenu()
     }
 
     private fun initBinding() {
@@ -44,6 +46,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(view)
     }
 
+    private fun initMenu() {
+        binding!!.girl.setOnClickListener { binding?.drawer?.openDrawer(Gravity.LEFT) }
+    }
 
     private fun setSwipeRefreshLayout() {
         binding?.swipe?.setOnRefreshListener {
@@ -94,6 +99,8 @@ class MainActivity : AppCompatActivity() {
 //            .setPositiveButton("yes", DialogInterface.OnClickListener { dialog, _ ->  dialog.dismiss() })
 //            .setNegativeButton("no", DialogInterface.OnClickListener { dialog , _ ->  dialog.dismiss() })
             .show()
+//        val snack = Snackbar.make(it,"This is a simple Snackbar",Snackbar.LENGTH_LONG)
+
     }
 
 }
