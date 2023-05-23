@@ -10,8 +10,7 @@ import com.example.british_council.model.TextConverter
 import com.example.british_council.model.Level
 import com.example.british_council.model.LevelModel
 
-
-@Database(entities = [LevelModel::class,Level::class], version = 2)
+@Database(entities = [LevelModel::class,Level::class], version = 1)
 
 @TypeConverters(TextConverter::class)
 abstract class DatabaseHelper : RoomDatabase() {
@@ -35,29 +34,6 @@ abstract class DatabaseHelper : RoomDatabase() {
             }
             return instance
         }
-
-
     }
-
-    //
-//    companion object{
-//        @Volatile
-//        private var instance: DatabaseHelper? = null
-//
-//        fun getInstance(context: Context): DatabaseHelper?{
-//            if (instance == null){
-//                synchronized(DatabaseHelper::class.java){
-//                    instance = Room.databaseBuilder(
-//                        context.applicationContext,
-//                        DatabaseHelper::class.java,
-//                        "notes"
-//                    )
-//                        .addCallback(StartingLevel(context))
-//                        .build()
-//                }
-//            }
-//            return instance
-//        }
-//    }
 
 }
