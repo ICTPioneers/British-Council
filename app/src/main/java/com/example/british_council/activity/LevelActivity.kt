@@ -213,9 +213,10 @@ class LevelActivity : AppCompatActivity() {
         if (level?.active == 0) {
             Handler(Looper.getMainLooper()).postDelayed({
 //                level?.active = level?.id!!
-//                App.database.dao.insertID(level?.id!!)
-//                App.database.dao.insertID(Level(level?.id!!))
-                App.toast("10 second past ${level?.active}")
+//                App.database.dao.updateState(level!!.id!!,level!!.id!!)
+//                App.toast("10 second past ${level?.active}")
+                Log.e("111", "onCreate: ${level?.active}")
+
             }, 10000)
         }
     }
