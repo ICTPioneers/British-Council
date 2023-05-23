@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initMenu() {
-        binding!!.girl.setOnClickListener { binding?.drawer?.openDrawer(Gravity.LEFT) }
+        binding!!.menu.setOnClickListener { binding?.drawer?.openDrawer(Gravity.LEFT) }
     }
 
     private fun setSwipeRefreshLayout() {
