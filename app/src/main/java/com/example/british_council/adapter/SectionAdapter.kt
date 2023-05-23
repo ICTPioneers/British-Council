@@ -25,7 +25,6 @@ class SectionAdapter( private val list: List<Level>) :
 
 
     init {
-        App.toast(App.database.dao.getIdLevel().toString())
 //        if(TextUtils.isEmpty(App.database.dao.getIdLevel(0).toString())) App.toast("level is active null")
 //        else App.toast("level is active " + App.database.dao.getIdLevel(0))
     }
