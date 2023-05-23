@@ -88,9 +88,7 @@
                     <include layout="@layout/recyclerview_shimmer_item" />
 
                     <include layout="@layout/recyclerview_shimmer_item" />
-
-                    <include layout="@layout/recyclerview_shimmer_item" />
-
+                    
                 </LinearLayout>
 
             </com.facebook.shimmer.ShimmerFrameLayout>
