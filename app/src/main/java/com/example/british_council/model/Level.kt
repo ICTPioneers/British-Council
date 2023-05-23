@@ -15,7 +15,7 @@ class Level {
     var audio : String? = null
     var text : List<Text>? = null
 
-    var active : Int = 0
+    var active : Int? = null
 
 
     constructor(id: Int?, name: String?, desc: String?, image: String?, audio: String?,text : List<Text>? ) {
