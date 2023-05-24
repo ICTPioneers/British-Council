@@ -2,6 +2,7 @@ package com.example.british_council.activity
 
 import android.R
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
@@ -18,15 +19,18 @@ import com.example.british_council.databinding.ActivityMainBinding
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
 import com.example.british_council.model.Data
+import com.example.british_council.model.Level
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() ,SectionAdapter.Listener{
     private var adapter: SectionAdapter? = null
     private var binding: ActivityMainBinding? = null
+    private var listLevel : ArrayList<Level> = ArrayList()
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("MissingInflatedId")
@@ -38,6 +42,12 @@ class MainActivity : AppCompatActivity() {
         setSwipeRefreshLayout()
         initMenu()
     }
+
+    override fun onResume() {
+        super.onResume()
+        adapter?.updateList(initLevelByDatabase())
+    }
+
 
     private fun initBinding() {
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -63,9 +73,11 @@ class MainActivity : AppCompatActivity() {
         ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
             override fun onResponse(call: Call<Data>, response: Response<Data>) {
                 Session.getInstance().putExtra("length", response.body()!!.level?.size)
-                var lv = response.body()?.level!!
-                adapter = SectionAdapter(lv)
-                App.database.levelDao.insert(lv)
+                listLevel = response.body()?.level!!
+                adapter = SectionAdapter(initLevelByDatabase(), this@MainActivity)
+
+//                Log.e("karimi", "onResponse: ${App.database.levelDao.getAllLeve()[0].states}")
+
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding?.shimmer?.stopShimmer()
@@ -81,6 +93,25 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+
+    private fun initLevelByDatabase(): ArrayList<Level>{
+        for (i in 0 until listLevel.size){
+            val levelDatabase = App.database.levelDao.getLeve(listLevel[i].id?:0)
+            if (levelDatabase != null){
+                Log.e("qqq", "levelDatabase: ${levelDatabase.id}" )
+            }else Log.e("qqq", "listLevel: ${listLevel[i].id}" )
+            if (i == 0 && levelDatabase == null){
+                listLevel[i].states = 2
+            }else if (levelDatabase != null){
+                listLevel[i].states = 1
+                Log.e("qqq", "initLevelByDatabase: $i -${listLevel.size}" )
+                    if (i+1 <= listLevel.size-1 ){
+                        listLevel[i+1].states = 2
+                }
+            }
+        }
+        return listLevel
+    }
 
     private fun checkConnection() {
         val connectivityManager = this.getSystemService(CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -98,6 +129,15 @@ class MainActivity : AppCompatActivity() {
             .setBackgroundTint(resources.getColor(R.color.darker_gray))
             .setTextColor(resources.getColor(R.color.black))
             .show()
+    }
+
+    override fun onClickListener(model : Level) {
+        if (model.states != 0){
+                var i = Intent(App.context,LevelActivity::class.java)
+                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                i.putExtra("level", Gson().toJson(model))
+            startActivity(i)
+            }
     }
 
 
