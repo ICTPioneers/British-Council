@@ -15,7 +15,7 @@ class Level {
     var audio : String? = null
     var text : List<Text>? = null
 
-    var active : Int? = null
+    var states : Int? = 0
 
 
     constructor(id: Int?, name: String?, desc: String?, image: String?, audio: String?,text : List<Text>? ) {
@@ -39,9 +39,9 @@ class Level {
 
     constructor()
 
-    constructor(idLevel: Int) {
-        this.active = idLevel
-    }
+//    constructor(idLevel: Int) {
+//        this.states = idLevel
+//    }
 
 
 }
