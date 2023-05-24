@@ -9,12 +9,14 @@ import com.example.british_council.database.dao.LevelDao
 import com.example.british_council.model.TextConverter
 import com.example.british_council.model.Level
 import com.example.british_council.model.LevelModel
+import com.example.british_council.model.State
 
-@Database(entities = [LevelModel::class,Level::class], version = 1)
+@Database(entities = [LevelModel::class,Level::class , State::class], version = 1)
 
 @TypeConverters(TextConverter::class)
 abstract class DatabaseHelper : RoomDatabase() {
-    abstract val dao: LevelDao
+    abstract val levelDao: LevelDao
+    abstract val stateDao: LevelDao
 
     companion object {
         private const val DATABASE_NAME = "level_table.db"
