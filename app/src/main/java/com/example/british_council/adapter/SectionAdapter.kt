@@ -71,14 +71,6 @@ class SectionAdapter( private var list: List<Level> , listener : Listener) :
 
                 item.setOnClickListener {
                 listener.onClickListener(model)
-//            if (model.states != 0){
-//                var i = Intent(App.context,LevelActivity::class.java)
-////            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-//
-//                i.putExtra("level",Gson().toJson(model))
-//                App.context.startActivity(i)
-//            }
         }
     }
 
