@@ -6,6 +6,7 @@ import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.british_council.database.dao.LevelDao
+import com.example.british_council.database.dao.StateDao
 import com.example.british_council.model.TextConverter
 import com.example.british_council.model.Level
 import com.example.british_council.model.LevelModel
@@ -16,7 +17,7 @@ import com.example.british_council.model.State
 @TypeConverters(TextConverter::class)
 abstract class DatabaseHelper : RoomDatabase() {
     abstract val levelDao: LevelDao
-    abstract val stateDao: LevelDao
+    abstract val stateDao: StateDao
 
     companion object {
         private const val DATABASE_NAME = "level_table.db"
