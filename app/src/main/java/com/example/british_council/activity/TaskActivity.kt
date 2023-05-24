@@ -72,10 +72,7 @@ class TaskActivity : AppCompatActivity() , View.OnLongClickListener , View.OnDra
                   val owner = vw.parent as ViewGroup
                   owner.removeView(vw)
                   val container = v as LinearLayout
-  //                if (container.childCount == 0){
                   container.addView(vw)
-  //                    vw.visibility = View.VISIBLE
-  //                }
                   vw.visibility = View.VISIBLE
                   return true
               }
