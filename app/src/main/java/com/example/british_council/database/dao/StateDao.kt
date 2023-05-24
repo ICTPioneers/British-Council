@@ -6,13 +6,11 @@ import com.example.british_council.model.State
 
 @Dao
 interface StateDao {
-    @Query("select * from level where id=:id")
-    fun getLeve(id: Int): Level
+    @Query("select * from state")
+    fun getAllState():List<State>
 
-    @Query("UPDATE level SET active=:active WHERE id=:id")
-    fun updateState(active: Int, id: Int)
-
-
+@Query("select state from state where state=:id")
+    fun getId(id : Int):List<State>
 
     @Insert
     fun insert(state: State)
