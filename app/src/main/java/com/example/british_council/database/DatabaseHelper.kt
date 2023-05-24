@@ -9,10 +9,9 @@ import com.example.british_council.database.dao.LevelDao
 import com.example.british_council.database.dao.StateDao
 import com.example.british_council.model.TextConverter
 import com.example.british_council.model.Level
-import com.example.british_council.model.LevelModel
 import com.example.british_council.model.State
 
-@Database(entities = [LevelModel::class,Level::class , State::class], version = 1)
+@Database(entities = [Level::class , State::class], version = 1)
 
 @TypeConverters(TextConverter::class)
 abstract class DatabaseHelper : RoomDatabase() {
