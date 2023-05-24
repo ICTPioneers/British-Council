@@ -2,7 +2,7 @@ package com.example.british_council.adapter
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.text.TextUtils
+import android.location.GnssAntennaInfo.Listener
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -16,18 +16,15 @@ import com.example.british_council.model.Level
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.gson.Gson
 
-class SectionAdapter( private val list: List<Level>) :
+class SectionAdapter( private var list: List<Level> , listener : Listener) :
     RecyclerView.Adapter<SectionAdapter.MyViewHolder>() {
-    var arrayColor: ArrayList<Int> = ArrayList()
-    var arrayIcon: ArrayList<Int> = ArrayList()
-    private var arrayBack: ArrayList<Int> = ArrayList()
-    var ll : Level? = null
+    var listener :Listener = listener
 
 
-    init {
-//        if(TextUtils.isEmpty(App.database.dao.getIdLevel(0).toString())) App.toast("level is active null")
-//        else App.toast("level is active " + App.database.dao.getIdLevel(0))
+    interface Listener {
+        fun onClickListener(model: Level)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(ListItemSectionBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -35,47 +32,53 @@ class SectionAdapter( private val list: List<Level>) :
 
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        arrayColor.add(R.color.green_2)
-        arrayColor.add(R.color.orang)
-        arrayColor.add(R.color.gray)
-        arrayColor.add(R.color.gray)
 
-        arrayIcon.add(R.drawable.ic_check)
-        arrayIcon.add(R.drawable.ic_lock_on)
-        arrayIcon.add(R.drawable.ic_lock_off)
-        arrayIcon.add(R.drawable.ic_lock_off)
+        var item = holder.itemView
+        var model = list[position]
 
-        arrayBack.add(R.drawable.item_border_level)
-        arrayBack.add(R.drawable.item_border_level_orang)
-        arrayBack.add(R.drawable.item_border_level_red)
-        arrayBack.add(R.drawable.item_border_level_red)
-//        arrayBack.add(R.drawable.item_border_level)
-        var a = holder.itemView
-        var post = list[position]
-
-        holder.itemView.findViewById<TextView>(R.id.level_name).text =  list[position].name
-        holder.itemView.findViewById<TextView>(R.id.part_name).text =  list[position].desc
+        item.findViewById<TextView>(R.id.level_name).text =  list[position].name
+        item.findViewById<TextView>(R.id.part_name).text =  list[position].desc
 
 
-//        holder.itemView.findViewById<TextView>(R.id.tv_part).text = post.title
-//        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList = ColorStateList.valueOf(context.resources.getColor(R.color.black))
-        holder.itemView.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList =
-            ColorStateList.valueOf(App.context.resources.getColor(arrayColor[position]))
-        holder.itemView.findViewById<FloatingActionButton>(R.id.fab)
-            .setImageDrawable(App.context.resources.getDrawable(arrayIcon[position]))
+        when(model.states){
+            1->{
+                item.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList =
+                    ColorStateList.valueOf(App.context.resources.getColor(R.color.green_2))
+                item.findViewById<LinearLayout>(R.id.linear)
+                    .setBackgroundDrawable(App.context.getDrawable(R.drawable.item_border_level))
+                item.findViewById<FloatingActionButton>(R.id.fab)
+                    .setImageDrawable(App.context.resources.getDrawable(R.drawable.ic_check))
+            }
+            2->{
+                item.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList =
+                    ColorStateList.valueOf(App.context.resources.getColor(R.color.orang))
+                item.findViewById<LinearLayout>(R.id.linear)
+                    .setBackgroundDrawable(App.context.getDrawable(R.drawable.item_border_level_orang))
+                item.findViewById<FloatingActionButton>(R.id.fab)
+                    .setImageDrawable(App.context.resources.getDrawable(R.drawable.ic_lock_on))
+            }
+            else ->{
+                item.findViewById<FloatingActionButton>(R.id.fab).backgroundTintList =
+                    ColorStateList.valueOf(App.context.resources.getColor(R.color.gray))
+                item.findViewById<LinearLayout>(R.id.linear)
+                    .setBackgroundDrawable(App.context.getDrawable(R.drawable.item_border_level_red))
+                item.findViewById<FloatingActionButton>(R.id.fab)
+                    .setImageDrawable(App.context.resources.getDrawable(R.drawable.ic_lock_off))
+            }
+        }
 
-        holder.itemView.findViewById<LinearLayout>(R.id.linear)
-            .setBackgroundDrawable(App.context.getDrawable(arrayBack[position]))
 
 
-
-        holder.itemView.setOnClickListener {
-//            App.toast("hello ${list[position].id}")
-            var i = Intent(App.context,LevelActivity::class.java)
-//            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            i.putExtra("level",Gson().toJson(list[position]))
-            App.context.startActivity(i)
+                item.setOnClickListener {
+                listener.onClickListener(model)
+//            if (model.states != 0){
+//                var i = Intent(App.context,LevelActivity::class.java)
+////            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+//                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//
+//                i.putExtra("level",Gson().toJson(model))
+//                App.context.startActivity(i)
+//            }
         }
     }
 
@@ -85,13 +88,13 @@ class SectionAdapter( private val list: List<Level>) :
 
 
 
+    fun updateList(items: ArrayList<Level>){
+        this.list = items
+        notifyDataSetChanged()
+    }
 
 
     class MyViewHolder(private val itemBinding: ListItemSectionBinding) : RecyclerView.ViewHolder(itemBinding.root) {
-//        var title = view.title
-        init {
-
-            }
     }
 
 }
