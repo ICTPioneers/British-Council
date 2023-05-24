@@ -7,7 +7,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.SeekBar
@@ -86,12 +85,15 @@ class LevelActivity : AppCompatActivity() {
 
         binding?.start?.setOnClickListener {
             startPlayingTest()
-            arrayOf(binding?.start, binding?.lottie).forEach { it!!.visibility = View.GONE }
-            arrayOf(binding?.lottieSound, binding?.linearShow).forEach { it!!.visibility = View.VISIBLE }
+//            arrayOf(binding?.start, binding?.lottie).forEach { it!!.visibility = View.GONE }
+            arrayOf(binding?.start).forEach { it!!.visibility = View.GONE }
+            arrayOf(binding?.linearShow).forEach { it!!.visibility = View.VISIBLE }
+//            arrayOf(binding?.lottieSound, binding?.linearShow).forEach { it!!.visibility = View.VISIBLE }
         }
 
         binding?.linearShow?.setOnClickListener {
-            arrayOf(binding?.recycler, binding?.lottieSound).forEach {
+//            arrayOf(binding?.recycler, binding?.lottieSound).forEach {
+            arrayOf(binding?.recycler).forEach {
                 it!!.visibility =
                     if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             }
@@ -169,10 +171,10 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun check() {
-        if (mCurrentPosition == mediaPlayer?.duration!! / 1000) {
+        if (mediaPlayer?.currentPosition!! / 1000 >= (mediaPlayer?.duration!! / 1000)) {
             binding?.play?.background = resources.getDrawable(R.drawable.ic_play)
             binding?.start?.text = "play"
-            binding?.lottieSound?.cancelAnimation()
+//            binding?.lottieSound?.cancelAnimation()
         }
     }
 
@@ -186,14 +188,14 @@ class LevelActivity : AppCompatActivity() {
         if (mediaPlayer != null) {
             if (mediaPlayer!!.isPlaying) {
                 mediaPlayer?.pause()
-                binding?.lottieSound?.cancelAnimation()
+//                binding?.lottieSound?.cancelAnimation()
                 binding?.play?.background = resources.getDrawable(R.drawable.ic_play)
                 binding?.start?.text = "play"
 
             } else if (mediaPlayer!! != null) {
                 mediaPlayer!!.start()
-                binding?.lottieSound?.loop(true)
-                binding?.lottieSound?.playAnimation()
+//                binding?.lottieSound?.loop(true)
+//                binding?.lottieSound?.playAnimation()
                 binding?.relative?.visibility = View.VISIBLE
                 binding?.play?.background = resources.getDrawable(R.drawable.ic_pause)
                 binding?.start?.text = "pause"
@@ -210,16 +212,11 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun fixActive() {
-        if (level?.active == 0) {
             Handler(Looper.getMainLooper()).postDelayed({
-//                level?.active = level?.id!!
-//                App.database.dao.updateState(level!!.id!!,level!!.id!!)
-//                App.toast("10 second past ${level?.active}")
-                Log.e("111", "onCreate: ${level?.active}")
-
+                Log.e("karimi", "fixActive Long: ${App.database.levelDao.insertState(level!!)}")
+                App.toast("10 second past")
             }, 10000)
         }
-    }
 
 
     override fun onStop() {
