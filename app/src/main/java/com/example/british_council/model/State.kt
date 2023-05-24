@@ -10,20 +10,18 @@ class State {
     var id_main :Int? = null
     var id_level: Int? = null
     var state : Int? = null
-    var desc : String? = null
+
 
     @Ignore
-    constructor(id_main: Int?, id_level: Int?, state: Int?, desc: String?) {
+    constructor(id_main: Int?, id_level: Int?, state: Int?) {
         this.id_main = id_main
         this.id_level = id_level
         this.state = state
-        this.desc = desc
     }
 
-    constructor(id_level: Int?, state: Int?, desc: String?) {
+    constructor(id_level: Int?, state: Int?) {
         this.id_level = id_level
         this.state = state
-        this.desc = desc
     }
 
 
