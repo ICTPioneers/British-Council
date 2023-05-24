@@ -65,7 +65,7 @@ class MainActivity : AppCompatActivity() {
                 Session.getInstance().putExtra("length", response.body()!!.level?.size)
                 var lv = response.body()?.level!!
                 adapter = SectionAdapter(lv)
-                App.database.dao.insert(lv)
+                App.database.levelDao.insert(lv)
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding?.shimmer?.stopShimmer()
