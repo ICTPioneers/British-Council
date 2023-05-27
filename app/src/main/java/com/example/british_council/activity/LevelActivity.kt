@@ -9,6 +9,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
@@ -202,10 +203,10 @@ class LevelActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setProgress() {
         binding?.progress?.max = Session.getInstance().getInt("length")
         binding?.progress?.setProgress(level?.id!!, true)
-        binding?.progress?.animate()
         binding?.tvProgress?.text = "${level!!.id} / ${Session.getInstance().getInt("length")}"
     }
 

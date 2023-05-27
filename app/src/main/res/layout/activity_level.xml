@@ -135,6 +135,7 @@
                 android:background="@drawable/item_background_show_text"
                 android:gravity="end|center"
                 android:orientation="horizontal"
+                tools:visibility="visible"
                 android:visibility="gone">
 
                 <ImageView
