@@ -20,6 +20,9 @@ import com.example.british_council.databinding.ActivityTaskBinding
 class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragListener {
 
     private var binding: ActivityTaskBinding? = null
+    private var arrayTagColor = arrayOf("DRAGGABLE BUTTON 1", "DRAGGABLE BUTTON 2")
+    private var arrayTagAnimal = arrayOf("DRAGGABLE BUTTON 3", "DRAGGABLE BUTTON 4")
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,19 +123,20 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
     }
 
     private fun clicked() {
-        binding!!.colorGroup?.setOnClickListener { selectFromLayout(binding!!.colorLayout!!) }
+        binding!!.colorGroup?.setOnClickListener { selectFromLayout(binding!!.colorLayout!! , arrayTagColor) }
+        binding!!.animallTitle?.setOnClickListener { selectFromLayout(binding!!.animalLayout!!, arrayTagAnimal) }
     }
 
-    private fun selectFromLayout(ll: LinearLayout) {
-        var tagAnimal = arrayOf("DRAGGABLE BUTTON 1", "DRAGGABLE BUTTON 2")
+    private fun selectFromLayout(ll: LinearLayout, array: Array<String>) {
         val childCount = ll.childCount
         for (i in 0 until childCount) {
             val view = ll.getChildAt(i)
-            if (view.tag in tagAnimal) {
+            if (view.tag in array) {
                 view.setBackgroundColor(resources.getColor(R.color.green_lite))
             } else view.setBackgroundColor(resources.getColor(R.color.red))
         }
     }
+
 
 
 }
