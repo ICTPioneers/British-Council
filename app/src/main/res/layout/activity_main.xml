@@ -39,6 +39,7 @@
                         android:id="@+id/menu"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
                         android:layout_marginTop="10dp"
                         android:src="@drawable/ic_round_menu_24" />
@@ -78,8 +79,9 @@
                     android:id="@+id/girl"
                     android:layout_width="0dp"
                     android:layout_height="110dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_margin="15dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_weight="0.3"
                     android:src="@drawable/girl_svg3" />
 
