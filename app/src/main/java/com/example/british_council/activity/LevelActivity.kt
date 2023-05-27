@@ -32,7 +32,6 @@ class LevelActivity : AppCompatActivity() {
     private var level: Level? = null
     private var customArrayAdapter: TextAdapter? = null
     private var mediaPlayer: MediaPlayer? = null
-    private var mCurrentPosition: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
