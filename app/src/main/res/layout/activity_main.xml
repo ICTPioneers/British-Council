@@ -124,7 +124,7 @@
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-    +
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
@@ -135,7 +135,8 @@
         android:fitsSystemWindows="true"
         android:focusable="true">
 
-        <include layout="@layout/drawer_menu" />
+        <include android:id="@+id/drawer_menu"
+            layout="@layout/drawer_menu" />
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>
