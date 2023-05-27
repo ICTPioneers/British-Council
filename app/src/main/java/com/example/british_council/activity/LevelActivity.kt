@@ -12,6 +12,7 @@ import android.view.View
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.example.british_council.R
 import com.example.british_council.adapter.TextAdapter
 import com.example.british_council.databinding.ActivityLevelBinding
@@ -93,10 +94,9 @@ class LevelActivity : AppCompatActivity() {
 
         binding?.linearShow?.setOnClickListener {
 //            arrayOf(binding?.recycler, binding?.lottieSound).forEach {
-            arrayOf(binding?.recycler).forEach {
-                it!!.visibility =
-                    if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
-            }
+            arrayOf(binding?.recycler).forEach { it!!.visibility = if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE }
+            if (binding!!.recycler.isVisible) binding!!.imgShow.setImageDrawable(resources.getDrawable(R.drawable.show_visibility_on))
+            else binding!!.imgShow.setImageDrawable(resources.getDrawable(R.drawable.show_visibility_off_24))
         }
 
         binding?.play?.setOnClickListener {
