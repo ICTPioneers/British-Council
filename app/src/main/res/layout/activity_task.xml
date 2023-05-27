@@ -9,7 +9,7 @@
     tools:context=".activity.TaskActivity">
 
     <LinearLayout
-        android:id="@+id/layout1"
+        android:id="@+id/layoutMain"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -107,7 +107,7 @@
 
 
             <LinearLayout
-                android:id="@+id/color"
+                android:id="@+id/colorLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#FFFFFF"
@@ -144,7 +144,7 @@
 
 
             <LinearLayout
-                android:id="@+id/animal"
+                android:id="@+id/animalLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="#FFFFFF"

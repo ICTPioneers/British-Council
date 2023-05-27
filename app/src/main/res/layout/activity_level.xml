@@ -84,9 +84,9 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
-                android:layout_above="@id/linear_show"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/linear_show"
                 android:overScrollMode="never"
                 android:visibility="gone"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -98,13 +98,13 @@
                 android:layout_centerInParent="true"
                 android:orientation="vertical">
 
-<!--                <com.airbnb.lottie.LottieAnimationView-->
-<!--                    android:id="@+id/lottie"-->
-<!--                    android:layout_width="200dp"-->
-<!--                    android:layout_height="200dp"-->
-<!--                    app:lottie_autoPlay="true"-->
-<!--                    app:lottie_loop="true"-->
-<!--                    app:lottie_rawRes="@raw/bird_waiting" />-->
+                <!--                <com.airbnb.lottie.LottieAnimationView-->
+                <!--                    android:id="@+id/lottie"-->
+                <!--                    android:layout_width="200dp"-->
+                <!--                    android:layout_height="200dp"-->
+                <!--                    app:lottie_autoPlay="true"-->
+                <!--                    app:lottie_loop="true"-->
+                <!--                    app:lottie_rawRes="@raw/bird_waiting" />-->
 
 
                 <TextView
@@ -132,10 +132,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:background="@color/white"
+                android:background="@drawable/item_background_show_text"
                 android:gravity="end|center"
                 android:orientation="horizontal"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/img_show"
@@ -148,8 +148,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
-                    android:layout_marginEnd="10dp"
                     android:layout_marginStart="5dp"
+                    android:layout_marginEnd="10dp"
                     android:text="Show text"
                     android:textColor="#C4C3C3"
                     android:textSize="14dp"
@@ -157,16 +157,16 @@
 
             </LinearLayout>
 
-<!--            <com.airbnb.lottie.LottieAnimationView-->
-<!--                android:id="@+id/lottie_sound"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="200dp"-->
-<!--                android:layout_centerInParent="true"-->
-<!--                android:layout_marginHorizontal="20dp"-->
-<!--                android:visibility="gone"-->
-<!--                app:lottie_autoPlay="true"-->
-<!--                app:lottie_loop="true"-->
-<!--                app:lottie_rawRes="@raw/sound_wave" />-->
+            <!--            <com.airbnb.lottie.LottieAnimationView-->
+            <!--                android:id="@+id/lottie_sound"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="200dp"-->
+            <!--                android:layout_centerInParent="true"-->
+            <!--                android:layout_marginHorizontal="20dp"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:lottie_autoPlay="true"-->
+            <!--                app:lottie_loop="true"-->
+            <!--                app:lottie_rawRes="@raw/sound_wave" />-->
 
 
         </RelativeLayout>
