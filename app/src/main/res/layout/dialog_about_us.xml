@@ -5,8 +5,9 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layoutDirection="rtl"
-    android:layout_marginHorizontal="20dp"
-    app:cardCornerRadius="15dp">
+    app:cardCornerRadius="15dp"
+    app:cardElevation="0dp"
+  >
 
 
     <androidx.core.widget.NestedScrollView
