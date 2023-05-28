@@ -59,11 +59,12 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
     private fun initDrawer() {
         binding!!.menu.setOnClickListener { binding?.drawer?.openDrawer(Gravity.LEFT) }
         binding!!.drawerMenu.txtAboutUs.setOnClickListener {
-            App.showDialog(this) }
-
+            App.showDialog(this)
+            binding!!.drawer.close()
+        }
     }
-//
-//
+
+
 //    private fun showDialog() {
 //        val dialog = Dialog(this)
 //        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
