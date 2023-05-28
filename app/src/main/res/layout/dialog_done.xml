@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:layoutDirection="rtl"
+    android:padding="20dp"
     app:cardCornerRadius="15dp"
     app:cardElevation="0dp">
 
@@ -13,8 +14,13 @@
       android:text="next level"
       android:layout_gravity="center"
       android:textSize="18dp"
+      android:paddingVertical="20dp"
+      android:paddingHorizontal="30dp"
       android:drawablePadding="10dp"
-      android:drawableTop="@drawable/ic_cloud_done"
+      android:gravity="center"
+      android:textColor="@color/black"
+      android:textStyle="bold"
+      android:drawableTop="@drawable/checkmark"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"/>
 
