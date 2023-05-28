@@ -201,7 +201,7 @@ class LevelActivity : AppCompatActivity() {
                     dialog.dismiss()
                     finish()
                 }
-            }else App.toast("before add to database")
+            }
         }
     }
 
