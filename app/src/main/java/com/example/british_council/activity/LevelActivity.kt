@@ -230,7 +230,7 @@ class LevelActivity : AppCompatActivity() {
         }
     }
 
-    
+
     private fun setProgress() {
         binding?.progress?.max = Session.getInstance().getInt("length")
         binding?.progress?.setProgress(level?.id!!, true)
