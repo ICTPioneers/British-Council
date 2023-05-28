@@ -69,7 +69,7 @@ class SectionAdapter(private var list: List<Level>, listener: Listener) :
             }
         }
 
-        
+
         item.setOnClickListener {
 
         }
