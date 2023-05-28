@@ -2,6 +2,7 @@ package com.example.british_council.activity
 
 import android.R
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
@@ -11,6 +12,7 @@ import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.view.Window
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.british_council.adapter.SectionAdapter
@@ -27,20 +29,19 @@ import retrofit2.Callback
 import retrofit2.Response
 
 
-class MainActivity : AppCompatActivity() ,SectionAdapter.Listener{
+class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
     private var adapter: SectionAdapter? = null
     private var binding: ActivityMainBinding? = null
-    private var listLevel : ArrayList<Level> = ArrayList()
+    private var listLevel: ArrayList<Level> = ArrayList()
 
     @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         initBinding()
         getDataFromSever()
         setSwipeRefreshLayout()
-        initMenu()
+        initDrawer()
     }
 
     override fun onResume() {
@@ -55,9 +56,21 @@ class MainActivity : AppCompatActivity() ,SectionAdapter.Listener{
         setContentView(view)
     }
 
-    private fun initMenu() {
+    private fun initDrawer() {
         binding!!.menu.setOnClickListener { binding?.drawer?.openDrawer(Gravity.LEFT) }
+        binding!!.drawerMenu.txtAboutUs.setOnClickListener {
+            App.showDialog(this) }
+
     }
+//
+//
+//    private fun showDialog() {
+//        val dialog = Dialog(this)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setCancelable(false)
+//        dialog.setContentView(R.layout.dialog_about_us)
+//        dialog.show()
+//    }
 
     private fun setSwipeRefreshLayout() {
         binding?.swipe?.setOnRefreshListener {
@@ -94,19 +107,19 @@ class MainActivity : AppCompatActivity() ,SectionAdapter.Listener{
     }
 
 
-    private fun initLevelByDatabase(): ArrayList<Level>{
-        for (i in 0 until listLevel.size){
-            val levelDatabase = App.database.levelDao.getLeve(listLevel[i].id?:0)
-            if (levelDatabase != null){
-                Log.e("qqq", "levelDatabase: ${levelDatabase.id}" )
-            }else Log.e("qqq", "listLevel: ${listLevel[i].id}" )
-            if (i == 0 && levelDatabase == null){
+    private fun initLevelByDatabase(): ArrayList<Level> {
+        for (i in 0 until listLevel.size) {
+            val levelDatabase = App.database.levelDao.getLeve(listLevel[i].id ?: 0)
+            if (levelDatabase != null) {
+                Log.e("qqq", "levelDatabase: ${levelDatabase.id}")
+            } else Log.e("qqq", "listLevel: ${listLevel[i].id}")
+            if (i == 0 && levelDatabase == null) {
                 listLevel[i].states = 2
-            }else if (levelDatabase != null){
+            } else if (levelDatabase != null) {
                 listLevel[i].states = 1
-                Log.e("qqq", "initLevelByDatabase: $i -${listLevel.size}" )
-                    if (i+1 <= listLevel.size-1 ){
-                        listLevel[i+1].states = 2
+                Log.e("qqq", "initLevelByDatabase: $i -${listLevel.size}")
+                if (i + 1 <= listLevel.size - 1) {
+                    listLevel[i + 1].states = 2
                 }
             }
         }
@@ -131,13 +144,13 @@ class MainActivity : AppCompatActivity() ,SectionAdapter.Listener{
             .show()
     }
 
-    override fun onClickListener(model : Level) {
-        if (model.states != 0){
-                var i = Intent(App.context,LevelActivity::class.java)
-                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                i.putExtra("level", Gson().toJson(model))
+    override fun onClickListener(model: Level) {
+        if (model.states != 0) {
+            var i = Intent(App.context, LevelActivity::class.java)
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            i.putExtra("level", Gson().toJson(model))
             startActivity(i)
-            }
+        }
     }
 
 
