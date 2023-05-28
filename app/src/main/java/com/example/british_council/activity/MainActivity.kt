@@ -13,7 +13,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.british_council.adapter.SectionAdapter
-import com.example.british_council.database.dao.api.ApiClient
+import com.example.british_council.api.ApiClient
 import com.example.british_council.databinding.ActivityMainBinding
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session

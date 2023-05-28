@@ -9,7 +9,6 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +35,6 @@ class LevelActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_level)
 
         initBinding()
         checkIntent()
@@ -76,8 +74,7 @@ class LevelActivity : AppCompatActivity() {
     }
 
     private fun saveSoundToStorage() {
-//        App.saveFile(App.getByte(Uri.parse(level?.audio)))
-        App.saveFile(App.getByte(Uri.parse("")))
+//        App.saveFile(App.getByte(Uri.parse("")))
     }
 
     private fun onClicked() {
@@ -94,8 +91,13 @@ class LevelActivity : AppCompatActivity() {
 
         binding?.linearShow?.setOnClickListener {
 //            arrayOf(binding?.recycler, binding?.lottieSound).forEach {
-            arrayOf(binding?.recycler).forEach { it!!.visibility = if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE }
-            if (binding!!.recycler.isVisible) binding!!.imgShow.setImageDrawable(resources.getDrawable(R.drawable.show_visibility_on))
+            arrayOf(binding?.recycler).forEach {
+                it!!.visibility =
+                    if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
+            }
+            if (binding!!.recycler.isVisible) binding!!.imgShow.setImageDrawable(
+                resources.getDrawable(
+                    R.drawable.show_visibility_on))
             else binding!!.imgShow.setImageDrawable(resources.getDrawable(R.drawable.show_visibility_off_24))
         }
 
@@ -159,6 +161,7 @@ class LevelActivity : AppCompatActivity() {
         this@LevelActivity.runOnUiThread(mRunnable)
     }
 
+
     private fun setStartAndEndTime() {
         val hours: Int = mediaPlayer?.currentPosition!! / (1000 * 60 * 60)
         val minutes: Int = mediaPlayer?.currentPosition!! % (1000 * 60 * 60) / (1000 * 60)
@@ -204,6 +207,15 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
+//    private fun showDialog() {
+//        val dialog = Dialog(this)
+//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+//        dialog.setCancelable(false)
+//        dialog.setContentView(R.layout.dialog_about_us)
+//        dialog.show()
+//    }
+
+
     private fun setProgress() {
         binding?.progress?.max = Session.getInstance().getInt("length")
         binding?.progress?.setProgress(level?.id!!, true)
@@ -212,11 +224,12 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun fixActive() {
+        if (App.database.levelDao.getLeve(level?.id!!) == null) {
             Handler(Looper.getMainLooper()).postDelayed({
                 Log.e("karimi", "fixActive Long: ${App.database.levelDao.insertState(level!!)}")
-                App.toast("10 second past")
             }, 10000)
         }
+    }
 
 
     override fun onStop() {
