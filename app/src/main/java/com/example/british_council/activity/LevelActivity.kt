@@ -1,5 +1,6 @@
 package com.example.british_council.activity
 
+import android.app.Dialog
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -9,8 +10,10 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.example.british_council.R
@@ -45,7 +48,6 @@ class LevelActivity : AppCompatActivity() {
         setRecycler()
         initHandler()
         setProgress()
-        fixActive()
     }
 
     private fun initBinding() {
@@ -97,17 +99,22 @@ class LevelActivity : AppCompatActivity() {
             }
             if (binding!!.recycler.isVisible) binding!!.imgShow.setImageDrawable(
                 resources.getDrawable(
-                    R.drawable.show_visibility_on))
+                    R.drawable.show_visibility_on
+                )
+            )
             else binding!!.imgShow.setImageDrawable(resources.getDrawable(R.drawable.show_visibility_off_24))
         }
+
 
         binding?.play?.setOnClickListener {
             startPlayingTest()
         }
 
-        binding?.next?.setOnClickListener {
-            startActivity(Intent(this, TaskActivity::class.java))
-        }
+
+//        binding?.next?.setOnClickListener {
+//            startActivity(Intent(this, TaskActivity::class.java))
+//        }
+
 
         binding?.forward!!.setOnClickListener {
             if (mediaPlayer != null) {
@@ -154,6 +161,7 @@ class LevelActivity : AppCompatActivity() {
                     binding?.seekbar?.progress = mediaPlayer!!.currentPosition / 1000
                     setStartAndEndTime()
                     check()
+                    insertLevel()
                 }
                 mHandler.postDelayed(this, 500)
             }
@@ -178,6 +186,24 @@ class LevelActivity : AppCompatActivity() {
             binding?.play?.background = resources.getDrawable(R.drawable.ic_play)
             binding?.start?.text = "play"
 //            binding?.lottieSound?.cancelAnimation()
+        }
+    }
+
+    private fun insertLevel() {
+        if (mediaPlayer?.currentPosition!! / 1000 == mediaPlayer?.duration!! / 1000 - 15) {
+            if (App.database.levelDao.getLeve(level?.id!!) == null) {
+                val dialog = Dialog(this)
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setCancelable(false)
+                dialog.setContentView(R.layout.dialog_done)
+                dialog.show()
+                var done: TextView = dialog.findViewById(R.id.txt_done)
+                done.setOnClickListener {
+                    Log.e("karimi", "fixActive Long: ${App.database.levelDao.insertState(level!!)}")
+                    dialog.dismiss()
+                    finish()
+                }
+            }else App.toast("before add to database")
         }
     }
 
@@ -223,13 +249,12 @@ class LevelActivity : AppCompatActivity() {
     }
 
 
-    private fun fixActive() {
-        if (App.database.levelDao.getLeve(level?.id!!) == null) {
-            Handler(Looper.getMainLooper()).postDelayed({
-                Log.e("karimi", "fixActive Long: ${App.database.levelDao.insertState(level!!)}")
-            }, 10000)
-        }
-    }
+//    private fun fixActive() {
+//        if (App.database.levelDao.getLeve(level?.id!!) == null) {
+//            Handler(Looper.getMainLooper()).postDelayed({
+//            }, 10000)
+//        }
+//    }
 
 
     override fun onStop() {
