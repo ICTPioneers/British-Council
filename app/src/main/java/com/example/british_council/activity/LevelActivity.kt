@@ -161,7 +161,7 @@ class LevelActivity : AppCompatActivity() {
                     check()
                     insertLevel()
                 }
-                mHandler.postDelayed(this, 500)
+                mHandler.postDelayed(this, 1000)
             }
         }
         this@LevelActivity.runOnUiThread(mRunnable)
