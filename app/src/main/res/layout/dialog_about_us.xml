@@ -24,7 +24,7 @@
         android:layoutDirection="rtl"
         android:paddingBottom="10dp">
 
-        <com.uncopt.android.widget.text.justify.JustifiedTextView
+        <TextView
             android:id="@+id/text11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +64,7 @@
             android:textSize="14dp" />
 
         <TextView
-            android:id="@+id/close_dialog_guid"
+            android:id="@+id/txt_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
