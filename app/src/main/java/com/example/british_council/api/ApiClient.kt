@@ -1,10 +1,8 @@
 package com.example.british_council.api
 
-import android.util.Log
 import com.example.british_council.helper.Config.BASE_URL
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
-import okhttp3.RequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

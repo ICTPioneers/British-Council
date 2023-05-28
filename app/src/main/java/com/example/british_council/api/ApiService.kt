@@ -7,5 +7,4 @@ import retrofit2.http.GET
 interface ApiService {
     @GET("british-council")
     fun getPost(): Call<Data>
-
 }
