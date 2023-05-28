@@ -1,8 +1,6 @@
 package com.example.british_council.activity
 
 import android.R
-import android.annotation.SuppressLint
-import android.app.Dialog
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.os.Build
@@ -12,11 +10,10 @@ import android.os.Looper
 import android.util.Log
 import android.view.Gravity
 import android.view.View
-import android.view.Window
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.british_council.adapter.SectionAdapter
-import com.example.british_council.api.ApiClient
+import com.example.british_council.database.dao.api.ApiClient
 import com.example.british_council.databinding.ActivityMainBinding
 import com.example.british_council.helper.App
 import com.example.british_council.helper.Session
@@ -78,7 +75,6 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
             checkConnection()
             Handler().postDelayed(Runnable {
                 binding?.swipe?.isRefreshing = false
-//                snack?.dismiss()
             }, 4000)
         }
     }
@@ -89,9 +85,6 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
                 Session.getInstance().putExtra("length", response.body()!!.level?.size)
                 listLevel = response.body()?.level!!
                 adapter = SectionAdapter(initLevelByDatabase(), this@MainActivity)
-
-//                Log.e("karimi", "onResponse: ${App.database.levelDao.getAllLeve()[0].states}")
-
 
                 Handler(Looper.getMainLooper()).postDelayed({
                     binding?.shimmer?.stopShimmer()
