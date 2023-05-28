@@ -2,11 +2,15 @@ package com.example.british_council.helper
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.app.Dialog
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
+import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
+import com.example.british_council.R
 import com.example.british_council.database.DatabaseHelper
 import java.io.*
 
@@ -63,6 +67,26 @@ class App : Application() {
             }
             return ""
         }
+
+
+
+        fun showDialog(_context: Context) {
+            val metrics = _context.resources.displayMetrics
+            val width = metrics.widthPixels
+
+
+            val dialog = Dialog(_context)
+            dialog!!.window!!.setLayout(((6.7 * width) / 8).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
+//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.window!!.setBackgroundDrawable(_context.resources.getDrawable(R.drawable.item_border_dialog))
+            dialog.setContentView(R.layout.dialog_about_us)
+            dialog.show()
+        }
+
     }
+
+
+
 
 }
