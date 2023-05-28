@@ -1,13 +1,11 @@
 package com.example.british_council.activity
 
 import android.app.Dialog
-import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.view.Window
@@ -232,29 +230,13 @@ class LevelActivity : AppCompatActivity() {
         }
     }
 
-
-//    private fun showDialog() {
-//        val dialog = Dialog(this)
-//        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//        dialog.setCancelable(false)
-//        dialog.setContentView(R.layout.dialog_about_us)
-//        dialog.show()
-//    }
-
-
+    
     private fun setProgress() {
         binding?.progress?.max = Session.getInstance().getInt("length")
         binding?.progress?.setProgress(level?.id!!, true)
         binding?.tvProgress?.text = "${level!!.id} / ${Session.getInstance().getInt("length")}"
     }
 
-
-//    private fun fixActive() {
-//        if (App.database.levelDao.getLeve(level?.id!!) == null) {
-//            Handler(Looper.getMainLooper()).postDelayed({
-//            }, 10000)
-//        }
-//    }
 
 
     override fun onStop() {
