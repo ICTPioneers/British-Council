@@ -132,11 +132,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
-                android:background="@drawable/item_background_show_text"
                 android:gravity="end|center"
                 android:orientation="horizontal"
-                tools:visibility="visible"
-                android:visibility="gone">
+                android:visibility="gone"
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/img_show"
