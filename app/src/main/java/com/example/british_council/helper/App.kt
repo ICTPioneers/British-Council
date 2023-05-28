@@ -9,6 +9,7 @@ import android.os.Environment
 import android.util.Log
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.TextView
 import android.widget.Toast
 import com.example.british_council.R
 import com.example.british_council.database.DatabaseHelper
@@ -82,11 +83,10 @@ class App : Application() {
             dialog.window!!.setBackgroundDrawable(_context.resources.getDrawable(R.drawable.item_border_dialog))
             dialog.setContentView(R.layout.dialog_about_us)
             dialog.show()
+
+            var close : TextView = dialog.findViewById(R.id.txt_close)
+            close.setOnClickListener { dialog.dismiss() }
         }
 
     }
-
-
-
-
 }
