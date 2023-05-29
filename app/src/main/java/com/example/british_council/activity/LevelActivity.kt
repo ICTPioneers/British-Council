@@ -85,13 +85,13 @@ class LevelActivity : AppCompatActivity() {
             startPlayingTest()
 //            arrayOf(binding?.start, binding?.lottie).forEach { it!!.visibility = View.GONE }
             arrayOf(binding?.start).forEach { it!!.visibility = View.GONE }
-            arrayOf(binding?.linearShow).forEach { it!!.visibility = View.VISIBLE }
+            arrayOf(binding?.linearShow , binding!!.txtDis).forEach { it!!.visibility = View.VISIBLE }
 //            arrayOf(binding?.lottieSound, binding?.linearShow).forEach { it!!.visibility = View.VISIBLE }
         }
 
         binding?.linearShow?.setOnClickListener {
 //            arrayOf(binding?.recycler, binding?.lottieSound).forEach {
-            arrayOf(binding?.recycler).forEach {
+            arrayOf(binding?.recycler,binding!!.txtDis).forEach {
                 it!!.visibility =
                     if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             }
