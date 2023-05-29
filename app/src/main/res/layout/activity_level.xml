@@ -170,6 +170,15 @@
             <!--                app:lottie_rawRes="@raw/sound_wave" />-->
 
 
+            <TextView
+                android:id="@+id/txt_dis"
+                android:layout_centerInParent="true"
+                android:textSize="16dp"
+                android:visibility="gone"
+                android:text="Click to show the text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
