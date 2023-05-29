@@ -22,6 +22,5 @@
         <item name="android:font" tools:targetApi="o">@font/myfont</item>
         <item name="font">@font/myfont</item>
 
-
     </style>
 </resources>
