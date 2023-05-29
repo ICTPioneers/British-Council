@@ -10,6 +10,8 @@
 
 
 
+    <color name="textColor">#676767</color>
+
     <color name="green_main">#00843E</color>
     <color name="green_2">#28DF99</color>
     <color name="green_lite">#a6f2d5</color>
