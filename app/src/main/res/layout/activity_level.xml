@@ -172,10 +172,18 @@
                 android:id="@+id/txt_dis"
                 android:layout_centerInParent="true"
                 android:textSize="16dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:text="Click to show the text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+            <ImageView
+                android:id="@+id/png_arrow"
+                android:src="@drawable/png_arrow"
+                android:layout_marginTop="15dp"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/txt_dis"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
 
         </RelativeLayout>
 
