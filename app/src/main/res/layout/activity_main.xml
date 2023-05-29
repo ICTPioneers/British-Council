@@ -54,22 +54,21 @@
                             android:id="@+id/txt_hello"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
                             android:text="Hello!"
-                            android:textColor="#676767"
+                            android:textColor="@color/textColor"
                             android:textSize="16dp" />
 
-
                         <TextView
-                            android:id="@+id/txt_wellcom"
+                            android:id="@+id/txt_welcome"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/txt_hello"
                             android:layout_alignStart="@id/txt_hello"
                             android:text="greeting"
-                            android:textColor="#676767"
+                            android:textColor="@color/textColor"
                             android:textSize="22dp"
                             android:textStyle="bold" />
+
                     </LinearLayout>
 
                 </RelativeLayout>
@@ -125,7 +124,6 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
         android:layout_width="wrap_content"
@@ -135,7 +133,8 @@
         android:fitsSystemWindows="true"
         android:focusable="true">
 
-        <include android:id="@+id/drawer_menu"
+        <include
+            android:id="@+id/drawer_menu"
             layout="@layout/drawer_menu" />
 
     </com.google.android.material.navigation.NavigationView>
