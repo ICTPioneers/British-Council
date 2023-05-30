@@ -9,19 +9,18 @@ plugins {
 android {
 
     buildFeatures{
-//        dataBinding true
         viewBinding true
     }
 
-    namespace 'com.example.british_council'
+    namespace 'ir.ictpioneers.british_council'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.british_council"
+        applicationId "ir.ictpioneers.british_council"
         minSdk 24
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName "1.0 alpha"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }

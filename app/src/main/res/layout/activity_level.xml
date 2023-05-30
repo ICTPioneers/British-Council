@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="#F8F9FE"
     android:orientation="vertical"
-    tools:context=".activity.LevelActivity">
+    tools:context="ir.ictpioneers.british_council.activity.LevelActivity">
 
     <RelativeLayout
         android:id="@+id/rl"
@@ -42,7 +42,6 @@
             android:textSize="14dp" />
 
     </RelativeLayout>
-
 
     <TextView
         android:id="@+id/tvProgress"

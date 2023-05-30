@@ -23,7 +23,7 @@
             android:name=".activity.TaskActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.LevelActivity"
+            android:name="ir.ictpioneers.british_council.activity.LevelActivity"
             android:exported="false" />
         <activity
             android:name=".activity.Splash"

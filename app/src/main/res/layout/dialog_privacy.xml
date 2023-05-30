@@ -8,7 +8,6 @@
     app:cardCornerRadius="15dp"
     app:cardElevation="0dp">
 
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -28,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/iran_sans"
-                android:text="راهنما"
+                android:text="حریم خصوصی:"
                 android:textColor="#696A6A"
                 android:textSize="18dp" />
 
@@ -36,34 +35,32 @@
                 android:id="@+id/text22"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:fontFamily="@font/iran_sans"
-                android:text="پادکست British Council براساس سطح زبان آموز از پایه (Beginner – A1) تا پیشرفته (Advanced – C1) طبقه بندی شده است. هر قسمت از این پادکست در مورد موقعیت یا موضوعی روزمره است و شامل تمرین هایی است که به تقویت مهارت شنیدن کمک زیادی می کند."
+                android:text="جهت دریافت آنلاین صوت ها نیازمند دسترسی به اینترنت و اطلاعات تلفن نظیر مدل تلفن و نام دستگاه می باشیم. ما از این اطلاعات در برابر دسترسی هر شخص یا سازمان دیگری محافظت خواهیم کرد تا تجربه امن و لذت بخش را برای شما به ارمغان آوریم."
                 android:textColor="#696A6A"
                 android:textSize="14dp" />
 
-            <com.uncopt.android.widget.text.justify.JustifiedTextView
+            <TextView
                 android:id="@+id/text33"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/iran_sans"
-                android:text="پادکست British Council با تمرکز بر روی مهارت شنیدن (listening) و تلفظ (pronunciation) طراحی شده است. هرچه مهارت شنیدن خود را تقویت کنید درک شما از زبان انگلیسی بالاتر خواهد رفت."
+                android:text="ضوابط و قوانین:"
                 android:textColor="#696A6A"
-                android:textSize="14dp" />
+                android:textSize="18dp" />
 
             <com.uncopt.android.widget.text.justify.JustifiedTextView
                 android:id="@+id/text44"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
                 android:fontFamily="@font/iran_sans"
-                android:text="دروس خودآموز این بخش طبق چارچوب مرجع مشترک اروپایی برای زبان ها‌‌ یا همان CEFR نوشته شده است. در این چارچوب زبان آموزان به سه دسته کلی در شش مرحله تقسیم می‌شوند که در هر سطح مشخص می‌شود در آن سطح از چه مهارت‌هایی در حوزه چهار مهارت اصلی خواندن، نوشتن، صحبت کردن و شنیدار برخوردار است."
+                android:text="کاربر گرامی از اینکه این اپلیکیشن را برای تامین نیاز آموزشی خود انتخاب کرده اید بسیار خرسندیم. تمامی فعالیت های اپلیکیشن منطبق با قوانین جمهوری اسلامی ایران، قانون تجارت الکترونیک و قانون حمایت از حقوق مصرف کنندگان می باشد."
                 android:textColor="#696A6A"
                 android:textSize="14dp" />
 
             <TextView
-                android:id="@+id/txt_close"
+                android:id="@+id/txt_close_privace"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="left"
