@@ -177,7 +177,7 @@
                 android:visibility="gone" />
             <ImageView
                 android:id="@+id/png_arrow"
-                android:src="@drawable/png_arrow"
+                android:src="@drawable/ic_flash2"
                 android:layout_marginTop="15dp"
                 android:visibility="gone"
                 android:layout_centerHorizontal="true"
