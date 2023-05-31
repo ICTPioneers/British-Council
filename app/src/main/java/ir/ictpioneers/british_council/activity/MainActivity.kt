@@ -59,8 +59,13 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
             binding!!.drawer.close()
         }
 
-         binding!!.drawerMenu.txtPrivacyAndPolicy.setOnClickListener {
+        binding!!.drawerMenu.txtPrivacyAndPolicy.setOnClickListener {
             App.showDialogPrivacy(this)
+            binding!!.drawer.close()
+        }
+
+        binding!!.drawerMenu.txtSource.setOnClickListener {
+            App.showDialogSource(this)
             binding!!.drawer.close()
         }
 
@@ -87,7 +92,8 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
     private fun getDataFromSever() {
         ApiClient.getClient()?.getPost()?.enqueue(object : Callback<Data> {
             override fun onResponse(call: Call<Data>, response: Response<Data>) {
-                ir.ictpioneers.british_council.helper.Session.getInstance().putExtra("length", response.body()!!.level?.size)
+                ir.ictpioneers.british_council.helper.Session.getInstance()
+                    .putExtra("length", response.body()!!.level?.size)
                 listLevel = response.body()?.level!!
                 adapter = SectionAdapter(initLevelByDatabase(), this@MainActivity)
 
@@ -145,7 +151,10 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
 
     override fun onClickListener(model: Level) {
         if (model.states != 0) {
-            var i = Intent(App.context, ir.ictpioneers.british_council.activity.LevelActivity::class.java)
+            var i = Intent(
+                App.context,
+                ir.ictpioneers.british_council.activity.LevelActivity::class.java
+            )
             i.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             i.putExtra("level", Gson().toJson(model))
             startActivity(i)
