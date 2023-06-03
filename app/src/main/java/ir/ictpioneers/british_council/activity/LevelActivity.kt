@@ -33,6 +33,8 @@ class LevelActivity : AppCompatActivity() {
     private var customArrayAdapter: TextAdapter? = null
     private var mediaPlayer: MediaPlayer? = null
 
+    private var isExist: Boolean? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -84,13 +86,17 @@ class LevelActivity : AppCompatActivity() {
             startPlayingTest()
 //            arrayOf(binding?.start, binding?.lottie).forEach { it!!.visibility = View.GONE }
             arrayOf(binding?.start).forEach { it!!.visibility = View.GONE }
-            arrayOf(binding?.linearShow , binding!!.txtDis ,binding!!.pngArrow).forEach { it!!.visibility = View.VISIBLE }
+            arrayOf(
+                binding?.linearShow,
+                binding!!.txtDis,
+                binding!!.pngArrow
+            ).forEach { it!!.visibility = View.VISIBLE }
 //            arrayOf(binding?.lottieSound, binding?.linearShow).forEach { it!!.visibility = View.VISIBLE }
         }
 
         binding?.linearShow?.setOnClickListener {
 //            arrayOf(binding?.recycler, binding?.lottieSound).forEach {
-            arrayOf(binding?.recycler,binding!!.txtDis ,binding!!.pngArrow).forEach {
+            arrayOf(binding?.recycler, binding!!.txtDis, binding!!.pngArrow).forEach {
                 it!!.visibility =
                     if (binding?.recycler?.visibility == View.VISIBLE) View.GONE else View.VISIBLE
             }
@@ -143,6 +149,11 @@ class LevelActivity : AppCompatActivity() {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
                 if (mediaPlayer != null && fromUser) {
                     mediaPlayer?.seekTo(progress * 1000)
+                    if (progress  >= mediaPlayer?.duration!! / 1000 - 15) {
+                        if (App.database.levelDao.getLeve(level?.id!!) == null) {
+                            showDialog()
+                        }
+                    }
                 }
             }
         })
@@ -189,18 +200,29 @@ class LevelActivity : AppCompatActivity() {
     private fun insertLevel() {
         if (mediaPlayer?.currentPosition!! / 1000 == mediaPlayer?.duration!! / 1000 - 15) {
             if (App.database.levelDao.getLeve(level?.id!!) == null) {
-                val dialog = Dialog(this)
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-                dialog.setCancelable(false)
-                dialog.setContentView(R.layout.dialog_done)
-                dialog.window!!.setBackgroundDrawable(resources.getDrawable(R.drawable.item_border_dialog))
-                dialog.show()
-                var done: TextView = dialog.findViewById(R.id.txt_done)
-                done.setOnClickListener {
-                    Log.e("karimi", "fixActive Long: ${App.database.levelDao.insertState(level!!)}")
-                    dialog.dismiss()
-                    finish()
-                }
+                showDialog()
+            }
+        }
+    }
+
+
+    private fun showDialog() {
+        var dialogShown : Boolean? = null
+        if (dialogShown == true){
+            return
+        }else{
+            dialogShown = true
+            val dialog = Dialog(this)
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+            dialog.setCancelable(false)
+            dialog.setContentView(R.layout.dialog_done)
+            dialog.window!!.setBackgroundDrawable(resources.getDrawable(R.drawable.item_border_dialog))
+            dialog.show()
+            var done: TextView = dialog.findViewById(R.id.txt_done)
+            done.setOnClickListener {
+                Log.e("karimi", "fixActive Long: ${App.database.levelDao.insertState(level!!)}")
+                dialog.dismiss()
+                finish()
             }
         }
     }
@@ -232,11 +254,13 @@ class LevelActivity : AppCompatActivity() {
 
 
     private fun setProgress() {
-        binding?.progress?.max = ir.ictpioneers.british_council.helper.Session.getInstance().getInt("length")
+        binding?.progress?.max =
+            ir.ictpioneers.british_council.helper.Session.getInstance().getInt("length")
         binding?.progress?.setProgress(level?.id!!, true)
-        binding?.tvProgress?.text = "${level!!.id} / ${ir.ictpioneers.british_council.helper.Session.getInstance().getInt("length")}"
+        binding?.tvProgress?.text = "${level!!.id} / ${
+            ir.ictpioneers.british_council.helper.Session.getInstance().getInt("length")
+        }"
     }
-
 
 
     override fun onStop() {
@@ -244,4 +268,13 @@ class LevelActivity : AppCompatActivity() {
         mediaPlayer?.stop()
         if (mRunnable != null) mHandler.removeCallbacks(mRunnable!!)
     }
+
+
+    override fun onResume() {
+        super.onResume()
+//        isExist = App.database.levelDao.getLeve(level?.id!!) == null
+//        Log.e("aaa", "onResume: $isExist")
+
+    }
 }
+
