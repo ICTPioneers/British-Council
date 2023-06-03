@@ -1,158 +1,201 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:weightSum="3"
     tools:context=".activity.TaskActivity">
 
     <LinearLayout
-        android:id="@+id/layoutMain"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="#E49E83"
-        android:gravity="center"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="400dp"
+            android:layout_margin="20dp"
+            android:orientation="vertical"
+            android:weightSum="3">
 
-            <Button
-                android:id="@+id/red"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:text="red"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:id="@+id/layoutMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="#E49E83"
+                android:gravity="center"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/cat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="cat"
-                android:textSize="20sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/red"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="red"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/cat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="cat"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/blue"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:text="blue"
+                        android:textSize="20sp" />
+
+                    <Button
+                        android:id="@+id/dog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dog"
+                        android:textSize="20sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:background="#8ED3EB"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="30dp"
+                android:weightSum="2">
+
+                <!--        <TextView-->
+                <!--            android:id="@+id/textView4"-->
+                <!--            android:layout_width="match_parent"-->
+                <!--            android:layout_height="wrap_content"-->
+                <!--            android:text="Please drag your answer here" />-->
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="#EC4343"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/colorGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Color"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/black" />
+
+
+                    <LinearLayout
+                        android:id="@+id/colorLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#FFFFFF"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/black" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/animallTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Animal"
+                        android:textColor="@color/black"
+                        android:textSize="20dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:background="@color/black" />
+
+
+                    <LinearLayout
+                        android:id="@+id/animalLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#FFFFFF"
+                        android:orientation="vertical" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
-        <LinearLayout
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="300dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="10dp">
 
-            <Button
-                android:id="@+id/blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp"
-                android:text="blue"
-                android:textSize="20sp" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/dog"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="dog"
-                android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/txtFirst"
+                    android:drawableStart="@drawable/item_border_number"
+                    android:paddingVertical="10dp"
+                    android:gravity="center|start"
+                    android:drawablePadding="10dp"
+                    android:paddingHorizontal="10dp"
+                    android:text="Visit the customer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-        </LinearLayout>
 
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:background="#8ED3EB"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="30dp"
-        android:weightSum="2">
 
-        <!--        <TextView-->
-        <!--            android:id="@+id/textView4"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="Please drag your answer here" />-->
-
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#EC4343"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/colorGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Color"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/black" />
-
-
-            <LinearLayout
-                android:id="@+id/colorLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                android:orientation="vertical" />
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:background="@color/black" />
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/white"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/animallTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Animal"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/black" />
-
-
-            <LinearLayout
-                android:id="@+id/animalLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                android:orientation="vertical" />
-
-        </LinearLayout>
-
-
-    </LinearLayout>
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>
