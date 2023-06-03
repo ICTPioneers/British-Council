@@ -23,6 +23,8 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
     private var arrayTagColor = arrayOf("DRAGGABLE BUTTON 1", "DRAGGABLE BUTTON 2")
     private var arrayTagAnimal = arrayOf("DRAGGABLE BUTTON 3", "DRAGGABLE BUTTON 4")
 
+    private var number = 0
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,14 +45,14 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
         setContentView(view)
     }
 
-    private fun setTag(){
+    private fun setTag() {
         binding!!.red.tag = "DRAGGABLE BUTTON 1"
         binding!!.blue.tag = "DRAGGABLE BUTTON 2"
         binding!!.cat.tag = "DRAGGABLE BUTTON 3"
         binding!!.dog.tag = "DRAGGABLE BUTTON 4"
     }
 
-    private fun setOnLongClickListener(){
+    private fun setOnLongClickListener() {
         binding!!.red.setOnLongClickListener(this)
         binding!!.blue.setOnLongClickListener(this)
         binding!!.cat.setOnLongClickListener(this)
@@ -58,7 +60,7 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
     }
 
 
-    private fun setDragListener(){
+    private fun setDragListener() {
         binding!!.layoutMain.setOnDragListener(this)
         binding!!.colorLayout.setOnDragListener(this)
         binding!!.animalLayout.setOnDragListener(this)
@@ -123,8 +125,40 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
     }
 
     private fun clicked() {
-        binding!!.colorGroup?.setOnClickListener { selectFromLayout(binding!!.colorLayout!! , arrayTagColor) }
-        binding!!.animallTitle?.setOnClickListener { selectFromLayout(binding!!.animalLayout!!, arrayTagAnimal) }
+        binding!!.colorGroup?.setOnClickListener {
+            selectFromLayout(
+                binding!!.colorLayout!!,
+                arrayTagColor
+            )
+        }
+        binding!!.animallTitle?.setOnClickListener {
+            selectFromLayout(
+                binding!!.animalLayout!!,
+                arrayTagAnimal
+            )
+        }
+
+        binding!!.txtFirst.setOnClickListener {
+            number++
+            binding!!.txtFirst.background = resources.getDrawable(R.drawable.item_border_number)
+            binding!!.txtFirst.text = "" + number
+        }
+
+          binding!!.txtSecond.setOnClickListener {
+            number++
+            binding!!.txtSecond.background = resources.getDrawable(R.drawable.item_border_number)
+            binding!!.txtSecond.text = "" + number
+        }
+
+          binding!!.txtThird.setOnClickListener {
+            number++
+            binding!!.txtThird.background = resources.getDrawable(R.drawable.item_border_number)
+            binding!!.txtThird.text = "" + number
+        }
+
+
+
+
     }
 
     private fun selectFromLayout(ll: LinearLayout, array: Array<String>) {
@@ -136,7 +170,6 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
             } else view.setBackgroundColor(resources.getColor(R.color.red))
         }
     }
-
 
 
 }
