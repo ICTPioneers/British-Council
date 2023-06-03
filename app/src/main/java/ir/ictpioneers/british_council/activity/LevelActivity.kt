@@ -1,6 +1,7 @@
 package ir.ictpioneers.british_council.activity
 
 import android.app.Dialog
+import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
@@ -114,9 +115,9 @@ class LevelActivity : AppCompatActivity() {
         }
 
 
-//        binding?.next?.setOnClickListener {
-//            startActivity(Intent(this, TaskActivity::class.java))
-//        }
+        binding?.next?.setOnClickListener {
+            startActivity(Intent(this, TaskActivity::class.java))
+        }
 
 
         binding?.forward!!.setOnClickListener {
