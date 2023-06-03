@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:autoLink="web"
             android:fontFamily="@font/iran_sans"
-            android:textColorLink="#1866A5"
             android:text="https://learnenglish.britishcouncil.org/getting-started"
             android:textColor="#696A6A"
+            android:textColorLink="#1866A5"
             android:textSize="14dp" />
 
 
@@ -47,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
             android:fontFamily="@font/iran_sans"
             android:text="بستن"
             android:textSize="16dp" />
