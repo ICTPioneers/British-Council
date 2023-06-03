@@ -6,7 +6,6 @@ import android.app.Dialog
 import android.content.Context
 import android.net.Uri
 import android.os.Environment
-import android.text.method.LinkMovementMethod
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.TextView
@@ -16,6 +15,7 @@ import ir.ictpioneers.british_council.database.DatabaseHelper
 import java.io.*
 
 class App : Application() {
+
 
     override fun onCreate() {
         super.onCreate()
@@ -28,7 +28,6 @@ class App : Application() {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         lateinit var database: DatabaseHelper
-
 
         fun toast(message: String) {
             Toast.makeText(context, message, Toast.LENGTH_LONG).show()
@@ -71,6 +70,7 @@ class App : Application() {
 
 
         fun showDialogAboutUs(_context: Context) {
+
             val metrics = _context.resources.displayMetrics
             val width = metrics.widthPixels
 
@@ -90,24 +90,24 @@ class App : Application() {
             close.setOnClickListener { dialog.dismiss() }
         }
 
-        fun showDialogPrivacy(_context: Context) {
+
+
+        fun showDialogPrivacy(_context: Context, resId : Int) {
             val metrics = _context.resources.displayMetrics
             val width = metrics.widthPixels
-
-
             val dialog = Dialog(_context)
-            dialog!!.window!!.setLayout(
-                ((6.7 * width) / 8).toInt(),
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            dialog.setCancelable(false)
-            dialog.window!!.setBackgroundDrawable(_context.resources.getDrawable(R.drawable.item_border_dialog))
-            dialog.setContentView(R.layout.dialog_privacy)
-            dialog.show()
+            dialog!!.window!!.setLayout(((6.7 * width) / 8).toInt(), ViewGroup.LayoutParams.WRAP_CONTENT)
 
-            var close: TextView = dialog.findViewById(R.id.txt_close_privace)
-            close.setOnClickListener { dialog.dismiss() }
+
+            dialog?.setCancelable(false)
+            dialog?.window!!.setBackgroundDrawable(_context.resources.getDrawable(R.drawable.item_border_dialog))
+            dialog?.setContentView(R.layout.dialog_privacy)
+            dialog?.show()
+
+            var close: TextView = dialog?.findViewById(R.id.txt_close_privace)!!
+            close.setOnClickListener { dialog?.dismiss() }
         }
+
 
         fun showDialogSource(_context: Context) {
             val metrics = _context.resources.displayMetrics
@@ -123,10 +123,6 @@ class App : Application() {
             dialog.window!!.setBackgroundDrawable(_context.resources.getDrawable(R.drawable.item_border_dialog))
             dialog.setContentView(R.layout.dialog_source)
             dialog.show()
-
-            var txt: TextView = dialog.findViewById(R.id.tv_source)
-//            txt.movementMethod = LinkMovementMethod.getInstance();
-
 
             var close: TextView = dialog.findViewById(R.id.txt_close_source)
             close.setOnClickListener { dialog.dismiss() }
