@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
         }
 
         binding!!.drawerMenu.txtPrivacyAndPolicy.setOnClickListener {
-            App.showDialogPrivacy(this)
+            App.showDialogPrivacy(this , 9)
             binding!!.drawer.close()
         }
 
