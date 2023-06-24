@@ -17,13 +17,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ir.ictpioneers.british_council.R
 import ir.ictpioneers.british_council.databinding.ActivityTaskBinding
-import ir.ictpioneers.british_council.helper.App
 
 class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragListener {
 
     private var binding: ActivityTaskBinding? = null
-    private var arrayTagColor = arrayOf("DRAGGABLE BUTTON 1", "DRAGGABLE BUTTON 2")
-    private var arrayTagAnimal = arrayOf("DRAGGABLE BUTTON 3", "DRAGGABLE BUTTON 4")
+    private var arrayTagUrgent = arrayOf("Do this first","This is a priority", "It’s important",)
+    private var arrayTagNotUrgent = arrayOf("Do it when you have time",   "There’s no hurry", "Take your time")
 
     private var number = 0
 
@@ -48,17 +47,21 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
     }
 
     private fun setTag() {
-        binding!!.red.tag = "DRAGGABLE BUTTON 1"
-        binding!!.blue.tag = "DRAGGABLE BUTTON 2"
-        binding!!.cat.tag = "DRAGGABLE BUTTON 3"
-        binding!!.dog.tag = "DRAGGABLE BUTTON 4"
+        binding!!.nz1.tag = "Do it when you have time"
+        binding!!.z1.tag = "Do this first"
+        binding!!.z2.tag = "This is a priority"
+        binding!!.nz2.tag = "There’s no hurry"
+        binding!!.z3.tag = "It’s important"
+        binding!!.nz3.tag = "Take your time"
     }
 
     private fun setOnLongClickListener() {
-        binding!!.red.setOnLongClickListener(this)
-        binding!!.blue.setOnLongClickListener(this)
-        binding!!.cat.setOnLongClickListener(this)
-        binding!!.dog.setOnLongClickListener(this)
+        binding!!.nz1.setOnLongClickListener(this)
+        binding!!.z1.setOnLongClickListener(this)
+        binding!!.z2.setOnLongClickListener(this)
+        binding!!.nz2.setOnLongClickListener(this)
+        binding!!.z3.setOnLongClickListener(this)
+        binding!!.nz3.setOnLongClickListener(this)
     }
 
 
@@ -130,13 +133,13 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
         binding!!.colorGroup?.setOnClickListener {
             selectFromLayout(
                 binding!!.colorLayout!!,
-                arrayTagColor
+                arrayTagUrgent
             )
         }
         binding!!.animallTitle?.setOnClickListener {
             selectFromLayout(
                 binding!!.animalLayout!!,
-                arrayTagAnimal
+                arrayTagNotUrgent
             )
         }
 
