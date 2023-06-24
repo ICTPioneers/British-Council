@@ -27,47 +27,77 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:weightSum="3"
+                    android:gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/red"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/nz1"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:text="red"
-                        android:textSize="20sp" />
+                        android:text="Do it when you have time"
+                        android:textSize="14dp" />
 
-                    <Button
-                        android:id="@+id/cat"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/z1"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:text="cat"
-                        android:textSize="20sp" />
+                        android:text="Do this first"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/z2"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="This is a priority"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
 
                 <LinearLayout
+                    android:layout_marginTop="5dp"
                     android:layout_width="match_parent"
+                    android:weightSum="3"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/blue"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/nz2"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="10dp"
-                        android:text="blue"
-                        android:textSize="20sp" />
+                        android:text="There’s no hurry"
+                        android:textSize="14dp" />
 
-                    <Button
-                        android:id="@+id/dog"
-                        android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/z3"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:text="dog"
-                        android:textSize="20sp" />
+                        android:text="It’s important"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/nz3"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Take your time"
+                        android:textSize="14sp" />
 
                 </LinearLayout>
 
@@ -105,9 +135,9 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Color"
+                        android:text="(ضروری) Urgent"
                         android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -117,6 +147,7 @@
 
                     <LinearLayout
                         android:id="@+id/colorLayout"
+                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#FFFFFF"
@@ -143,9 +174,9 @@
                         android:background="@color/white"
                         android:gravity="center"
                         android:padding="10dp"
-                        android:text="Animal"
+                        android:text="(غیر ضروری) Not urgent"
                         android:textColor="@color/black"
-                        android:textSize="20dp" />
+                        android:textSize="15dp" />
 
                     <View
                         android:layout_width="match_parent"
@@ -155,6 +186,7 @@
 
                     <LinearLayout
                         android:id="@+id/animalLayout"
+                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#FFFFFF"
@@ -251,6 +283,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/txt_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:paddingHorizontal="15dp"
+                    android:paddingVertical="10dp"
+                    android:text="clear"
+                    android:textColor="@color/red" />
 
             </LinearLayout>
 
