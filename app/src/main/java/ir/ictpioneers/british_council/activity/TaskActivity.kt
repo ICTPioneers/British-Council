@@ -12,10 +12,12 @@ import android.view.View
 import android.view.View.DragShadowBuilder
 import android.view.ViewGroup
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ir.ictpioneers.british_council.R
 import ir.ictpioneers.british_council.databinding.ActivityTaskBinding
+import ir.ictpioneers.british_council.helper.App
 
 class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragListener {
 
@@ -139,27 +141,33 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
         }
 
         binding!!.txtFirst.setOnClickListener {
-            number++
-            binding!!.txtFirst.background = resources.getDrawable(R.drawable.item_border_number)
-            binding!!.txtFirst.text = "" + number
+            setNumber(binding!!.txtFirst)
         }
 
           binding!!.txtSecond.setOnClickListener {
-            number++
-            binding!!.txtSecond.background = resources.getDrawable(R.drawable.item_border_number)
-            binding!!.txtSecond.text = "" + number
-        }
+              setNumber(binding!!.txtSecond)
+          }
 
           binding!!.txtThird.setOnClickListener {
-            number++
-            binding!!.txtThird.background = resources.getDrawable(R.drawable.item_border_number)
-            binding!!.txtThird.text = "" + number
+              setNumber(binding!!.txtThird)
         }
 
 
-
-
+        binding!!.txtClear.setOnClickListener {
+            arrayOf( binding!!.txtThird ,  binding!!.txtSecond ,binding!!.txtFirst).forEach { it.background = null }
+            arrayOf( binding!!.txtThird ,  binding!!.txtSecond ,binding!!.txtFirst).forEach { it.text = "_____" }
+            number = 0
+        }
     }
+
+    private fun setNumber(v :TextView){
+        if (v.text == "_____"){
+            number++
+            v.background = resources.getDrawable(R.drawable.item_border_number)
+            v.text = "" + number
+        }
+    }
+
 
     private fun selectFromLayout(ll: LinearLayout, array: Array<String>) {
         val childCount = ll.childCount
