@@ -143,8 +143,12 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
 
     private fun snack() {
         val parentLayout = findViewById<View>(R.id.content)
-        Snackbar.make(parentLayout, "your connection is failed", Snackbar.LENGTH_LONG)
+        Snackbar.make(parentLayout, "your connection is failed" , Snackbar.LENGTH_INDEFINITE)
             .setBackgroundTint(resources.getColor(R.color.darker_gray))
+            .setAction("RETRY", View.OnClickListener {
+                checkConnection()
+            })
+            .setActionTextColor(resources.getColor(R.color.white))
             .setTextColor(resources.getColor(R.color.black))
             .show()
     }
@@ -160,6 +164,7 @@ class MainActivity : AppCompatActivity(), SectionAdapter.Listener {
             startActivity(i)
         }
     }
+
 
 
 }
