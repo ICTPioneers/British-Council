@@ -21,8 +21,8 @@ import ir.ictpioneers.british_council.databinding.ActivityTaskBinding
 class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragListener {
 
     private var binding: ActivityTaskBinding? = null
-    private var arrayTagUrgent = arrayOf("Do this first","This is a priority", "It’s important",)
-    private var arrayTagNotUrgent = arrayOf("Do it when you have time",   "There’s no hurry", "Take your time")
+    private var arrayTagUrgent = arrayOf("Do this first","This is a priority", "It’s important")
+    private var arrayTagNotUrgent = arrayOf("Do it when you have time","There’s no hurry", "Take your time")
 
     private var number = 0
 
@@ -37,7 +37,13 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
         setOnLongClickListener()
         setDragListener()
         clicked()
+
+        binding!!.btn.setOnClickListener {  }
     }
+
+
+
+
 
 
     private fun initBinding() {
@@ -55,6 +61,7 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
         binding!!.nz3.tag = "Take your time"
     }
 
+
     private fun setOnLongClickListener() {
         binding!!.nz1.setOnLongClickListener(this)
         binding!!.z1.setOnLongClickListener(this)
@@ -67,9 +74,10 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
 
     private fun setDragListener() {
         binding!!.layoutMain.setOnDragListener(this)
-        binding!!.colorLayout.setOnDragListener(this)
-        binding!!.animalLayout.setOnDragListener(this)
+        binding!!.urgentLayout.setOnDragListener(this)
+        binding!!.notUrgentLayout.setOnDragListener(this)
     }
+
 
     override fun onDrag(v: View?, event: DragEvent?): Boolean {
         when (event!!.action) {
@@ -91,7 +99,7 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
             DragEvent.ACTION_DROP -> {
                 val item: ClipData.Item = event.clipData.getItemAt(0)
                 val dragData = item.text.toString()
-//                  Toast.makeText(this, "Dragged data is $dragData", Toast.LENGTH_SHORT).show()
+                  Toast.makeText(this, "Dragged data is $dragData", Toast.LENGTH_SHORT).show()
 
                 v!!.background.clearColorFilter()
                 v.invalidate()
@@ -120,6 +128,8 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
         return false
     }
 
+
+
     override fun onLongClick(v: View?): Boolean {
         val item = ClipData.Item(v?.tag as CharSequence)
         val mimeTypes = arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN)
@@ -129,16 +139,17 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
         return true
     }
 
+
     private fun clicked() {
-        binding!!.colorGroup?.setOnClickListener {
+        binding!!.urgent?.setOnClickListener {
             selectFromLayout(
-                binding!!.colorLayout!!,
+                binding!!.urgentLayout!!,
                 arrayTagUrgent
             )
         }
-        binding!!.animallTitle?.setOnClickListener {
+        binding!!.notUrgent?.setOnClickListener {
             selectFromLayout(
-                binding!!.animalLayout!!,
+                binding!!.notUrgentLayout!!,
                 arrayTagNotUrgent
             )
         }
@@ -162,6 +173,7 @@ class TaskActivity : AppCompatActivity(), View.OnLongClickListener, View.OnDragL
             number = 0
         }
     }
+
 
     private fun setNumber(v :TextView){
         if (v.text == "_____"){
