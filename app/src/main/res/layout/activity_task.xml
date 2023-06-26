@@ -85,6 +85,7 @@
                         android:id="@+id/z3"
                         android:layout_weight="1"
                         android:layout_width="0dp"
+                        android:background="@color/red"
                         android:gravity="center"
                         android:layout_height="wrap_content"
                         android:text="It’s important"
@@ -129,7 +130,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/colorGroup"
+                        android:id="@+id/urgent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -146,7 +147,7 @@
 
 
                     <LinearLayout
-                        android:id="@+id/colorLayout"
+                        android:id="@+id/urgentLayout"
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -168,7 +169,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/animallTitle"
+                        android:id="@+id/not_urgent"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/white"
@@ -185,7 +186,7 @@
 
 
                     <LinearLayout
-                        android:id="@+id/animalLayout"
+                        android:id="@+id/not_urgent_layout"
                         android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -296,6 +297,15 @@
             </LinearLayout>
 
         </androidx.cardview.widget.CardView>
+
+
+
+
+        <Button
+            android:id="@+id/btn"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </LinearLayout>
 
